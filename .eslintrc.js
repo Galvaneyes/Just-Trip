@@ -61,11 +61,7 @@ module.exports = {
         "jsx-quotes": "error",
         "key-spacing": "off",
         "keyword-spacing": "off",
-        "line-comment-position": "off",
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
+        "line-comment-position": "off",       
         "lines-around-comment": "off",
         "lines-around-directive": "off",
         "max-depth": "off",
