@@ -10,15 +10,16 @@
     userOfferTours:[{}],
     userBoughtTours:[{}] */
 
-
 module.exports = function(models) {
     const { User } = models.models;
 
     return {
-        createUser(username, firstname, lastname, age, country, city) {
+        createUser(username, password, email, firstname, lastname, age, country, city) {
 
             const userInfo = {
                 username,
+                password,
+                email,
                 firstname,
                 lastname,
                 age,
@@ -80,7 +81,7 @@ module.exports = function(models) {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL USERS...");
                 User.find({}, (err, users) => {
-                    if (err) {                      
+                    if (err) {
                         console.log("ERROR WHEN GET ALL USERS!");
                         return reject(err);
                     }
