@@ -2,8 +2,8 @@
 "use strict";
 
 const config = require("./server/config");
-const app = require("./server/config/application");
 const data = require("./server/data")(config);
+const app = require("./server/config/application")({ data });
 require("./server/routers")(app, data);
 
 // TEST FOR CREATING AND FINDING

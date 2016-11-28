@@ -1,7 +1,7 @@
 /* globals module Promise */
 "use strict";
 
-module.exports = function(models) {
+module.exports = function (models) {
     const { User } = models.models;
 
     return {
@@ -19,6 +19,19 @@ module.exports = function(models) {
                     }
 
                     console.log("USER CREATED!");
+                    return resolve(user);
+                });
+            });
+        },
+        getUserById(id) {
+            return new Promise((resolve, reject) => {
+                console.log(`Searching for user by ${id}`);
+                User.findOne({ _id: id }, (err, user) => {
+                    if (err) {
+                        console.log(`${id} was not found`);
+                        return reject(err);
+                    }
+
                     return resolve(user);
                 });
             });
@@ -58,6 +71,17 @@ module.exports = function(models) {
                         console.log("COLLECTION FROM USERS WAS FOUND");
                         return resolve(users);
                     });
+            });
+        },
+        getUserByCredentials(username, password) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ username, password }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
             });
         },
         getAllUsers() {
