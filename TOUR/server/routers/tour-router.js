@@ -3,9 +3,10 @@
 
 const express = require("express");
 
-module.exports = function(app, tourData) {
+module.exports = function(app, data) {
     const router = new express.Router();
-    const tourController = require("../controllers/tour-controller.js")(tourData);
+
+    const tourController = require("../controllers/tour-controller.js")(data);
 
     router
         .get("/", tourController.get)

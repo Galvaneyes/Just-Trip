@@ -61,14 +61,14 @@ const { Tour } = models.models;
         getAllTours() {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL TOURS...");
-                Tour.find({}, (err, users) => {
+                Tour.find({}, (err, tours) => {
                     if (err) {
                         console.log("ERROR WHEN GET ALL TOURS!");
                         return reject(err);
                     }
 
                     console.log("TOURS FOUND!");
-                    return resolve(users);
+                    return resolve(tours);
                 });
             });
         }

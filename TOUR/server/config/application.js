@@ -13,8 +13,8 @@ module.exports = function ({ data }) {
     app.use("/static", express.static("../../public"));
 
     app.use(cookieParser());
-    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(session({ secret: "purple unicorn" }));
 
     require("./passport")({ app, data });
