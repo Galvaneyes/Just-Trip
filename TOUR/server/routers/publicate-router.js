@@ -9,7 +9,7 @@ module.exports = function(app, userData, tourData) {
 
     router
         .get("/", publicate.get)
-        .post("/")
+        .post("/", publicate.createTour)
 
     app.use("/publicate", router);
 };

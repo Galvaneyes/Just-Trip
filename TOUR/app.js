@@ -29,20 +29,24 @@ const tour = {
     isValid: true
 };
 
+data.getTourById("583c73ca85e5523248668145")
+    .then(tourId => {
+        console.log(tourId);
+    })
+    .catch(err => {
+        console.log(err);
+        data.createTour(tour);
+    })
 
-data.getTourById("583c505014894a0c90f514ca")
-    .then(tour => {
-        if(!tour) {
-            data.createTour(tour);
-        }
+data.getUserByUsername(admin.username)
+    .then(user => {
+        console.log(user);
     })
-    .then(() => {
-        data.getUserByUsername(admin.username).then(user => {
-            if (!user) {
-                data.createUser(admin);
-            }
-        });
+    .catch(err => {
+        console.log(err);
+        data.createUser(admin);
     })
+
 
 // END OF TEST
 

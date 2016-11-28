@@ -16,16 +16,18 @@ module.exports = function(userData, tourData) {
                 // });
         },
         createTour(req, res) {
-            tourData.createTour(req.params.id)
-                .then(tour => {
-                    res.status(200)
-                        .json(tour)
-                })
-                .catch(err => {
-                    console.log(`TOUR ${err} DOESNT EXIST`);
-                    res.status(404)
-                        .send(`TOUR ${err} DOESNT EXIST`);
-                });
+            // tourData.createTour(req.params.id)
+            //     .then(tour => {
+            //         res.status(200)
+            //             .json(tour)
+            //     })
+            //     .catch(err => {
+            //         console.log(`TOUR ${err} DOESNT EXIST`);
+            //         res.status(404)
+            //             .send(`TOUR ${err} DOESNT EXIST`);
+            //     });
+
+            res.send(req.body);
         }
     }
 }
