@@ -1,5 +1,5 @@
 module.exports = function(models) {
-    const Tour = models.tour;
+const { Tour } = models.models;
 
     return {
         createTour(tourInfo) {
@@ -19,6 +19,27 @@ module.exports = function(models) {
                     return resolve(tour);
                 });
             });
+        },
+        getTourById(tourId) {
+            return new Promise((resolve, reject) => {
+
+                console.log(`SEARCHING FOR TOUR WITH ID:${tourId}`);
+
+                Tour.findOne({ _id : tourId }, (err, tour) => {
+                    if (err) {
+                        console.log("ERROR WHEN CONNECTION TO THE SERVER");
+                        return reject(err);
+                    }
+
+                    if(!tour) {
+                        console.log(`TOUR WITH ${tourId} WAS NOT FOUND`);
+                        return reject(tourId);
+                    }
+
+                    console.log(`TOUR WITH ${tourId} WAS FOUND`);
+                    return resolve(tour);
+                });
+            })
         },
         getTourByRange(page, size) {
             return new Promise((resolve, reject) => {

@@ -8,7 +8,7 @@ const tourSchema = new mongoose.Schema({
     title: {type: String, required: true},
     city: {type:String, required: true},
     country:{type:String, required: true},
-    description: {type: Number, min:0 , max:150, required: true},
+    description: String,
     maxUser: Number,
     endTourDate: Date,
     isValid: Boolean,

@@ -18,6 +18,19 @@ const admin = {
     city: "Sofia"
 };
 
+const tour = {
+    creator: "ghost",
+    title: "Ebatti eskurziqta",
+    city: "BambBu",
+    country:"Lolo",
+    description: "Pushaite seeeee",
+    maxUser: 20,
+    endTourDate: Date.now(),
+    isValid: true
+};
+
+data.createTour(tour);
+
 data.getUserByUsername(admin.username).then(user => {
     if (!user) {
         data.createUser(admin);
