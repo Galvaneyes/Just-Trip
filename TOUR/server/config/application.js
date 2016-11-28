@@ -1,19 +1,23 @@
 /* globals module require */
 "use strict";
 
-const express = require("express");
-const expressSession = require('express-session');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const app = express();
+const express = require("express"),
+    bodyParser = require("body-parser"),
+    cookieParser = require("cookie-parser"),
+    session = require("express-session");
 
-app.set("view engine", "pug");
+module.exports = function ({ data }) {
+    const app = express();
 
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-extended: true
-}));
-app.use("static", express.static("../../public"));
+    app.set("view engine", "pug");
+    app.use("/static", express.static("../../public"));
 
-module.exports = app;
+    app.use(cookieParser());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    app.use(session({ secret: "purple unicorn" }));
+
+    require("./passport")({ app, data });
+
+    return app;
+};

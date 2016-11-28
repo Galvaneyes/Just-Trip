@@ -4,8 +4,8 @@
 const express = require("express");
 
 module.exports = function(app, data) {
-
-    let router = new express.Router();
+    const passport = require("passport");
+    const router = express.Router();
 
     router
         .get("/", (req, res) => {
@@ -18,16 +18,22 @@ module.exports = function(app, data) {
         })
         .get("/login", (req, res) => {
             res.status(200)
-                .json({
+                .send({
                     success: true, functionality: "login form if not loged O_o"
                 });
             })
-        .post("/login", (req, res) => {
+        .post("/login", passport.authenticate("local", { failureRedirect: "/fail-to-log-in" }), (req, res) => {
             res.status(200)
                 .json({
                     success: true, message: "i suppose you managed to login, should redirect home after"
                 });
             })
+        .get("/logout", (req, res) => {
+            req.logout();
+            req.session.destroy();
+
+            res.redirect("/fail");
+        })
         .get("/register", (req, res) => {
             res.status(200)
                 .json({
