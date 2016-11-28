@@ -29,8 +29,13 @@ module.exports = function(models) {
 
                 User.findOne({ username: username }, (err, user) => {
                     if (err) {
-                        console.log(`USER: ${username} WAS NOT FOUND`);
+                        console.log("ERROR WHEN CONNECTION TO THE SERVER");
                         return reject(err);
+                    }
+
+                    if(!user) {
+                        console.log(`USER: ${username} WAS NOT FOUND`);
+                        return reject(username);
                     }
 
                     console.log(`USER ${username} WAS FOUND`);
