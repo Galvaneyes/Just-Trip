@@ -25,8 +25,8 @@ module.exports = function(models) {
                 age,
                 country,
                 city,
-                userOfferTours:[{}],
-                userBoughtTours:[{}]
+                userOfferTours: [{}],
+                userBoughtTours: [{}]
             };
 
             return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ module.exports = function(models) {
                 console.log("CREATING USER...");
 
                 User.create(userInfo, (err, user) => {
-                    if(err) {
+                    if (err) {
 
                         console.log("CAN NOT CREATE USER");
                         return reject(err);
@@ -49,8 +49,8 @@ module.exports = function(models) {
             return new Promise((resolve, reject) => {
                 console.log(`SEARCHING FOR USER ${username}`);
 
-                User.findOne(username, (err, user) => {
-                    if(err) {
+                User.findOne({ username: username }, (err, user) => {
+                    if (err) {
                         console.log(`USER: ${username} WAS NOT FOUND`);
                         return reject(err);
                     }
@@ -67,7 +67,7 @@ module.exports = function(models) {
                     .skip(page * size)
                     .limit(size)
                     .exec((err, users) => {
-                        if(err) {
+                        if (err) {
                             console.log("COLLECTION FROM USERS WAS NOT FOUND");
                             return reject(err);
                         }

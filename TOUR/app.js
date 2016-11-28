@@ -4,14 +4,14 @@
 const config = require("./server/config");
 const app = require("./server/config/application");
 const data = require("./server/data")(config);
-const routers = require("./server/routers")(app, data);
+require("./server/routers")(app, data);
 
 // TEST FOR CREATING AND FINDING
-// data.createUser("xxxxx", "no", "name", 14, "Bulgaria", "Sofia")
-//     .then(() => {
-//         data.getAllUsers()
-//     })
-//     .then(x => console.log(x));
+data.getUserByUsername("admin").then(user => {
+    if (!user) {
+        data.createUser("admin", "pass", "no@email.com", "no", "name", 14, "Bulgaria", "Sofia");
+    }
+});
 
 //console.log(data);s
 
@@ -20,5 +20,3 @@ const routers = require("./server/routers")(app, data);
 app.listen(config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });
-
- 
