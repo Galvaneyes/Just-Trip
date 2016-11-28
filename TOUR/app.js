@@ -7,9 +7,20 @@ const data = require("./server/data")(config);
 require("./server/routers")(app, data);
 
 // TEST FOR CREATING AND FINDING
-data.getUserByUsername("admin").then(user => {
+const admin = {
+    username: "admin",
+    password: "pass",
+    email: "no@email.com",
+    firstname: "no",
+    lastname: "name",
+    age: 14,
+    country: "Bulgaria",
+    city: "Sofia"
+};
+
+data.getUserByUsername(admin.username).then(user => {
     if (!user) {
-        data.createUser("admin", "pass", "no@email.com", "no", "name", 14, "Bulgaria", "Sofia");
+        data.createUser(admin);
     }
 });
 
