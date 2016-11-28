@@ -10,10 +10,10 @@ module.exports = function(userData, tourData) {
                     .send("YOU ARE NOT LOGGED");
             }
 
-            res.status(200)
-                .json({
-                    success: true, functionality: "GIVE YOU OPTION TO ADD TOUR"
-                });
+            res.status(200).render("publicate-form")
+                // .json({
+                //     success: true, functionality: "GIVE YOU OPTION TO ADD TOUR"
+                // });
         },
         createTour(req, res) {
             tourData.createTour(req.params.id)
