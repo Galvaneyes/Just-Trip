@@ -5,13 +5,14 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 
-module.exports = function(config) {
+module.exports = function (config) {
     // Override mongoose Promise, because it is depricated.
     mongoose.Promise = global.Promise;
     mongoose.connect(config.connectionString);
     const User = require("../models/user-model.js");
     const Tour = require("../models/tour-model.js");
-    const models = {User, Tour};
+    const Country = require("../models/country-model.js");
+    const models = { User, Tour, Country };
     const data = {};
 
     // It finds all properties

@@ -1,19 +1,21 @@
 /* globals module require */
 "use strict";
 
-module.exports = function(userData) {
+module.exports = function (userData) {
     return {
         getLoggedUserData(req, res) {
             const isLogged = false;
-            if(!isLogged) {
+            if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
-            }
 
-            res.status(200)
-                .json({
-                    success: true, functionality: "shows public information for the user"
-                });
+            } else {
+
+                res.status(200)
+                    .json({
+                        success: true, functionality: "shows public information for the user"
+                    });
+            }
         },
         getUserByUsername(req, res) {
             userData.getUserByUsername(req.params.name)

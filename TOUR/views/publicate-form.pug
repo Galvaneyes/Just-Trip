@@ -7,20 +7,39 @@ body
     form(method="POST" action="/publicate")
         label
         | Username
-        input(type="text" name="username")
-        label
+        input(type="text" name="username" placeholder="Username")
+        br
         | Password
-        input(type="password" name="password")
+        input(type="password" name="password" placeholder="Password")
+        br
         | Email
-        input(type="email" name="email")
+        input(type="email" name="email" placeholder="Email")
+        br
         | Firstname
-        input(type="text" name="firstname")
+        input(type="text" name="firstname" placeholder="First name")
+        br
         | Lastname
-        input(type="text" name="lastname")
+        input(type="text" name="lastname" placeholder="Last name")
+        br
         | Age
-        input(type="text" name="age")
+        input(type="text" name="age" placeholder="Age")
+        br
         | Country
-        input(type="text" name="country")
+        input(type="text" name="country" placeholder="Country")
+        br
         | City
-        input(type="text" name="city")
+        input(type="text" name="city" placeholder="City")
+        br
         input(type="submit" value="Create")
+
+        
+    //- username: {type: String, validate: /[a-zA-Z0-9]+/, required: true, unique: true},
+    //- password: {type: String, required: true},
+    //- email:{type: String, required: true},
+    //- firstname: {type: String, validate: /[a-zA-Z]+/, required: true},
+    //- lastname:{type: String, validate: /[a-zA-Z]+/, required: true},
+    //- age: {type: Number, min:0 , max:150, required: true},
+    //- country: {type:String, required: true},
+    //- city: {type:String, required: true},
+    //- userOfferTours:[{}],
+    //- userBoughtTours:[{}]
