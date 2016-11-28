@@ -23,23 +23,28 @@ const tour = {
     title: "Ebatti eskurziqta",
     city: "BambBu",
     country:"Lolo",
-    description: "Pushaite seeeee",
+    description: "Puskaite seeeee",
     maxUser: 20,
     endTourDate: Date.now(),
     isValid: true
 };
 
-data.createTour(tour);
 
-data.getUserByUsername(admin.username).then(user => {
-    if (!user) {
-        data.createUser(admin);
-    }
-});
+data.getTourById("583c505014894a0c90f514ca")
+    .then(tour => {
+        if(!tour) {
+            data.createTour(tour);
+        }
+    })
+    .then(() => {
+        data.getUserByUsername(admin.username).then(user => {
+            if (!user) {
+                data.createUser(admin);
+            }
+        });
+    })
 
-//console.log(data);s
-
-// require("./server/routers")(app, data);
+// END OF TEST
 
 app.listen(config.port, () => {
     console.log(`Application listen on port: ${config.port}`);

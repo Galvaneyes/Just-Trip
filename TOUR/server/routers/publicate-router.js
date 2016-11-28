@@ -3,14 +3,14 @@
 
 const express = require("express");
 
-module.exports = function(app, tourData) {
+module.exports = function(app, userData, tourData) {
     const router = new express.Router();
+    const profileController = require("../controllers/profile-controller.js")(userData);
     const tourController = require("../controllers/tour-controller.js")(tourData);
 
     router
         .get("/", tourController.get)
-        .get("/:id", tourController.getTourById)
-        .get("/result");
+        .post("/")
 
-    app.use("/tours", router);
+    app.use("/publicate", router);
 };
