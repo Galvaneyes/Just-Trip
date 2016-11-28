@@ -31,18 +31,21 @@ const tour = {
 
 
 data.getTourById("583c505014894a0c90f514ca")
-    .then(tour => {
-        if(!tour) {
+    .then(tourId => {
+        console.log(tourId)
+        if(!tourId) {
             data.createTour(tour);
         }
-    })
-    .then(() => {
-        data.getUserByUsername(admin.username).then(user => {
+    }).catch(err => console.log(err));
+
+data.getUserByUsername(admin.username)
+    .then(user => {
+        console.log(user)
             if (!user) {
                 data.createUser(admin);
             }
-        });
-    })
+        }).catch(err => console.log(err));
+
 
 // END OF TEST
 
