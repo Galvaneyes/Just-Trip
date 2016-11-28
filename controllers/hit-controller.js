@@ -2,7 +2,7 @@ module.exports = function (data) {
     return {
         getAll(req, res) {
             data.getAllHits()
-                .then(hit => {
+                .then(hits => {
                     res.render("hit-list", {
                         result: hits
                     });

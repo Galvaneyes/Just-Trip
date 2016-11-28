@@ -2,7 +2,7 @@ module.exports = function (data) {
     return {
         getAll(req, res) {
             data.getAllUsers()
-                .then(hit => {
+                .then(users => {
                     res.render("user-list", {
                         result: users
                     });
