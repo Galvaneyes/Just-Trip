@@ -4,6 +4,8 @@
 const config = require("./server/config");
 const data = require("./server/data")(config);
 const app = require("./server/config/application")({ data });
+const pug = require("pug");
+const fs = require("fs");
 require("./server/routers")(app, data);
 
 // TEST FOR CREATING AND FINDING
@@ -53,3 +55,14 @@ app.listen(process.env.PORT || config.port, () => {
     console.log(process.env.PORT);
     console.log(`Application listen on port: ${config.port}`);
 });
+
+
+// Testing pug
+var user = {
+    isLogged: true
+}
+
+let html = pug.renderFile("./views/home-page.pug", user);
+
+fs.writeFileSync("test-pug-homepage.html", html, "utf8");
+// End testing pug

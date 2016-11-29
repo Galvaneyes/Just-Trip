@@ -1,0 +1,37 @@
+extends _layout
+block container
+    if isLogged
+        form.form-horizontal
+            fieldset
+                legend  Fill in the following fields to make new travel advertisement:
+                div.form-group
+                    label.col-lg-2.control-label Name of advertisement
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="Name of advertisement")
+                div.form-group
+                    label.col-lg-2.control-label Country
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="Country")
+                div.form-group
+                    label.col-lg-2.control-label City
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="City")
+                div.form-group
+                    label.col-lg-2.control-label(for="textArea") Description
+                    div.col-lg-10
+                        textarea#textArea.form-control(rows="6")
+                div.form-group
+                    div.col-lg-10.col-lg-offset-2
+                        button.btn.btn-primary(type='submit') Publish
+                        button.btn.btn-default(type='reset') Cancel
+    else
+        div.alert.alert-dismissible.alert-danger
+            button.close(type="button" data-dismiss="alert") &times;
+            strong You must be logged in to make new travel advertisement. 
+            a.alert-link(href="#") Log in now.
+           
+
+
+
+    
+    

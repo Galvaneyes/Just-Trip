@@ -1,0 +1,22 @@
+{
+  "name": "project",
+  "description": "project",
+  "main": "app.js",
+  "authors": [
+    "nadejdanicolova <h0pe_@abv.bg>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Krassimir-ILLIEV/CarAdvisor",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}
