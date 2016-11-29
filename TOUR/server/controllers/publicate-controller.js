@@ -17,6 +17,7 @@ module.exports = function(data) {
             const toursDetails = req.body;
             // MOCK USER 
             toursDetails.creator = "admin";
+            toursDetails.isValid = "true";
             console.log(toursDetails);
 
             data.createTour(toursDetails)
