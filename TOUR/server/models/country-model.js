@@ -4,11 +4,22 @@
 const mongoose = require("mongoose");
 
 const countrySchema = new mongoose.Schema({
-    name: {type: String, required: true},    
-    desctiption: {type:String, required: true},
-    countryUrl: {type:String, required: true}   
+    name: {type: String, required: false},    
+    description: {type:String, required: false},
+    countryUrl: {type:String, required: false}   
 });
 
-mongoose.model("country", countrySchema);
+let Country;
+countrySchema.static('getCountry', (country) => {
+  return new Country({
+    name: country.name,
+    description: country.description,
+    countryUrl: country.countryUrl    
+  });
+});
 
-module.exports = mongoose.model("country");
+mongoose.model("Country", countrySchema);
+
+Country = mongoose.model('Country');
+
+module.exports = mongoose.model("Country");

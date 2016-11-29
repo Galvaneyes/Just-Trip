@@ -1,8 +1,20 @@
-module.exports = function(models) {
-const { Country } = models.models;
+module.exports = function (models) {
+    const { Country } = models.models;
 
     return {
-        createCountry(countryInfo) {
+        createCountry(countryObj) {
+            const country = Country.getCountry(countryObj);
+            return new Promise((resolve, reject) => {
+                country.save((err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(country);
+                });
+            });
+        },
+        createCountry__(countryInfo) {
 
             return new Promise((resolve, reject) => {
 
@@ -25,13 +37,13 @@ const { Country } = models.models;
 
                 console.log(`SEARCHING FOR COUNTRY WITH ID:${countryId}`);
 
-                Country.findOne({ _id : countryId }, (err, country) => {
+                Country.findOne({ _id: countryId }, (err, country) => {
                     if (err) {
                         console.log("ERROR WHILE CONNECTING TO THE SERVER");
                         return reject(err);
                     }
 
-                    if(!country) {
+                    if (!country) {
                         console.log(`COUNTRY WITH ${countryId} WAS NOT FOUND`);
                         return reject(countryId);
                     }
@@ -46,13 +58,13 @@ const { Country } = models.models;
 
                 console.log(`SEARCHING FOR COUNTRY WITH NAME:${countryName}`);
 
-                Country.findOne({ name : countryName }, (err, country) => {
+                Country.findOne({ name: countryName }, (err, country) => {
                     if (err) {
                         console.log("ERROR WHILE CONNECTING TO THE SERVER");
                         return reject(err);
                     }
 
-                    if(!country) {
+                    if (!country) {
                         console.log(`COUNTRY WITH ${countryName} WAS NOT FOUND`);
                         return reject(countryName);
                     }

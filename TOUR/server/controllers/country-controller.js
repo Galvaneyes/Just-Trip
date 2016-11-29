@@ -28,7 +28,7 @@ module.exports = function (countryData) {
 
             } else {
 
-                return adapter.getHits(req, res);
+                return adapter.getHits(req, res, countryData);
             }
         },
         getCountryByName(req, res) {
