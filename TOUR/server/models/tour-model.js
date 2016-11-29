@@ -12,9 +12,14 @@ const tourSchema = new mongoose.Schema({
     maxUser: Number,
     endTourDate: Date,
     isValid: Boolean,
-    userOfferTours:[{}],
-    userBoughtTours:[{}]
+    usersInTour:[]
 });
+
+tourSchema.virtual("getUserCount").get(function() {
+    let usersCount = this.usersInTour.length;
+
+    return usersCount;
+})
 
 mongoose.model("tour", tourSchema);
 
