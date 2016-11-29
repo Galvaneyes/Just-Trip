@@ -106,6 +106,7 @@ module.exports = function (models) {
                         console.log(`ERROR WHEN UPDATE USER:${username}`);
                         return reject(err);
                     }
+
                     console.log(`USER ${username} UPDATED SUCCESSFULLY`);
                     return resolve(model);
                 })

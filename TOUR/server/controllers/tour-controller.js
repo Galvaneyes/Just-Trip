@@ -4,6 +4,7 @@
 module.exports = function(tourData) {
     return {
         get(req, res) {
+            // MOCK LOGGED
             const isLogged = true;
             if(!isLogged) {
                 res.status(401)
