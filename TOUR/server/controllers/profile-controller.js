@@ -4,17 +4,16 @@
 module.exports = function (userData) {
     return {
         getLoggedUserData(req, res) {
-            const isLogged = false;
-            if (!isLogged) {
+
+            const isLogged = true;
+            if(!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
-
             } else {
-
                 res.status(200)
-                    .json({
-                        success: true, functionality: "shows public information for the user"
-                    });
+                .json({
+                    success: true, functionality: "shows public information for the user"
+                })
             }
         },
         getUserByUsername(req, res) {

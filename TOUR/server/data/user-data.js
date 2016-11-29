@@ -97,6 +97,19 @@ module.exports = function (models) {
                     return resolve(users);
                 });
             });
+        },
+        updateUserArrayProperty(username, updateData) {
+            return new Promise((resolve, reject) => {
+
+                User.findOneAndUpdate(username, {$push: updateData}, {upsert: true, 'new': true}, (err, model) => {
+                    if(err) {
+                        console.log(`ERROR WHEN UPDATE USER:${username}`);
+                        return reject(err);
+                    }
+                    console.log(`USER ${username} UPDATED SUCCESSFULLY`);
+                    return resolve(model);
+                })
+            });
         }
     };
 };
