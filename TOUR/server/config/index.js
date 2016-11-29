@@ -2,9 +2,10 @@
 
 module.exports = {
     port: 3001,
-    connectionString: "mongodb://admin:team@ds113938.mlab.com:13938/tourings"
+    connectionString: "mongodb://localhost/TOURings"
 };
 
+// connectionString: "mongodb://admin:team@ds113938.mlab.com:13938/tourings"
 // mongodb://<dbuser>:<dbpassword>@ds113938.mlab.com:13938/tourings
 // connectionString: "mongodb://localhost/TOURings"
 // TeamBlackObelisk -> BlackObelisk -> team1234

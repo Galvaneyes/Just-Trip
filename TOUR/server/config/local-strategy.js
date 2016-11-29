@@ -1,10 +1,16 @@
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local"),
+    encrypt = require('../../utils/encrypt');
 
-module.exports = function (passport, data) {
+
+function authenticate(user, pswd) {
+    return encrypt.hashPassword(user.salt, pswd) === user.passHash;
+}
+
+module.exports = function(passport, data) {
     const strategy = new LocalStrategy((username, password, done) => {
-        data.getUserByCredentials(username, password)
+        data.getUserByUsername(username)
             .then(user => {
-                if (user) {
+                if (user && authenticate(user, password)) {
                     return done(null, user);
                 }
 

@@ -1,17 +1,31 @@
 /* globals module Promise */
 "use strict";
 
-module.exports = function (models) {
+module.exports = function(models) {
     const { User } = models.models;
+    const encrypt = require('../../utils/encrypt');
 
     return {
         createUser(userInfo) {
+            const salt = encrypt.generateSalt();
+
+            let user = new User({
+                username: userInfo.username,
+                salt: salt,
+                passHash: encrypt.hashPassword(salt, userInfo.password || encrypt.genenerateRandomPassword()),
+                email: userInfo.email,
+                firstname: userInfo.firstname,
+                lastname: userInfo.lastname,
+                age: userInfo.age,
+                country: userInfo.country,
+                city: userInfo.city
+            });
 
             return new Promise((resolve, reject) => {
 
                 console.log("CREATING USER...");
 
-                User.create(userInfo, (err, user) => {
+                User.create(user, (err, user) => {
                     if (err) {
 
                         console.log("CAN NOT CREATE USER");
@@ -46,7 +60,7 @@ module.exports = function (models) {
                         return reject(err);
                     }
 
-                    if(!user) {
+                    if (!user) {
                         console.log(`USER: ${username} WAS NOT FOUND`);
                         return reject(username);
                     }
@@ -54,7 +68,7 @@ module.exports = function (models) {
                     console.log(`USER ${username} WAS FOUND`);
                     return resolve(user);
                 });
-            })
+            });
         },
         getUserByRange(page, size) {
             return new Promise((resolve, reject) => {
@@ -101,15 +115,15 @@ module.exports = function (models) {
         updateUserArrayProperty(username, updateData) {
             return new Promise((resolve, reject) => {
 
-                User.findOneAndUpdate(username, {$push: updateData}, {upsert: true, 'new': true}, (err, model) => {
-                    if(err) {
+                User.findOneAndUpdate(username, { $push: updateData }, { upsert: true, 'new': true }, (err, model) => {
+                    if (err) {
                         console.log(`ERROR WHEN UPDATE USER:${username}`);
                         return reject(err);
                     }
 
                     console.log(`USER ${username} UPDATED SUCCESSFULLY`);
                     return resolve(model);
-                })
+                });
             });
         }
     };

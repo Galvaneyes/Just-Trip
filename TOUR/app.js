@@ -22,7 +22,7 @@ const tour = {
     creator: "ghost",
     title: "Ebatti eskurziqta",
     city: "BambBu",
-    country:"Lolo",
+    country: "Lolo",
     description: "Puskaite seeeee",
     maxUser: 20,
     endTourDate: Date.now(),
@@ -36,7 +36,7 @@ data.getTourById("583d42b30d185c440861d6b1")
     .catch(err => {
         console.log(err);
         data.createTour(tour);
-    })
+    });
 
 data.getUserByUsername(admin.username)
     .then(user => {
@@ -45,7 +45,7 @@ data.getUserByUsername(admin.username)
     .catch(err => {
         console.log(err);
         data.createUser(admin);
-    })
+    });
 
 // END OF TEST
 
