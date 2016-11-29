@@ -49,6 +49,7 @@ data.getUserByUsername(admin.username)
 
 // END OF TEST
 
-app.listen(config.port, () => {
+app.listen(process.env.PORT || config.port, () => {
+    console.log(process.env.PORT);
     console.log(`Application listen on port: ${config.port}`);
 });
