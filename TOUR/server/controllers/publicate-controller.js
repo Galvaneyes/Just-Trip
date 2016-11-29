@@ -4,15 +4,13 @@
 module.exports = function(data) {
     return {
         get(req, res) {
+            // MOCK LOGGED
             const isLogged = true;
             if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
             } else {
                 res.status(200).render("publicate-form")
-                    // .json({
-                    //     success: true, functionality: "GIVE YOU OPTION TO ADD TOUR"
-                    // });
             }
         },
         createTour(req, res) {
@@ -34,7 +32,6 @@ module.exports = function(data) {
                     return data.updateUserArrayProperty("admin", userTourData);
                 })
                 .then(model => {
-                    
                     res.status(200)
                     .json(model);
                 })
