@@ -4,7 +4,7 @@
 module.exports = function(data) {
     return {
         get(req, res) {
-            // MOCK LOGGED
+
             const isLogged = true;
             if (!isLogged) {
                 res.status(401)
@@ -14,11 +14,16 @@ module.exports = function(data) {
             }
         },
         createTour(req, res) {
-            const toursDetails = req.body;
             // MOCK USER 
-            toursDetails.creator = "admin";
+            if(!req.user) {
+                return res.status(401)
+                        .send("You are not logged")
+            }
+
+            const toursDetails = req.body;
             toursDetails.isValid = "true";
-            console.log(toursDetails);
+            const user = req.user.username;
+            toursDetails.creator = user;
 
             data.createTour(toursDetails)
                 .then(tour => {
@@ -31,7 +36,7 @@ module.exports = function(data) {
                         }
                     };
 
-                    return data.updateUserArrayProperty("admin", userTourData);
+                    return data.updateUserProperty(user, userTourData);
                 })
                 .then(model => {
                     res.status(200)
