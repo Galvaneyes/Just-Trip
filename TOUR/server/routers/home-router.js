@@ -11,6 +11,6 @@ module.exports = function(app, data) {
     router
         .get("/", homeController.redirectHomePage)
         .get("/home", homeController.loadHomePage);
-        
+
     app.use("/", router);
 };
