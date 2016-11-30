@@ -22,7 +22,13 @@ tourSchema.virtual("getUserCount").get(function() {
     let usersCount = this.usersInTour.length;
 
     return usersCount;
-})
+});
+
+tourSchema.methods.isUserExist = function(username) {
+    let isUserExist = this.usersInTour.includes(username);
+
+    return isUserExist;
+};
 
 mongoose.model("tour", tourSchema);
 
