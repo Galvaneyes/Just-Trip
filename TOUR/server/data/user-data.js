@@ -125,6 +125,33 @@ module.exports = function(models) {
                     return resolve(model);
                 });
             });
+        },
+        updateUserProperty(username, updateData){
+            return new Promise((resolve, reject) => {
+                User.update({username: username}, {$push: updateData},
+                    (err, updatedUser) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        // If nothing has been updated break
+                        // if(updatedUser.nModified === 0 && updatedUser.n === 0){
+                        //     return reject(updatedUser);
+                        // }
+
+                        return resolve(updatedUser);
+                    })
+            });
+        },
+        updateUser(user) {
+            return new Promise((resolve, reject) => {
+                user.save(err => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
+            });
         }
     };
 };
