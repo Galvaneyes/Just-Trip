@@ -10,8 +10,8 @@ module.exports = function(app, countryData) {
 
     router
     .get("/", countryController.seedCountryData)  //updateCountryData
-    .get("/:name", countryController.getCountryByName) 
-    .get("/:keyword", countryController.getCountryByKeyword);             
+    .get("/:name", countryController.getCountryByName)
+    .get("/:keyword", countryController.getCountryByKeyword);          
     //getCountryById
 
     app.use("/countries", router);

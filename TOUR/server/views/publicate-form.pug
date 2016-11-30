@@ -5,33 +5,46 @@ head
     title Document
 body
     form(method="POST" action="/publicate")
-        //label="Username" 
-        | Username
-            input(type="text" name="username" placeholder="username")            
-        | Password
-            input(type="password" name="password")            
-        | Email
-            input(type="email" name="email")
-        | Firstname
-            input(type="text" name="firstname")
-        | Lastname
-            input(type="text" name="lastname")
-        | Age
-            input(type="text" name="age")
-        | Country
-            input(type="text" name="country")
+        label
+        | Headline
+        input(type="text" name="headline")
+        br
         | City
-            input(type="text" name="city")
+        input(type="text" name="city")
+        br
+        | Country
+        input(type="text" name="country")
+        br
+        | Description
+        input(type="text" name="description")
+        br
+        | Max People
+        input(type="text" name="maxUser")
+        br
+        | Price
+        input(type="text" name="price")
+        br
+        | End Join Date 
+        input(type="text" name="endJoinDate")
+        br
+        | Start Date 
+        input(type="text" name="beginTourDate")
+        br
+        | End Date 
+        input(type="text" name="endTourDate")
+        br
         input(type="submit" value="Create")
 
         
-    //- username: {type: String, validate: /[a-zA-Z0-9]+/, required: true, unique: true},
-    //- password: {type: String, required: true},
-    //- email:{type: String, required: true},
-    //- firstname: {type: String, validate: /[a-zA-Z]+/, required: true},
-    //- lastname:{type: String, validate: /[a-zA-Z]+/, required: true},
-    //- age: {type: Number, min:0 , max:150, required: true},
-    //- country: {type:String, required: true},
+    //- creator: String,
+    //- headline: {type: String, required: true},
     //- city: {type:String, required: true},
-    //- userOfferTours:[{}],
-    //- userBoughtTours:[{}]
+    //- country:{type:String, required: true},
+    //- description: String,
+    //- price: Number,
+    //- maxUser: Number,
+    //- endJoinDate: Date,
+    //- beginTourDate: Date,
+    //- endTourDate: Date,
+    //- isValid: Boolean,
+    //- usersInTour:[]
