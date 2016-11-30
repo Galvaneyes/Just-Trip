@@ -71,6 +71,7 @@ module.exports = function(tourData) {
                         }
                     };
                            // must be userData!
+                           console.log(req.body.username);
                     return tourData.updateUserArrayProperty(req.body.username, userTourData);
                 })
                 .then(model => {
