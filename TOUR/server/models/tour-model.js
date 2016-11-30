@@ -11,6 +11,7 @@ const tourSchema = new mongoose.Schema({
     description: String,
     price: Number,
     maxUser: Number,
+    endJoinDate: Date,
     beginTourDate: Date,
     endTourDate: Date,
     isValid: Boolean,

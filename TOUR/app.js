@@ -28,6 +28,7 @@ const tour = {
     description: "Code all day, every day!",
     price: 169,
     maxUser: 20,
+    endJoinDate: Date.now(),
     beginTourDate: Date.now(),
     endTourDate: Date.now(),
     isValid: true
