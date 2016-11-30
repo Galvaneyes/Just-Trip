@@ -23,7 +23,7 @@ module.exports = function(tourData) {
                         result: {
                             id : tour._id,
                             creator: tour.creator,
-                            tourTitle : tour.title,
+                            tourTitle : tour.headline,
                             tourCountry: tour.country,
                             tourCity : tour.city,
                             currentUsers: tour.getUserCount,
@@ -31,8 +31,6 @@ module.exports = function(tourData) {
                         }
                     };
 
-                    // res.status(200)
-                    //     .(tour)
                     res.status(200)
                         .render("tourID-addUser", result)
                 })
@@ -45,7 +43,43 @@ module.exports = function(tourData) {
         postUserInTour(req, res){
             tourData.getTourById(req.params.id)
                 .then(tour => {
+                    return new Promise((resolve, reject) => {
+                        if(tour.isUserExist(req.body.username))
+                        {
+                            return reject("You are already added in tour");
+                        }
 
+                        if(tour.getUserCount >= tour.maxUser) {
+                            return reject("Max users for tour are reached");
+                        }
+
+                        return resolve(tour);
+                    });
+                })
+                .then(tour => {
+                    tour.usersInTour.push(req.body.username);
+
+                    return tourData.updateTour(tour);
+                })
+                .then(tour => {
+                    const userTourData = {
+                        userBoughtTours : {
+                            tourId: tour._id,
+                            tourTitle: tour.headline,
+                            tourCountry :tour.country,
+                            tourCity: tour.city
+                        }
+                    };
+                           // must be userData!
+                    return tourData.updateUserArrayProperty(req.body.username, userTourData);
+                })
+                .then(model => {
+                    res.status(200)
+                    .json(model)
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.redirect(`/tours/${req.params.id}`)
                 })
         }
     }

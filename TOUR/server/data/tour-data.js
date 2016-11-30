@@ -20,6 +20,17 @@ const { Tour } = models.models;
                 });
             });
         },
+        updateTour(tourInfo) {
+            return new Promise((resolve, reject) => {
+                tourInfo.save(err => {
+                    if (err) {
+                    return reject(err);
+                    }
+
+                    return resolve(tourInfo);
+                });
+            });
+        },
         getTourById(tourId) {
             return new Promise((resolve, reject) => {
 

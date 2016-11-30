@@ -25,6 +25,7 @@ module.exports = function(data) {
                     const userTourData = {
                         userOfferTours : {
                             tourId: tour._id,
+                            tourTitle: tour.headline,
                             tourCountry :tour.country,
                             tourCity: tour.city
                         }

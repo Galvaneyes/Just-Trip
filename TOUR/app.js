@@ -22,7 +22,7 @@ const admin = {
 
 const tour = {
     creator: "ghost",
-    title: "SPA WEEK IN TELERIK",
+    headline: "SPA WEEK IN TELERIK",
     city: "Sofia",
     country: "Bulgaria",
     description: "Code all day, every day!",
@@ -34,7 +34,7 @@ const tour = {
     isValid: true
 };
 
-data.getTourById("583ecd23df4533121023c321")
+data.getTourById("583ef367919bcf070c4f192f")
     .then(tourId => {
         console.log(tourId);
     })
