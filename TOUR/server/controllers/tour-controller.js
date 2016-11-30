@@ -19,8 +19,22 @@ module.exports = function(tourData) {
         getTourById(req, res) {
             tourData.getTourById(req.params.id)
                 .then(tour => {
+                    const result = {
+                        result: {
+                            id : tour._id,
+                            creator: tour.creator,
+                            tourTitle : tour.title,
+                            tourCountry: tour.country,
+                            tourCity : tour.city,
+                            currentUsers: tour.getUserCount,
+                            capacity: tour.maxUser
+                        }
+                    };
+
+                    // res.status(200)
+                    //     .(tour)
                     res.status(200)
-                        .json(tour)
+                        .render("tourID-addUser", result)
                 })
                 .catch(err => {
                     console.log(`TOUR ${err} DOESNT EXIST`);
@@ -29,7 +43,10 @@ module.exports = function(tourData) {
                 });
         },
         postUserInTour(req, res){
+            tourData.getTourById(req.params.id)
+                .then(tour => {
 
+                })
         }
     }
 }
