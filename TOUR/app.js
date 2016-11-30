@@ -22,16 +22,18 @@ const admin = {
 
 const tour = {
     creator: "ghost",
-    title: "Ebatti eskurziqta",
-    city: "BambBu",
-    country: "Lolo",
-    description: "Puskaite seeeee",
+    title: "SPA WEEK IN TELERIK",
+    city: "Sofia",
+    country: "Bulgaria",
+    description: "Code all day, every day!",
+    price: 169,
     maxUser: 20,
+    beginTourDate: Date.now(),
     endTourDate: Date.now(),
     isValid: true
 };
 
-data.getTourById("583d42b30d185c440861d6b1")
+data.getTourById("583eae635a2c10312ca443e3")
     .then(tourId => {
         console.log(tourId);
     })
@@ -52,7 +54,6 @@ data.getUserByUsername(admin.username)
 // END OF TEST
 
 app.listen(process.env.PORT || config.port, () => {
-    console.log(process.env.PORT);
     console.log(`Application listen on port: ${config.port}`);
 });
 
@@ -62,7 +63,7 @@ var user = {
     isLogged: true
 }
 
-let html = pug.renderFile("./views/home-page.pug", user);
+let html = pug.renderFile("./views/publish-advertisement.pug", user);
 
 fs.writeFileSync("test-pug-homepage.html", html, "utf8");
 // End testing pug

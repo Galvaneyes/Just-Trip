@@ -27,6 +27,9 @@ module.exports = function(tourData) {
                     res.status(404)
                         .send(`TOUR ${err} DOESNT EXIST`);
                 });
+        },
+        postUserInTour(req, res){
+
         }
     }
 }

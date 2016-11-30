@@ -9,7 +9,9 @@ const tourSchema = new mongoose.Schema({
     city: {type:String, required: true},
     country:{type:String, required: true},
     description: String,
+    price: Number,
     maxUser: Number,
+    beginTourDate: Date,
     endTourDate: Date,
     isValid: Boolean,
     usersInTour:[]

@@ -56,7 +56,7 @@ module.exports = function(models) {
 
                 User.findOne({ username: username }, (err, user) => {
                     if (err) {
-                        console.log("ERROR WHEN CONNECTION TO THE SERVER");
+                        console.log("ERROR WHEN TRY TO CONNECT THE SERVER");
                         return reject(err);
                     }
 
