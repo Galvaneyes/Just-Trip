@@ -1,6 +1,6 @@
 body {
     overflow-x: hidden;
-    background-image: url("../../images/background.jpg");
+    background-image: url("../../public/images/background.jpg");
 }
 
 .nav-items {
@@ -64,3 +64,5 @@ legend {
 .footer-text {
     color: white;
 }
+
+.home-page {}

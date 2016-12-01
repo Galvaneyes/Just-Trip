@@ -1,5 +1,11 @@
 extends _layout
+
+block styles
+    link(rel="stylesheet" href="public/styles/home-page.css")
+
 block container
-    div
-        h1.title Wondering where to travel?
-            img.content-picture(src="./images/travel.jpg")
+    div.jumbotron
+        h1.home-text New Year's Eve
+        p.home-text Are you wondering where to spend New Year's Eve?
+        p.home-text: a.btn.btn-primary.btn-lg Learn more
+        

@@ -1,0 +1,15 @@
+.home-page {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.jumbotron {
+    background-image: url("../../public/images/fireworks.jpg");
+    height: 80vh;
+}
+
+.home-text {
+    color: white !important;
+    text-shadow: 5px 4px 20px rgba(80, 94, 179, 0.87);
+}

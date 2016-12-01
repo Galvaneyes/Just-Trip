@@ -85,14 +85,15 @@ app.listen(process.env.PORT || config.port, () => {
 
 // Testing pug
 
+
 // var user = {
 //     isLogged: true,
-//     userOfferTours: ["sad" , "dsa"],
-//     userBoughtTours: ["lolo" ,"trololo"] 
+//     userOfferTours: ["sad", "dsa"],
+//     userBoughtTours: ["lolo", "trololo"]
 
 // }
 
-// let html = pug.renderFile("server/views/profile.pug", user);
+// let html = pug.renderFile("server/views/home-page.pug", user);
 
 // fs.writeFileSync("test-pug-homepage.html", html, "utf8");
 // End testing pug
