@@ -8,5 +8,13 @@ module.exports = {
                     message: 'Not authorized!'
                 });
         }
+    },
+    isNotAuthenticated(req, res, next) {
+        if(req.isAuthenticated()) {
+           res.status(301)
+                .redirect("/home");
+        } else {
+            next();
+        }
     }
 }

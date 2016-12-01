@@ -22,8 +22,15 @@ module.exports = function () {
             res.redirect("/home");
         },
         getRegisterForm(req, res) {
+            const isLogged = !!req.user;
+
+            const user = {
+                user : {
+                    isLogged:isLogged
+                }
+            }
             res.status(200)
-                .render("register");
+                .render("register", user);
         },
         tryToCreateUser (req, res) {
             res.status(200)

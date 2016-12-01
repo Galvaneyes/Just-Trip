@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function (countryData) {
-    const adapter = require("./adapters/tour-site")();
+    const adapter = require("./adapters/tour-site")(countryData);
     return {
         updateCountryData(req, res) {
             const isLogged = true;  //for testing purposes
@@ -28,7 +28,7 @@ module.exports = function (countryData) {
 
             } else {
 
-                return adapter.getHits(req, res, countryData);
+                return adapter.getHits(req, res);
             }
         },
         getCountryByName(req, res) {
@@ -54,6 +54,19 @@ module.exports = function (countryData) {
                     res.status(404)
                         .send(`COUNTRY ${err} DOESNT EXIST`);
                 });
+        },
+        getAllCountries(req, res) {
+            countryData.getAllCountries()
+                .then(countryList => {
+                    console.log(countryList[0].name);
+                    res.render("dropdown-countries-testing", {result: countryList });
+                })
+                .catch(err => {
+                    console.log(`COUNTRY LIST ERROR`); //is this a descriptive error message
+                    res.status(404)
+                        .send(`COUNTRY LIST ERROR`);
+                });
         }
+
     }
 }
