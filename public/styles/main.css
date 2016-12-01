@@ -1,6 +1,6 @@
 body {
     overflow-x: hidden;
-    background-image: url("../../public/images/background.jpg");
+    background-image: url("./../images/background.jpg");
 }
 
 .nav-items {
