@@ -4,29 +4,41 @@ block container
         form.form-horizontal
             fieldset
                 legend  Register:
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for="inputEmail") Email
                     div.col-lg-10
                         input#inputEmail.form-control(type="text" placeholder="Email")
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Username
                     div.col-lg-10
                         input.form-control(type="text" placeholder="Username")
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for="inputPassword") Password
                     div.col-lg-10
                         input#inputPassword.form-control(type="password" placeholder="Password")
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for='select') Gender
                     div.col-lg-10
                         select#select.form-control
                             option Male
                             option Female
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
+                    label.col-lg-2.control-label Country
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="Country")
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
+                    label.col-lg-2.control-label City
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="City")
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
+                    label.col-lg-2.control-label Age
+                    div.col-lg-10
+                        input.form-control(type="number" min="5" max="160")
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Phone Number
                     div.col-lg-10
                         input.form-control(type="text" placeholder="Phone Number")
-                div.form-group
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     div.col-lg-10.col-lg-offset-2
                         button.btn.btn-success(type='submit') Register
                         button.btn.btn-danger(type='reset') Cancel
