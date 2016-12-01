@@ -6,8 +6,8 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
         block meta
         title Document
-        link(rel="stylesheet" href="public/styles/bootstrap-css.css")
-        link(rel="stylesheet" href="public/styles/main.css")
+        link(rel="stylesheet" href="./styles/bootstrap-css.css")
+        link(rel="stylesheet" href="./styles/main.css")
         block styles
 
     body
@@ -24,33 +24,33 @@ html(lang="en")
 
                 div#bs-example-navbar-collapse-1.navbar-collapse.collapse.in(aria-expanded="true")
                     ul.nav.navbar-nav
-                        if isAuthenticated
+                        if user.isLogged
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Home
+                                a.btn.btn-default.btn-lg.nav-items(href="/") Home
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Publish
+                                a.btn.btn-default.btn-lg.nav-items(href="/publicate") Publish
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Search
+                                a.btn.btn-default.btn-lg.nav-items(href="/tours") Search
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Places
+                                a.btn.btn-default.btn-lg.nav-items(href="/countries") Places
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Profile
+                                a.btn.btn-default.btn-lg.nav-items(href="/profile") Profile
                         else
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Home
+                                a.btn.btn-default.btn-lg.nav-items(href="/") Home
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Search
+                                a.btn.btn-default.btn-lg.nav-items(href="/tours") Search
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Places
+                                a.btn.btn-default.btn-lg.nav-items(href="/countries") Places
                     ul.nav.navbar-nav.navbar-right
-                        if isAuthenticated
+                        if user.isLogged
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Log Out
+                                a.btn.btn-default.btn-lg.nav-items(href="logout") Log Out
                         else 
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Login
+                                a.btn.btn-default.btn-lg.nav-items(href="login") Login
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="#") Register
+                                a.btn.btn-default.btn-lg.nav-items(href="register") Register
         #container
         block container
 
@@ -58,8 +58,8 @@ html(lang="en")
             div.panel-footer.footer
                 p.footer-text Copyright © Travel 2016. All right reserved.
 
-    script(src="public/bower_components/jquery/dist/jquery.js")
-    script(src="public/bower_components/bootstrap/dist/js/bootstrap.js")
+    script(src="./bower_components/jquery/dist/jquery.js")
+    script(src="./bower_components/bootstrap/dist/js/bootstrap.js")
     block scripts
     
 

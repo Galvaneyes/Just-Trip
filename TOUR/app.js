@@ -84,11 +84,11 @@ app.listen(process.env.PORT || config.port, () => {
 
 
 // Testing pug
-var user = {
-    isAuthenticated: true
-}
+// var user = {
+//     isAuthenticated: true
+// }
 
-let html = pug.renderFile("server/views/publish-travel.pug", user);
+// let html = pug.renderFile("server/views/publish-travel.pug", user);
 
-fs.writeFileSync("test-pug-homepage.html", html, "utf8");
+// fs.writeFileSync("test-pug-homepage.html", html, "utf8");
 // End testing pug
