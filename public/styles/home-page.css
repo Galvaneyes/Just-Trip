@@ -4,9 +4,15 @@
     width: 100%;
 }
 
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+
 .jumbotron {
     background-image: url("../../public/images/fireworks.jpg");
     height: 80vh;
+    margin: 0;
 }
 
 .home-text {

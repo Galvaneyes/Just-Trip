@@ -33,7 +33,9 @@ legend {
 }
 
 .navigation {
-    box-shadow: 10px 10px 5px grey;
+    -webkit-box-shadow: 3px 9px 36px -9px rgba(128, 124, 128, 1);
+    -moz-box-shadow: 3px 9px 36px -9px rgba(128, 124, 128, 1);
+    box-shadow: 3px 9px 36px -9px rgba(128, 124, 128, 1);
 }
 
 .title {
