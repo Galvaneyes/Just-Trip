@@ -4,13 +4,18 @@
 module.exports = function(data) {
     return {
         get(req, res) {
+            const isLogged = !!req.user;
 
-            const isLogged = true;
             if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
             } else {
-                res.status(200).render("publicate-form")
+                const user = {
+                user : {
+                    isLogged:isLogged
+                }
+            }
+                res.status(200).render("publish-travel", user)
             }
         },
         createTour(req, res) {

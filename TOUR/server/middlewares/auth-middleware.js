@@ -3,10 +3,14 @@ module.exports = {
         if(req.isAuthenticated()) {
             next();
         } else {
-            res.status(401).json({
-                    success: false,
-                    message: 'Not authorized!'
-                });
+            const user = {
+                user : {
+                    isLogged:false
+                }
+            }
+
+            res.status(401)
+                .render("not-login", user);
         }
     },
     isNotAuthenticated(req, res, next) {
