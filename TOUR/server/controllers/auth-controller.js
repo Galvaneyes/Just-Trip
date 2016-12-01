@@ -3,7 +3,7 @@
 
 module.exports = function () {
     return {
-        getLogin(req, res) {
+        getLoginForm(req, res) {
             res.status(200).send(`
             <form action="/login" method="POST">
                 <input type="text" name="username" placeholder="Username">
@@ -13,11 +13,8 @@ module.exports = function () {
             `);
         },
         tryToLogin(req, res) {
-            res.status(200)
-                .json({
-                    success: true,
-                    message: "i suppose you managed to login, should redirect home after"
-                });
+            res.status(301)
+                .redirect("/home");
         },
         userLogout(req, res) {
             req.logout();
@@ -26,10 +23,7 @@ module.exports = function () {
         },
         getRegisterForm(req, res) {
             res.status(200)
-                .json({
-                    success: true,
-                    functionality: "register form if not loged"
-                });
+                .render("register");
         },
         tryToCreateUser (req, res) {
             res.status(200)

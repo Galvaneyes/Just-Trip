@@ -7,7 +7,14 @@ module.exports = function () {
             res.redirect("/home");
         },
         loadHomePage(req, res) {
-            res.render("home-page");
+            const isLogged = !!req.user;
+
+            const user = {
+                user : {
+                    isLogged:isLogged
+                }
+            }
+            res.render("home-page", user);
         }
     };
 }

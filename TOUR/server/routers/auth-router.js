@@ -9,7 +9,7 @@ module.exports = function(app, data) {
     const router = express.Router();
 
     router
-        .get("/login", authController.getLogin)
+        .get("/login", authController.getLoginForm)
         .post("/login", passport.authenticate("local", { failureRedirect: "/fail-to-log-in" }), authController.tryToLogin)
         .get("/logout", authController.userLogout)
         .get("/register", authController.getRegisterForm)
