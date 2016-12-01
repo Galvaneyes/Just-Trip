@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title Document
+body
+
+block content
+    ul
+        li Tour id: #{result.id}
+        li Creator: #{result.creator}
+        li Title: #{result.tourTitle}
+        li City: #{result.tourCity}
+        li Country: #{result.tourCountry}
+        li #{result.currentUsers} / #{result.capacity}
+
+        form(method="POST" action="/tours/"+ result.id)
+            label
+            | Add user
+            input(type="text" name="username")
+            input(type="submit" value="Add")

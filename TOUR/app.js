@@ -34,22 +34,22 @@ const tour = {
     isValid: true
 };
 
-data.getTourById("583ef367919bcf070c4f192f")
-    .then(tourId => {
-        console.log(tourId);
-    })
-    .catch(err => {
-        console.log(err);
-        data.createTour(tour);
-    });
+// data.getTourById("583f1af52da8b22fd842ff8a")
+//     .then(tourId => {
+//         console.log(tourId);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         data.createTour(tour);
+//     });
 
 data.getUserByUsername(admin.username)
     .then(user => {
-        console.log(user);
+        //console.log(user);
     })
     .catch(err => {
         console.log(err);
-        data.createUser(admin);
+        return data.createUser(admin);
     });
 
 // END OF TEST
