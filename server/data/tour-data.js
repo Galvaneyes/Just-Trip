@@ -82,6 +82,21 @@ const { Tour } = models.models;
                     return resolve(tours);
                 });
             });
+        },
+        getToursInRangeOfDates(start,end) {
+        return new Promise((resolve, reject) => {
+            Tour.where("beginTourDate")
+                .gte(start)
+                .where("endTourDate")
+                .lte(end)
+                .exec((err, tours) => {
+                    if(err) {
+                        return reject(err);
+                    }
+
+                    return resolve(tours)
+                })
+        });
         }
     };
 }

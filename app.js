@@ -43,41 +43,56 @@ const tour = {
 //         data.createTour(tour);
 //     });
 
-data.getUserByUsername(admin.username)
-    .then(user => {
-        //console.log(user);
-    })
-    .catch(err => {
-        console.log(err);
-        return data.createUser(admin);
-    });
-
+// data.getUserByUsername(admin.username)
+//     .then(user => {
+//         //console.log(user);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         return data.createUser(admin);
+//     });
 // END OF TEST
 
+// data.getUsersBySpecificCriteria({email: "no@email.com", age: 14})
+//     .then(user => {
+//         console.log(user);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         return data.createUser(admin);
+//     })
 
-//COUNTRY TEST
-const Bulgaria = {
-    name: "Bulgaria",
-    description: "Place nice yet misleading info here",
-    countryUrl: "I_be_a_proper_url.com"
-};
-
-const Murica = {
-    name: "Amerikka",
-    description: "Why bother with actual info, too many people would hate anyway",
-    countryUrl: "freedomIsntFreeNorIsItReal.com"
-};
-
-data.getCountryByName("Amerikka")
-    .then(country => {
-        console.log(country);
+data.getToursInRangeOfDates(new Date("2016-12-10T18:29:18.332Z"),new Date("2016-12-12T18:29:18.332Z"))
+    .then(tours => {
+        console.log(tours);
     })
     .catch(err => {
         console.log(err);
-        data.createCountry(Murica);
-    });
+    })
+
+//COUNTRY TEST
+// const Bulgaria = {
+//     name: "Bulgaria",
+//     description: "Place nice yet misleading info here",
+//     countryUrl: "I_be_a_proper_url.com"
+// };
+
+// const Murica = {
+//     name: "Amerikka",
+//     description: "Why bother with actual info, too many people would hate anyway",
+//     countryUrl: "freedomIsntFreeNorIsItReal.com"
+// };
+
+// data.getCountryByName("Amerikka")
+//     .then(country => {
+//         console.log(country);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         data.createCountry(Murica);
+//     });
 
 //End of country test
-app.listen(process.env.PORT || config.port, () => {
+app.listen(config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });
