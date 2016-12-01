@@ -1,13 +1,13 @@
 extends _layout
 block styles
-    link(href="public/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet")
+    link(href="./bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet")
 block container
     div.row
         div.col-lg-3.col-sm-6
         div.card.hovercard
             div.cardheader
             div.avatar
-            img(alt='', src='public/images/profile-picture.png')
+            img.img-circle.img-shadow(alt='', src='public/images/profile-picture.png')
             div.info
             div.title
                 a(target='_blank', href='#') Username
@@ -23,12 +23,13 @@ block container
                 i.fa.fa-facebook
             a.btn-links.btn-warning.btn-sm(rel='publisher', href='https://youtube.com')
                 i.fa.fa-youtube
-    div.list-group.profile-tours
-        a.list-group-item.active  User Offer Tours
-        each offer in userOfferTours
-            a.list-group-item= offer
-    div.list-group.profile-tours
-        a.list-group-item.active  User Bought Tours
-        each bought in userBoughtTours
-            a.list-group-item= bought
+        div
+            div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+                a.list-group-item.active  User Offer Tours
+                each offer in userOfferTours
+                    a.list-group-item= offer
+            div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+                a.list-group-item.active  User Bought Tours
+                each bought in userBoughtTours
+                    a.list-group-item= bought
 

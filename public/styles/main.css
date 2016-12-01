@@ -41,10 +41,16 @@ legend {
     font-weight: bold;
 }
 
+.img-shadow {
+    -webkit-box-shadow: 1px 4px 25px -3px rgba(0, 54, 71, 1);
+    -moz-box-shadow: 1px 4px 25px -3px rgba(0, 54, 71, 1);
+    box-shadow: 1px 4px 25px -3px rgba(0, 54, 71, 1);
+}
+
 .profile-tours {
-    width: 60%;
     margin: auto;
-    padding: 10px;
+    padding: 15px;
+    display: inline-block;
 }
 
 .content-picture {
