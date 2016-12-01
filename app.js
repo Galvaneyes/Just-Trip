@@ -81,19 +81,3 @@ data.getCountryByName("Amerikka")
 app.listen(process.env.PORT || config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });
-
-
-// Testing pug
-
-
-// var user = {
-//     isLogged: true,
-//     userOfferTours: ["sad", "dsa"],
-//     userBoughtTours: ["lolo", "trololo"]
-
-// }
-
-// let html = pug.renderFile("server/views/register.pug", user);
-
-// fs.writeFileSync("test-pug-homepage.html", html, "utf8");
-// End testing pug
