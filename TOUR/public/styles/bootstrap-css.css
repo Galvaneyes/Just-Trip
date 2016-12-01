@@ -8549,7 +8549,6 @@ a.list-group-item-danger.active:focus {
 .card.hovercard {
     position: relative;
     padding-top: 0;
-    overflow: hidden;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
