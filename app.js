@@ -93,7 +93,7 @@ app.listen(process.env.PORT || config.port, () => {
 
 // }
 
-// let html = pug.renderFile("server/views/home-page.pug", user);
+// let html = pug.renderFile("server/views/register.pug", user);
 
 // fs.writeFileSync("test-pug-homepage.html", html, "utf8");
 // End testing pug
