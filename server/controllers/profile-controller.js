@@ -18,16 +18,22 @@ module.exports = function(userData) {
             //}
             userData.getUserByUsername(req.user.username)
                 .then(user => {
+                    const profile = {
+                        user : {
+                            isLogged:true,
+                            userOfferTours: user.userOfferTours,
+                            userBoughtTours: user.userBoughtTours
+                        }
+                    }
                     res.status(200)
-                        .json(user)
+                        .render("profile", profile)
                 })
                 .catch(err => {
                     console.log(`USER ${err} DOESNT EXIST`);
                     res.status(404)
                         .send(`USER ${err} DOESNT EXIST`);
                 });
-            }
-        ,
+        },
         getUserByUsername(req, res) {
             userData.getUserByUsername(req.params.name)
                 .then(user => {
