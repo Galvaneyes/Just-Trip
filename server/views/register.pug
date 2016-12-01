@@ -17,12 +17,16 @@ block container
                     div.col-lg-10
                         input#inputPassword.form-control(type="password" placeholder="Password")
                 div.form-group
-                    label.col-lg-2.control-label Phone Number
-                    div.col-lg-10
-                        input.form-control(type="text" placeholder="Phone Number")
-                div.form-group
                     label.col-lg-2.control-label(for='select') Gender
                     div.col-lg-10
                         select#select.form-control
                             option Male
                             option Female
+                div.form-group
+                    label.col-lg-2.control-label Phone Number
+                    div.col-lg-10
+                        input.form-control(type="text" placeholder="Phone Number")
+                div.form-group
+                    div.col-lg-10.col-lg-offset-2
+                        button.btn.btn-success(type='submit') Register
+                        button.btn.btn-danger(type='reset') Cancel
