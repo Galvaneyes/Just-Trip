@@ -19,7 +19,7 @@ module.exports = function () {
         userLogout(req, res) {
             req.logout();
             req.session.destroy();
-            res.redirect("/fail");
+            res.redirect("/home");
         },
         getRegisterForm(req, res) {
             res.status(200)
