@@ -54,6 +54,30 @@ data.getUserByUsername(admin.username)
 
 // END OF TEST
 
+
+//COUNTRY TEST
+const Bulgaria = {
+    name: "Bulgaria",
+    description: "Place nice yet misleading info here",
+    countryUrl: "I_be_a_proper_url.com"
+};
+
+const Murica = {
+    name: "Amerikka",
+    description: "Why bother with actual info, too many people would hate anyway",
+    countryUrl: "freedomIsntFreeNorIsItReal.com"
+};
+
+data.getCountryByName("Amerikka")
+    .then(country => {
+        console.log(country);
+    })
+    .catch(err => {
+        console.log(err);
+        data.createCountry(Murica);
+    });
+
+//End of country test
 app.listen(process.env.PORT || config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });

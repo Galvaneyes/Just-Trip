@@ -3,13 +3,15 @@ module.exports = function (models) {
 
     return {
         createCountry(countryObj) {
-            const country = Country.getCountry(countryObj);
+            const country = Country.getCountry(countryObj);            
             return new Promise((resolve, reject) => {
+                console.log("CREATING COUNTRY...");
                 country.save((err) => {
                     if (err) {
+                        console.log("CANNOT CREATE COUNTRY");
                         return reject(err);
                     }
-
+                    console.log("COUNTRY CREATED!");
                     return resolve(country);
                 });
             });
@@ -78,6 +80,20 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL COUNTRIES...");
                 Country.find({}, (err, countries) => {
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL COUNTRIES!");
+                        return reject(err);
+                    }
+
+                    console.log("COUNTRIES FOUND!");
+                    return resolve(countries);
+                });
+            });
+        },
+        getAllCountries(countryProps) { //FIX in an object, specify which properties to return
+            return new Promise((resolve, reject) => {
+                console.log("SEARCHING FOR ALL COUNTRIES...");
+                Country.find({}, countryProps, (err, countryProps) => { //was 'name'
                     if (err) {
                         console.log("ERROR WHEN GETTING ALL COUNTRIES!");
                         return reject(err);
