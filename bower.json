@@ -1,12 +1,12 @@
 {
-  "name": "superheroes-app",
-  "description": "4",
-  "main": "index.js",
+  "name": "project",
+  "description": "project",
+  "main": "app.js",
   "authors": [
-    "Doncho Minkov <DonchoMinkov@gmail.com>"
+    "nadejdanicolova <h0pe_@abv.bg>"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/TelerikAcademy/Node.js-Course",
+  "homepage": "https://github.com/Krassimir-ILLIEV/CarAdvisor",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "components-font-awesome": "^4.7.0"
   }
 }
