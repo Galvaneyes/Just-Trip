@@ -8,7 +8,7 @@ block styles
 block scripts
     script(src="server/views/calendar-files/date-format.js")
     script(src="server/views/calendar-files/ui.js")
-    script(src="server/views/calendar-files/date-format.js")
+    script(src="server/views/calendar-files/date-picker.js")
 block container
     if isAuthenticated
         form.form-horizontal
@@ -31,7 +31,8 @@ block container
                 div.form-group
                     label.col-lg-2.control-label End date
                     div.col-lg-10
-                        input.form-control( placeholder="MM/DD/YYYY" type="string")
+                        p
+                            input#datepicker(type="text") 
                 div.form-group
                     label.col-lg-2.control-label Capacity
                     div.col-lg-10
