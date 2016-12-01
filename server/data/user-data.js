@@ -112,6 +112,21 @@ module.exports = function(models) {
                 });
             });
         },
+        getUsersBySpecificCriteria(params){
+            return new Promise((resolve, reject) => {
+                console.log(`SEARCHING FOR USERS WITH SPECIFIC PARAMS: ${params}`);
+                User.find(params, function (err, users) {
+                    if (err) {
+                        console.log(`ERROR WHEN SEARCHING ${params}`);
+                        return reject(err);
+                    }
+                        // Send the list of all users in database with specific params
+                        // Very possible this will be an array with just one user object in it.
+                    console.log(`USERS FOUND ${users}`);
+                    return resolve(users);
+                });
+            });
+        },
         updateUserArrayProperty(username, updateData) {
             return new Promise((resolve, reject) => {
 

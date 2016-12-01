@@ -43,17 +43,24 @@ const tour = {
 //         data.createTour(tour);
 //     });
 
-data.getUserByUsername(admin.username)
+// data.getUserByUsername(admin.username)
+//     .then(user => {
+//         //console.log(user);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         return data.createUser(admin);
+//     });
+// END OF TEST
+
+data.getUsersBySpecificCriteria({email: "no@email.com", age: 14})
     .then(user => {
-        //console.log(user);
+        console.log(user);
     })
     .catch(err => {
         console.log(err);
         return data.createUser(admin);
-    });
-
-// END OF TEST
-
+    })
 
 //COUNTRY TEST
 const Bulgaria = {
@@ -78,7 +85,7 @@ data.getCountryByName("Amerikka")
     });
 
 //End of country test
-app.listen(process.env.PORT || config.port, () => {
+app.listen(config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });
 
