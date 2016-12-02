@@ -10,6 +10,7 @@ module.exports = function(app, userData) {
 
     router
         .get("/", authMiddleware.isAuthenticated, profileController.getLoggedUserData)
+        .post("/", authMiddleware.isAuthenticated, profileController.getLoggedUserData)
         .get("/:name", profileController.getUserByUsername);
 
     app.use("/profile", router);

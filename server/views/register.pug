@@ -1,13 +1,9 @@
 extends _layout
 block container
   
-        form.form-horizontal
+        form.form-horizontal(method="POST" action="/register")
             fieldset
                 legend  Register:
-                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
-                    label.col-lg-2.control-label(for="inputEmail") Email
-                    div.col-lg-10
-                        input#inputEmail.form-control(type="text" placeholder="Email")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Username
                     div.col-lg-10
@@ -17,11 +13,9 @@ block container
                     div.col-lg-10
                         input#inputPassword.form-control(type="password" placeholder="Password")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
-                    label.col-lg-2.control-label(for='select') Gender
+                    label.col-lg-2.control-label(for="inputEmail") Email
                     div.col-lg-10
-                        select#select.form-control
-                            option Male
-                            option Female
+                        input#inputEmail.form-control(type="text" placeholder="Email")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Country
                     div.col-lg-10
@@ -29,11 +23,19 @@ block container
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label City
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="City")
+                        input.form-control(type="text" placeholder="City")  
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Age
                     div.col-lg-10
-                        input.form-control(type="number" min="5" max="150")
+                        input.form-control(type="number" min="5" max="150" placeholder="Age")
+                div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
+                    label.col-lg-2.control-label(for='select' select="Choose") Gender
+                    div.col-lg-10
+                        select#select.form-control
+                            option(selected disabled) Choose gender
+                            option Male
+                            option Female
+                            option Undefined
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Phone Number
                     div.col-lg-10
