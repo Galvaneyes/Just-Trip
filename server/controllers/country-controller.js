@@ -56,10 +56,10 @@ module.exports = function (countryData) {
                 });
         },
         getAllCountries(req, res) {
-            countryData.getAllCountries()
+            countryData.getAllCountries("name")
                 .then(countryList => {
                     console.log(countryList[0].name);
-                    res.render("dropdown-countries-testing", {result: countryList });
+                    res.render("user-list", {result: countryList, user:{isLogged :true }});
                 })
                 .catch(err => {
                     console.log(`COUNTRY LIST ERROR`); //is this a descriptive error message

@@ -3,18 +3,27 @@ module.exports = function (models) {
 
     return {
         createCountry(countryObj) {
-            const country = Country.getCountry(countryObj);            
             return new Promise((resolve, reject) => {
-                console.log("CREATING COUNTRY...");
-                country.save((err) => {
-                    if (err) {
-                        console.log("CANNOT CREATE COUNTRY");
-                        return reject(err);
+                console.log("CREATING/UPDATING COUNTRY...");
+                Country.findOne({ name: countryObj.name }, function (err, country) {
+                    if (!err) {
+                        if (!country) {
+                            country = Country.getCountry(countryObj);
+                        } else {
+                            country.description = countryObj.description;
+                            country.countryUrl = countryObj.countryUrl;
+                        }
+                        country.save(function (err) {
+                            if (err) {
+                                console.log("CANNOT CREATE COUNTRY");
+                                return reject(err);
+                            }
+                            console.log("COUNTRY CREATED!");
+                            return resolve(country);
+                        });
                     }
-                    console.log("COUNTRY CREATED!");
-                    return resolve(country);
                 });
-            });
+             });
         },
         createCountry__(countryInfo) {
 
@@ -76,7 +85,7 @@ module.exports = function (models) {
                 });
             })
         },
-        getAllCountries() {
+        getAllCountries_() {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL COUNTRIES...");
                 Country.find({}, (err, countries) => {
@@ -93,7 +102,7 @@ module.exports = function (models) {
         getAllCountries(countryProps) { //FIX in an object, specify which properties to return
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL COUNTRIES...");
-                Country.find({}, countryProps, (err, countryProps) => { //was 'name'
+                Country.find({}, countryProps, (err, countries) => { //was 'name'
                     if (err) {
                         console.log("ERROR WHEN GETTING ALL COUNTRIES!");
                         return reject(err);

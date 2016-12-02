@@ -12,17 +12,23 @@ module.exports = function (countryData) {
         return res;
     }
 
-    function wait(time) {
+    function waitRandom(time) {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve();
-            }, time);
+            }, Math.random() * time);
         });
     }
 
     function getDestinationInfo(urlMain) {
-        let url = urlMain + urlCountries.pop().url;
+        if (urlCountries.length === 0) {
+            return Promise.resolve({ title: "Finished" });
+        }
+        //console.log(urlCountries);
+        let country = urlCountries.pop();
+        let url = urlMain + country.url;
         console.log("Working with countries urls: " + url);
+        // console.log("after:" + urlCountries.length);
         return httpRequester.get(url)
             .then((result) => {
                 let selector = 'div.hl > div:nth-child(1) > ul > li';
@@ -30,26 +36,19 @@ module.exports = function (countryData) {
                 return htmlParser.simpleParser(selector, html);
             })
             .then(items => {
-                let urlArray = url.split('/');
-                name = urlArray[urlArray.length - 1];
                 let description = "";
                 for (let item of items) {
                     description += item.title;
                 }
 
                 let obj = {
-                    name: name,
+                    name: country.title,
                     description: description,
                     countryUrl: url
                 };
                 countryData.createCountry(obj);
                 console.log("save from" + url);
-                if (urlCountries.length === 0) {
-                    return Promise.resolve([{ title: "Finished" }]);
-                }
-                else {
-                    return getDestinationInfo(urlMain);
-                }
+                return waitRandom(500).then(() => { return getDestinationInfo(urlMain) });
             })
 
             .catch((err) => {
@@ -85,7 +84,7 @@ module.exports = function (countryData) {
     return {
         getHits(req, res) {
             getList(`http://www.tourradar.com`).then(resultList => {
-                urlCountries = resultList.slice(0, 20);
+                urlCountries = resultList; //.slice(0, 20);
                 return getParallel();
             })
                 .then(r => {

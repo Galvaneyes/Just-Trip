@@ -62,7 +62,7 @@ const tour = {
 //         return data.createUser(admin);
 //     })
 
-data.getToursInRangeOfDates(new Date("2016-12-10T18:29:18.332Z"),new Date("2016-12-12T18:29:18.332Z"))
+data.getToursInRangeOfDates(new Date("2016-12-10T18:29:18.332Z"), new Date("2016-12-12T18:29:18.332Z"))
     .then(tours => {
         console.log(tours);
     })
