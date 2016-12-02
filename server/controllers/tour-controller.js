@@ -50,26 +50,53 @@ module.exports = function(tourData) {
                             return reject("Max users for tour are reached");
                         }
 
-                        return resolve(tour);
+                        tourData.getUserByUsername(req.body.username)
+                            .then(user => {
+                                const data = {
+                                    user,
+                                    tour
+                                }
+                                return resolve(data);
+                            })
+                            .catch(err => {
+                                return reject("User doent exist")
+                            })
                     });
                 })
-                .then(tour => {
-                    tour.usersInTour.push(req.body.username);
+                .then(data => {
+                    data.tour.usersInTour.push(req.body.username);
 
-                    return tourData.updateTour(tour);
+                    return tourData.updateTour(data.tour)
+                        .then(tour => {
+                            const dataUp = {
+                                tour:tour,
+                                user:data.user
+                            }
+                            console.log(`DATA UP ==> ${dataUp}`);
+                            return dataUp;
+                        })
+                        .catch(err => {
+                            // MAY BE IT iS WRONG!
+                            console.log(err);
+                            return err;
+                        })
+
+                    //return tourData.updateTour(tour);
                 })
-                .then(tour => {
+                .then(data => {
                     const userTourData = {
                         userBoughtTours: {
-                            tourId: tour._id,
-                            tourTitle: tour.headline,
-                            tourCountry: tour.country,
-                            tourCity: tour.city
+                            tourId: data.tour._id,
+                            tourTitle: data.tour.headline,
+                            tourCountry: data.tour.country,
+                            tourCity: data.tour.city
                         }
                     };
                     // must be userData!
-                    console.log(req.body.username);
-                    return tourData.updateUserArrayProperty(req.body.username, userTourData);
+                    console.log(data.user);
+                    data.user.userBoughtTours.push(userTourData);
+
+                    return tourData.updateUser(data.user);
                 })
                 .then(model => {
                     res.status(200)
