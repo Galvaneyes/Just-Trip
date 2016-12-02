@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function() {
+module.exports = function(userData) {
     return {
         getLoginForm(req, res) {
             res.status(200)
@@ -38,11 +38,26 @@ module.exports = function() {
                 .render("register", user);
         },
         tryToCreateUser(req, res) {
-            res.status(200)
-                .json({
-                    success: true,
-                    message: "i suppose you managed to register, should redirect login or home after"
-                });
+            const user = {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                age: req.body.age,
+                country: req.body.country,
+                city: req.body.city
+            }
+
+            userData.createUser(user)
+                .then(() => {
+                    res.status(301)
+                        .redirect("/home");
+                })
+                .catch((err) => {
+                    res.status(404)
+                        .send(`REGISTER FAIL, TRY AGAIN ===>${err}`)
+                })
         }
     };
 }
