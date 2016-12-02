@@ -9,10 +9,10 @@ block container
     .wrapper
         .container
             h1 Welcome
-            form.form
-                input(type='text', placeholder='Username')
-                input(type='password', placeholder='Password')
-                button#login-button(type='submit') Login
+            form.form(method="POST" action="/login")
+                input(type='text' placeholder='Username' name="username")
+                input(type='password' placeholder='Password' name="password")
+                button(type='submit') Login
                 br
                 div
                     i.fa.fa-facebook-official(aria-hidden="true")  
