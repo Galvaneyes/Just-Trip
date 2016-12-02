@@ -93,6 +93,17 @@ const { Tour } = models.models;
                         return resolve(tours)
                     })
                 });
+        },
+        getFiltedTours(search) {
+            return new Promise((resolve, reject) => {
+                Tour.find(search, (err, tours) => {
+                    if(err) {
+                        return reject(err);
+                    }
+
+                    return resolve(tours)
+                })
+            })
         }
     };
 }
