@@ -11,23 +11,23 @@ block scripts
 block container
     div.form-section
         div.row
-            form(role='form')
+            form(role='form' method="GET" action="/tours/result?")
                 div.col-md-4
                     div.form-group
-                        input#location.form-control(type='email', placeholder='Country')
+                        input#location.form-control(type='text', placeholder='Country' name="country")
                 div.col-md-4
                     div.form-group
-                        input#location.form-control(type='email', placeholder='City')
+                        input#location.form-control(type='text', placeholder='City' name="city")
                 div.col-md-2
                     div.form-group
                         div.input-group
-                            input#from.form-control(type='text', placeholder='From')
+                            input#from.form-control(type='text', placeholder='From' name="beginTourDate")
                             span.input-group-addon
                                 i.fa.fa-calendar(aria-hidden="true" )
                 div.col-md-2
                     div.form-group
                         div.input-group
-                            input#to.form-control(type='text', placeholder='To')
+                            input#to.form-control(type='text', placeholder='To' name="endTourDate")
                             span.input-group-addon
                                 i.fa.fa-calendar(aria-hidden="true")
                 .col-md-2
