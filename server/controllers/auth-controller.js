@@ -1,16 +1,18 @@
 /* globals module require */
 "use strict";
 
-module.exports = function () {
+module.exports = function() {
     return {
         getLoginForm(req, res) {
-            res.status(200).send(`
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Username">
-                <input type="text" name="password" placeholder="Password">
-                <input type="submit" value="Login">
-            </form>
-            `);
+            res.status(200)
+                .render("login-page");
+            // .send(`
+            // <form action="/login" method="POST">
+            //     <input type="text" name="username" placeholder="Username">
+            //     <input type="text" name="password" placeholder="Password">
+            //     <input type="submit" value="Login">
+            // </form>
+            // `);
         },
         tryToLogin(req, res) {
             res.status(301)
@@ -25,14 +27,14 @@ module.exports = function () {
             const isLogged = !!req.user;
 
             const user = {
-                user : {
-                    isLogged:isLogged
+                user: {
+                    isLogged: isLogged
                 }
             }
             res.status(200)
                 .render("register", user);
         },
-        tryToCreateUser (req, res) {
+        tryToCreateUser(req, res) {
             res.status(200)
                 .json({
                     success: true,
