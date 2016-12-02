@@ -94,7 +94,7 @@ const { Tour } = models.models;
                     })
                 });
         },
-        getFiltedTours(search) {
+        getSearchResults(search) {
             return new Promise((resolve, reject) => {
                 Tour.find(search, (err, tours) => {
                     if(err) {
