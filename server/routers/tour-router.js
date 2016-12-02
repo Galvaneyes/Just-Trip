@@ -10,9 +10,9 @@ module.exports = function(app, data) {
 
     router
         .get("/", tourController.get)
+        .get("/result")
         .get("/:id", tourController.getTourById)
-        .post("/:id", tourController.postUserInTour)
-        .get("/result");
+        .post("/:id", tourController.postUserInTour);
 
     app.use("/tours", router);
 };
