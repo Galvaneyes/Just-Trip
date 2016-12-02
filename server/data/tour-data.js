@@ -3,9 +3,7 @@ const { Tour } = models.models;
 
     return {
         createTour(tourInfo) {
-
             return new Promise((resolve, reject) => {
-
                 console.log("CREATING TOUR...");
 
                 Tour.create(tourInfo, (err, tour) => {
@@ -33,9 +31,7 @@ const { Tour } = models.models;
         },
         getTourById(tourId) {
             return new Promise((resolve, reject) => {
-
                 console.log(`SEARCHING FOR TOUR WITH ID:${tourId}`);
-
                 Tour.findOne({ _id : tourId }, (err, tour) => {
                     if (err) {
                         console.log("ERROR WHEN CONNECTION TO THE SERVER");
