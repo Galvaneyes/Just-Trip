@@ -3,7 +3,11 @@ extends _layout
 block styles
     link(rel="stylesheet" href="./styles/tour-page.css")
     link(href="./bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet")
-
+    link(rel="stylesheet" href="./calendar-files/styles.css")
+block scripts
+    script(src="./calendar-files/date-format.js")
+    script(src="./calendar-files/ui.js")
+    script(src="./calendar-files/date-picker.js")
 block container
     div.form-section
         div.row
@@ -17,21 +21,22 @@ block container
                 div.col-md-2
                     div.form-group
                         div.input-group
-                            input#checkin.form-control(type='text', placeholder='From')
+                            input#from.form-control(type='text', placeholder='From')
                             span.input-group-addon
                                 i.fa.fa-calendar(aria-hidden="true" )
                 div.col-md-2
                     div.form-group
                         div.input-group
-                            input#checkout.form-control(type='text', placeholder='To')
+                            input#to.form-control(type='text', placeholder='To')
                             span.input-group-addon
                                 i.fa.fa-calendar(aria-hidden="true")
                 .col-md-2
                     button.btn.btn-default.btn-primary(type='submit') Search
                         <i class="fa fa-search" aria-hidden="true"></i>
-    div
-        p searched items: 
-
-
-//- <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-//- <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+    //- div
+    //-     div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+    //-         each tour in tours
+    //-         a.list-group-item.active= tour.headline
+    //-             a.list-group-item= tour.country
+    //-             a.list-group-item= tour.city
+    //-             a.list-group-item= tour.description
