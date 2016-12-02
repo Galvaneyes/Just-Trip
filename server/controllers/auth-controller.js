@@ -6,13 +6,7 @@ module.exports = function(userData) {
         getLoginForm(req, res) {
             res.status(200)
                 .render("login-page");
-            // .send(`
-            // <form action="/login" method="POST">
-            //     <input type="text" name="username" placeholder="Username">
-            //     <input type="text" name="password" placeholder="Password">
-            //     <input type="submit" value="Login">
-            // </form>
-            // `);
+
         },
         tryToLogin(req, res) {
             res.status(301)
@@ -51,8 +45,7 @@ module.exports = function(userData) {
 
             userData.createUser(user)
                 .then(() => {
-                    res.status(301)
-                        .redirect("/home");
+                    res.redirect(307,"/login");
                 })
                 .catch((err) => {
                     res.status(404)
