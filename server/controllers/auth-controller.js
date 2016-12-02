@@ -18,6 +18,9 @@ module.exports = function() {
             res.status(301)
                 .redirect("/home");
         },
+        facebookLogin(req, res) {
+            res.status(301).redirect("/home");
+        },
         userLogout(req, res) {
             req.logout();
             req.session.destroy();

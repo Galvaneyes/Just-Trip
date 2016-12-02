@@ -12,6 +12,10 @@ module.exports = function(app, data) {
     router
         .get("/login", authController.getLoginForm)
         .post("/login", passport.authenticate("local", { failureRedirect: "/fail-to-log-in" }), authController.tryToLogin)
+        .get('/auth/facebook', passport.authenticate('facebook'))
+        .get('/auth/facebook/callback',
+            passport.authenticate('facebook', { failureRedirect: '/login' }),
+            authController.facebookLogin)
         .get("/logout", authController.userLogout)
         .get("/register", authMiddleware.isNotAuthenticated, authController.getRegisterForm)
         .post("/register",authController.tryToCreateUser);

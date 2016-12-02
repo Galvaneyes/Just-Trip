@@ -37,12 +37,51 @@ module.exports = function(models) {
                 });
             });
         },
+        createUserFromFacebook(userInfo) {
+            let user = new User({
+                username: userInfo.username,
+                salt: userInfo.salt,
+                passHash: userInfo.passHash,
+                firstname: userInfo.firstname,
+                lastname: userInfo.lastname,
+                facebookId: userInfo.facebookId,
+                facebookToken: userInfo.facebookToken
+            });
+
+            return new Promise((resolve, reject) => {
+
+                console.log("CREATING FACEBOOK USER...");
+
+                User.create(user, (err, user) => {
+                    console.log(user);
+                    if (err) {
+
+                        console.log("CAN NOT CREATE FACEBOOK USER");
+                        return reject(err);
+                    }
+
+                    console.log("FACEBOOK USER CREATED!");
+                    return resolve(user);
+                });
+            });
+        },
         getUserById(id) {
             return new Promise((resolve, reject) => {
                 console.log(`Searching for user by ${id}`);
                 User.findOne({ _id: id }, (err, user) => {
                     if (err) {
                         console.log(`${id} was not found`);
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        getUserByQuery(query) {
+            return new Promise((resolve, reject) => {
+                User.findOne(query, (err, user) => {
+                    if (err) {
                         return reject(err);
                     }
 

@@ -6,14 +6,16 @@ module.exports = function(tourData) {
         get(req, res) {
             // MOCK LOGGED
             const isLogged = true;
-            if(!isLogged) {
+            if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
             }
 
             res.status(200)
+                .render("search-page")
                 .json({
-                    success: true, functionality: "shows public information for the tour"
+                    success: true,
+                    functionality: "shows public information for the tour"
                 });
         },
         getTourById(req, res) {
@@ -21,11 +23,11 @@ module.exports = function(tourData) {
                 .then(tour => {
                     const result = {
                         result: {
-                            id : tour._id,
+                            id: tour._id,
                             creator: tour.creator,
-                            tourTitle : tour.headline,
+                            tourTitle: tour.headline,
                             tourCountry: tour.country,
-                            tourCity : tour.city,
+                            tourCity: tour.city,
                             currentUsers: tour.getUserCount,
                             capacity: tour.maxUser
                         }
@@ -40,16 +42,15 @@ module.exports = function(tourData) {
                         .send(`TOUR ${err} DOESNT EXIST`);
                 });
         },
-        postUserInTour(req, res){
+        postUserInTour(req, res) {
             tourData.getTourById(req.params.id)
                 .then(tour => {
                     return new Promise((resolve, reject) => {
-                        if(tour.isUserExist(req.body.username))
-                        {
+                        if (tour.isUserExist(req.body.username)) {
                             return reject("You are already added in tour");
                         }
 
-                        if(tour.getUserCount >= tour.maxUser) {
+                        if (tour.getUserCount >= tour.maxUser) {
                             return reject("Max users for tour are reached");
                         }
 
@@ -63,20 +64,20 @@ module.exports = function(tourData) {
                 })
                 .then(tour => {
                     const userTourData = {
-                        userBoughtTours : {
+                        userBoughtTours: {
                             tourId: tour._id,
                             tourTitle: tour.headline,
-                            tourCountry :tour.country,
+                            tourCountry: tour.country,
                             tourCity: tour.city
                         }
                     };
-                           // must be userData!
-                           console.log(req.body.username);
+                    // must be userData!
+                    console.log(req.body.username);
                     return tourData.updateUserArrayProperty(req.body.username, userTourData);
                 })
                 .then(model => {
                     res.status(200)
-                    .json(model)
+                        .json(model)
                 })
                 .catch(err => {
                     console.log(err);
