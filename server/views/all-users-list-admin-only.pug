@@ -1,0 +1,12 @@
+extends _layout
+block container
+    div
+        table.table.table-striped.table-hover 
+            thread
+                tr.success
+                    each user in users
+                    td user.username
+                    td user.firstname
+                    td user.lastname
+
+
