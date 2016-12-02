@@ -89,17 +89,23 @@ module.exports = function(tourData) {
             if(req.query.city) {
                 search.city = `${req.query.city}`;
             }
+
             if(req.query.country) {
                 search.country = `${req.query.country}`;
             }
 
             if(req.query.start) {
+                //let fixDay = 1;
                 let date = new Date(`${req.query.start}`);
+                //date.setDate(date.getDate() + fixDay)
 
                 search.beginTourDate= {$gt: date}
             }
+
             if(req.query.end) {
+                let fixDay = 2;
                 let date = new Date(`${req.query.end}`);
+                date.setDate(date.getDate() + fixDay)
 
                 search.endTourDate= {$lt: date}
             }
@@ -107,7 +113,8 @@ module.exports = function(tourData) {
             if(Object.keys(search).length === 0) {
                 return res.send("SEARCH NOT FOUND")
             }
-
+            console.log(search.beginTourDate);
+            console.log(search.endTourDate);
             tourData.getSearchResults(search)
                 .then(tours => {
                     res.status(200)
