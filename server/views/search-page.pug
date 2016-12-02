@@ -1,3 +1,37 @@
 extends _layout
+
+block styles
+    link(rel="stylesheet" href="./styles/tour-page.css")
+    link(href="./bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet")
+
 block container
-    
+    div.form-section
+        div.row
+            form(role='form')
+                div.col-md-4
+                    div.form-group
+                        input#location.form-control(type='email', placeholder='Country')
+                div.col-md-4
+                    div.form-group
+                        input#location.form-control(type='email', placeholder='City')
+                div.col-md-2
+                    div.form-group
+                        div.input-group
+                            input#checkin.form-control(type='text', placeholder='From')
+                            span.input-group-addon
+                                i.fa.fa-calendar(aria-hidden="true" )
+                div.col-md-2
+                    div.form-group
+                        div.input-group
+                            input#checkout.form-control(type='text', placeholder='To')
+                            span.input-group-addon
+                                i.fa.fa-calendar(aria-hidden="true")
+                .col-md-2
+                    button.btn.btn-default.btn-primary(type='submit') Search
+                        <i class="fa fa-search" aria-hidden="true"></i>
+    div
+        p searched items: 
+
+
+//- <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+//- <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
