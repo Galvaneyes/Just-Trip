@@ -84,19 +84,19 @@ const { Tour } = models.models;
             });
         },
         getToursInRangeOfDates(start,end) {
-        return new Promise((resolve, reject) => {
-            Tour.where("beginTourDate")
-                .gte(start)
-                .where("endTourDate")
-                .lte(end)
-                .exec((err, tours) => {
-                    if(err) {
-                        return reject(err);
-                    }
+            return new Promise((resolve, reject) => {
+                Tour.where("beginTourDate")
+                    .gte(start)
+                    .where("endTourDate")
+                    .lte(end)
+                    .exec((err, tours) => {
+                        if(err) {
+                            return reject(err);
+                        }
 
-                    return resolve(tours)
-                })
-        });
+                        return resolve(tours)
+                    })
+                });
         }
     };
 }

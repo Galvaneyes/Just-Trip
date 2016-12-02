@@ -13,7 +13,7 @@ module.exports = function ({ data }) {
 
     app.set("view engine", "pug");
     app.set("views", path.join(rootPath, "server/views/"));
-    app.use(express.static(path.join(rootPath, "public")));
+    app.use("/", express.static(path.join(rootPath, "public")));
     //app.use("/static", express.static("../../public"));
 
     app.use(cookieParser());
