@@ -104,6 +104,10 @@ module.exports = function(tourData) {
                 search.endTourDate= {$lt: date}
             }
 
+            if(Object.keys(search).length === 0) {
+                return res.send("SEARCH NOT FOUND")
+            }
+
             tourData.getSearchResults(search)
                 .then(tours => {
                     res.status(200)
