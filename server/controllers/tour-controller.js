@@ -13,10 +13,6 @@ module.exports = function(tourData) {
 
             res.status(200)
                 .render("search-page")
-                .json({
-                    success: true,
-                    functionality: "shows public information for the tour"
-                });
         },
         getTourById(req, res) {
             tourData.getTourById(req.params.id)
@@ -107,8 +103,16 @@ module.exports = function(tourData) {
 
                 search.endTourDate= {$lt: date}
             }
-            console.log(search);
-            res.send(`${search}`)
+
+            tourData.getSearchResults(search)
+                .then(tours => {
+                    res.status(200)
+                        .send(tours);
+                })
+                .catch(err => {
+                    res.status(404)
+                        .send("ERROR WHEN SEARCH")
+                })
         }
     }
 }

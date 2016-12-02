@@ -82,7 +82,7 @@ let searchh = { city: 'Sofia',
   beginTourDate: { '$gt': new Date('2016-11-29') },
   endTourDate: { '$lt': new Date('2016-12-1') } };
 
-data.getFiltedTours(searchh)
+data.getSearchResults(searchh)
     .then(tours => {
         console.log(tours);
     })
