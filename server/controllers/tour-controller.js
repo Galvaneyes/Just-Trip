@@ -82,6 +82,32 @@ module.exports = function(tourData) {
                     console.log(err);
                     res.redirect(`/tours/${req.params.id}`)
                 })
+        },
+        getSearchResults(req, res) {
+
+            console.log(req.query);
+
+            let search = {};
+
+            if(req.query.city) {
+                search.city = `${req.query.city}`;
+            }
+            if(req.query.country) {
+                search.country = `${req.query.country}`;
+            }
+
+            if(req.query.start) {
+                let date = new Date(`${req.query.start}`);
+
+                search.beginTourDate= {$gt: date}
+            }
+            if(req.query.end) {
+                let date = new Date(`${req.query.end}`);
+
+                search.endTourDate= {$lt: date}
+            }
+            console.log(search);
+            res.send(`${search}`)
         }
     }
 }

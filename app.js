@@ -62,14 +62,33 @@ const tour = {
 //         return data.createUser(admin);
 //     })
 
-data.getToursInRangeOfDates(new Date("2016-12-10T18:29:18.332Z"), new Date("2016-12-12T18:29:18.332Z"))
+// data.getToursInRangeOfDates(new Date("2016-12-10T18:29:18.332Z"), new Date("2016-12-12T18:29:18.332Z"))
+//     .then(tours => {
+//         console.log(tours);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
+
+// let search = {
+//     city: undefined || "Sofia",
+//     country: "Bulgaria",
+//     beginTourDate: { $gt: new Date("2016-12-1")},
+//     endTourDate:{ $lt: new Date("2016-12-30")}
+// };
+
+let searchh = { city: 'Sofia',
+  country: 'Bulgaria',
+  beginTourDate: { '$gt': new Date('2016-11-29') },
+  endTourDate: { '$lt': new Date('2016-12-1') } };
+
+data.getFiltedTours(searchh)
     .then(tours => {
         console.log(tours);
     })
     .catch(err => {
         console.log(err);
     })
-
 //COUNTRY TEST
 // const Bulgaria = {
 //     name: "Bulgaria",
