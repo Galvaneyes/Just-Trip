@@ -14,33 +14,33 @@ describe("Test environment", () => {
     // })
 
     describe("Test country data", () => {
-        let Country = { 
-            find: () => { },
-            findOne: () => { },
-         };
+        let Country = {
+            find: () => { }
+            //findOne: () => { }
+        };
         describe("Test getAllCountries_()", () => {
-            
-            let data = require("../server/data/country-data")({models:{ Country }});
-            
+
+
+            //require
             it("Expect to return 2 countries", done => {
                 //arrange
                 let countries = ["Bulgaria", "Austria"];
-                sinon.stub(Country, "find", cb=>{
-                    console.log("within country");
+                sinon.stub(Country, 'find', (_, cb) => {
                     cb(null, countries);
                 });
-               
+
                 //act
+                let data = require("../server/data/country-data")({ models: { Country } });
                 data.getAllCountries_()
-                .then(actualCountries =>{
-                    //assert
-                    console.log("assert");
-                    expect(actualCountries).to.eql(countries);
-                    done();
-                })
-                .catch(err => {
-                    //console.log(err);                    
-                });
+                    .then(actualCountries => {
+                        //assert
+                        console.log("assert");
+                        expect(actualCountries).to.eql(countries);
+                        done();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             });
         });
 
