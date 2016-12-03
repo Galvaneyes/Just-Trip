@@ -1,11 +1,11 @@
 /* globals module require */
 "use strict";
 
-module.exports = function (countryData) {
-    const adapter = require("./adapters/tour-site")(countryData);
+module.exports = function({ data }) {
+    const adapter = require("./adapters/tour-site")(data);
     return {
         updateCountryData(req, res) {
-            const isLogged = true;  //for testing purposes
+            const isLogged = true; //for testing purposes
             if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
@@ -14,14 +14,15 @@ module.exports = function (countryData) {
 
                 res.status(200)
                     .json({
-                        success: true, functionality: "shows private country information for the country"
+                        success: true,
+                        functionality: "shows private country information for the country"
                     });
             }
         },
 
         seedCountryData(req, res) {
 
-            const isLogged = true;  //for testing purposes
+            const isLogged = true; //for testing purposes
             if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
@@ -32,10 +33,10 @@ module.exports = function (countryData) {
             }
         },
         getCountryByName(req, res) {
-            countryData.getCountryByName(req.params.name)
+            data.getCountryByName(req.params.name)
                 .then(country => {
                     res.status(200)
-                        .json(country)
+                        .json(country);
                 })
                 .catch(err => {
                     console.log(`COUNTRY ${err} DOESNT EXIST`); //is this a descriptive error message
@@ -44,10 +45,10 @@ module.exports = function (countryData) {
                 });
         },
         getCountryByKeyword(req, res) {
-            countryData.getCountryByKeyWord(req.params.keyword)
+            data.getCountryByKeyWord(req.params.keyword)
                 .then(country => {
                     res.status(200)
-                        .json(country)
+                        .json(country);
                 })
                 .catch(err => {
                     console.log(`COUNTRY ${err} DOESNT EXIST`); //is this a descriptive error message
@@ -56,17 +57,17 @@ module.exports = function (countryData) {
                 });
         },
         getAllCountries(req, res) {
-            countryData.getAllCountries("name")
+            data.getAllCountries("name")
                 .then(countryList => {
                     console.log(countryList[0].name);
-                    res.render("user-list", {result: countryList, user:{isLogged :true }});
+                    res.render("user-list", { result: countryList, user: { isLogged: true } });
                 })
                 .catch(err => {
-                    console.log(`COUNTRY LIST ERROR`); //is this a descriptive error message
+                    console.log(`COUNTRY LIST ERROR: ${err}`); //is this a descriptive error message
                     res.status(404)
                         .send(`COUNTRY LIST ERROR`);
                 });
         }
 
-    }
-}
+    };
+};

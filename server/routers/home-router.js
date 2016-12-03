@@ -3,9 +3,8 @@
 
 const express = require("express");
 
-module.exports = function(app, data) {
-    const passport = require("passport");
-    const homeController = require("../controllers/home-controller.js")(data);
+module.exports = function({ app, data }) {
+    const homeController = require("../controllers/home-controller.js")({ data });
     const router = express.Router();
 
     router

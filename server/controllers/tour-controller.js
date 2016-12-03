@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function(tourData) {
+module.exports = function({ data }) {
     return {
         get(req, res) {
             // MOCK LOGGED
@@ -12,10 +12,10 @@ module.exports = function(tourData) {
             }
 
             res.status(200)
-                .render("search-page")
+                .render("search-page");
         },
         getTourById(req, res) {
-            tourData.getTourById(req.params.id)
+            data.getTourById(req.params.id)
                 .then(tour => {
                     const result = {
                         result: {
@@ -30,7 +30,7 @@ module.exports = function(tourData) {
                     };
 
                     res.status(200)
-                        .render("tourID-addUser", result)
+                        .render("tourID-addUser", result);
                 })
                 .catch(err => {
                     console.log(`TOUR ${err} DOESNT EXIST`);
@@ -39,7 +39,7 @@ module.exports = function(tourData) {
                 });
         },
         postUserInTour(req, res) {
-            tourData.getTourById(req.params.id)
+            data.getTourById(req.params.id)
                 .then(tour => {
                     return new Promise((resolve, reject) => {
                         if (tour.isUserExist(req.body.username)) {
@@ -50,28 +50,29 @@ module.exports = function(tourData) {
                             return reject("Max users for tour are reached");
                         }
 
-                        tourData.getUserByUsername(req.body.username)
+                        data.getUserByUsername(req.body.username)
                             .then(user => {
                                 const data = {
                                     user,
                                     tour
-                                }
+                                };
                                 return resolve(data);
                             })
                             .catch(err => {
-                                return reject("User doent exist")
-                            })
+                                console.log(err);
+                                return reject("User doent exist");
+                            });
                     });
                 })
                 .then(data => {
                     data.tour.usersInTour.push(req.body.username);
 
-                    return tourData.updateTour(data.tour)
+                    return data.updateTour(data.tour)
                         .then(tour => {
                             const dataUp = {
-                                tour:tour,
-                                user:data.user
-                            }
+                                tour: tour,
+                                user: data.user
+                            };
                             console.log(`DATA UP ==> ${dataUp}`);
                             return dataUp;
                         })
@@ -79,9 +80,9 @@ module.exports = function(tourData) {
                             // MAY BE IT iS WRONG!
                             console.log(err);
                             return err;
-                        })
+                        });
 
-                    //return tourData.updateTour(tour);
+                    //return data.updateTour(tour);
                 })
                 .then(data => {
                     const userTourData = {
@@ -96,16 +97,16 @@ module.exports = function(tourData) {
                     console.log(data.user);
                     data.user.userBoughtTours.push(userTourData);
 
-                    return tourData.updateUser(data.user);
+                    return data.updateUser(data.user);
                 })
                 .then(model => {
                     res.status(200)
-                        .json(model)
+                        .json(model);
                 })
                 .catch(err => {
                     console.log(err);
-                    res.redirect(`/tours/${req.params.id}`)
-                })
+                    res.redirect(`/tours/${req.params.id}`);
+                });
         },
         getSearchResults(req, res) {
 
@@ -113,44 +114,45 @@ module.exports = function(tourData) {
 
             let search = {};
 
-            if(req.query.city) {
+            if (req.query.city) {
                 search.city = `${req.query.city}`;
             }
 
-            if(req.query.country) {
+            if (req.query.country) {
                 search.country = `${req.query.country}`;
             }
 
-            if(req.query.start) {
+            if (req.query.start) {
                 //let fixDay = 1;
                 let date = new Date(`${req.query.start}`);
                 //date.setDate(date.getDate() + fixDay)
 
-                search.beginTourDate= {$gt: date}
+                search.beginTourDate = { $gt: date };
             }
 
-            if(req.query.end) {
+            if (req.query.end) {
                 let fixDay = 2;
                 let date = new Date(`${req.query.end}`);
-                date.setDate(date.getDate() + fixDay)
+                date.setDate(date.getDate() + fixDay);
 
-                search.endTourDate= {$lt: date}
+                search.endTourDate = { $lt: date };
             }
 
-            if(Object.keys(search).length === 0) {
-                return res.send("SEARCH NOT FOUND")
+            if (Object.keys(search).length === 0) {
+                return res.send("SEARCH NOT FOUND");
             }
             console.log(search.beginTourDate);
             console.log(search.endTourDate);
-            tourData.getSearchResults(search)
+            data.getSearchResults(search)
                 .then(tours => {
                     res.status(200)
                         .send(tours);
                 })
                 .catch(err => {
+                    console.log(err);
                     res.status(404)
-                        .send("ERROR WHEN SEARCH")
-                })
+                        .send("ERROR WHEN SEARCH");
+                });
         }
-    }
-}
+    };
+};

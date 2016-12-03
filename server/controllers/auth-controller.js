@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function(userData) {
+module.exports = function({ data }) {
     return {
         getLoginForm(req, res) {
             res.status(200)
@@ -33,7 +33,7 @@ module.exports = function(userData) {
                 user: {
                     isLogged: isLogged
                 }
-            }
+            };
             res.status(200)
                 .render("register", user);
         },
@@ -47,17 +47,17 @@ module.exports = function(userData) {
                 age: req.body.age,
                 country: req.body.country,
                 city: req.body.city
-            }
+            };
 
-            userData.createUser(user)
+            data.createUser(user)
                 .then(() => {
                     res.status(301)
                         .redirect("/home");
                 })
-                .catch((err) => {
+                .catch(err => {
                     res.status(404)
-                        .send(`REGISTER FAIL, TRY AGAIN ===>${err}`)
-                })
+                        .send(`REGISTER FAIL, TRY AGAIN ===>${err}`);
+                });
         }
     };
-}
+};

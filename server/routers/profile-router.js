@@ -4,9 +4,9 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/auth-middleware");
 
-module.exports = function(app, userData) {
+module.exports = function({ app, data }) {
     const router = new express.Router();
-    const profileController = require("../controllers/profile-controller.js")(userData);
+    const profileController = require("../controllers/profile-controller.js")({ data });
 
     router
         .get("/", authMiddleware.isAuthenticated, profileController.getLoggedUserData)

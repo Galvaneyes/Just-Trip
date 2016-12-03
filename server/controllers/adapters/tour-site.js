@@ -4,7 +4,7 @@ const httpRequester = require("../../../utils/http-requester");
 const htmlParser = require("../../../utils/html-parser");
 //const DataCountry = require("../../data/country-data");
 
-module.exports = function (countryData) {
+module.exports = function(countryData) {
 
     function parseAll(href, html) {
         let res = "(" + href + ")" + html;
@@ -13,7 +13,7 @@ module.exports = function (countryData) {
     }
 
     function waitRandom(time) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             setTimeout(() => {
                 resolve();
             }, Math.random() * time);
@@ -30,7 +30,7 @@ module.exports = function (countryData) {
         console.log("Working with countries urls: " + url);
         // console.log("after:" + urlCountries.length);
         return httpRequester.get(url)
-            .then((result) => {
+            .then(result => {
                 let selector = 'div.hl > div:nth-child(1) > ul > li';
                 const html = result.body;
                 return htmlParser.simpleParser(selector, html);
@@ -48,17 +48,17 @@ module.exports = function (countryData) {
                 };
                 countryData.createCountry(obj);
                 console.log("save from" + url);
-                return waitRandom(500).then(() => { return getDestinationInfo(urlMain) });
+                return waitRandom(500).then(() => { return getDestinationInfo(urlMain); });
             })
 
-            .catch((err) => {
-                console.dir(err, { colors: true });
-            });
+        .catch(err => {
+            console.dir(err, { colors: true });
+        });
     }
 
     function getList(url) {
         return httpRequester.get(url)
-            .then((result) => {
+            .then(result => {
                 //let selector = 'body > header > div.r3 > ul > li';
                 let selector = 'a[href*="/d/"]';
                 const html = result.body;
@@ -66,7 +66,7 @@ module.exports = function (countryData) {
 
                 return htmlParser.simpleParser(selector, html);
             })
-            .catch((err) => {
+            .catch(err => {
                 console.dir(err, { colors: true });
             });
     }
@@ -84,9 +84,9 @@ module.exports = function (countryData) {
     return {
         getHits(req, res) {
             getList(`http://www.tourradar.com`).then(resultList => {
-                urlCountries = resultList; //.slice(0, 20);
-                return getParallel();
-            })
+                    urlCountries = resultList; //.slice(0, 20);
+                    return getParallel();
+                })
                 .then(r => {
                     return res.render("tour-list", {
                         result: r

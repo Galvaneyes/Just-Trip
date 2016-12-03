@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function(userData) {
+module.exports = function({ data }) {
     return {
         getLoggedUserData(req, res) {
 
@@ -16,17 +16,17 @@ module.exports = function(userData) {
             //            functionality: "shows public information for the user"
             //        });
             //}
-            userData.getUserByUsername(req.user.username)
+            data.getUserByUsername(req.user.username)
                 .then(user => {
                     const profile = {
-                        user : {
-                            isLogged:true,
+                        user: {
+                            isLogged: true,
                             userOfferTours: user.userOfferTours,
                             userBoughtTours: user.userBoughtTours
                         }
-                    }
+                    };
                     res.status(200)
-                        .render("profile", profile)
+                        .render("profile", profile);
                 })
                 .catch(err => {
                     console.log(`USER ${err} DOESNT EXIST`);
@@ -35,10 +35,10 @@ module.exports = function(userData) {
                 });
         },
         getUserByUsername(req, res) {
-            userData.getUserByUsername(req.params.name)
+            data.getUserByUsername(req.params.name)
                 .then(user => {
                     res.status(200)
-                        .json(user)
+                        .json(user);
                 })
                 .catch(err => {
                     console.log(`USER ${err} DOESNT EXIST`);
@@ -46,5 +46,5 @@ module.exports = function(userData) {
                         .send(`USER ${err} DOESNT EXIST`);
                 });
         }
-    }
-}
+    };
+};

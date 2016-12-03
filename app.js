@@ -6,7 +6,7 @@ const data = require("./server/data")(config);
 const app = require("./server/config/application")({ data });
 const pug = require("pug");
 const fs = require("fs");
-require("./server/routers")(app, data);
+require("./server/routers")({ app, data });
 
 // TEST FOR CREATING AND FINDING
 const admin = {
@@ -77,10 +77,12 @@ const tour = {
 //     endTourDate:{ $lt: new Date("2016-12-30")}
 // };
 
-let searchh = { city: 'Sofia',
-  country: 'Bulgaria',
-  beginTourDate: { '$gt': new Date('2016-11-29') },
-  endTourDate: { '$lt': new Date('2016-12-1') } };
+let searchh = {
+    city: 'Sofia',
+    country: 'Bulgaria',
+    beginTourDate: { '$gt': new Date('2016-11-29') },
+    endTourDate: { '$lt': new Date('2016-12-1') }
+};
 
 data.getSearchResults(searchh)
     .then(tours => {
@@ -88,7 +90,7 @@ data.getSearchResults(searchh)
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 //COUNTRY TEST
 // const Bulgaria = {
 //     name: "Bulgaria",

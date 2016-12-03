@@ -3,10 +3,10 @@
 
 const express = require("express");
 
-module.exports = function(app, data) {
+module.exports = function({ app, data }) {
     const passport = require("passport");
     const authMiddleware = require("../middlewares/auth-middleware");
-    const authController = require("../controllers/auth-controller.js")(data);
+    const authController = require("../controllers/auth-controller.js")({ data });
     const router = express.Router();
 
     router
@@ -18,7 +18,7 @@ module.exports = function(app, data) {
             authController.facebookLogin)
         .get("/logout", authController.userLogout)
         .get("/register", authMiddleware.isNotAuthenticated, authController.getRegisterForm)
-        .post("/register",authController.tryToCreateUser);
+        .post("/register", authController.tryToCreateUser);
 
     app.use("/", router);
 };

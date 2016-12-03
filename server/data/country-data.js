@@ -1,11 +1,11 @@
-module.exports = function (models) {
+module.exports = function(models) {
     const { Country } = models.models;
 
     return {
         createCountry(countryObj) {
             return new Promise((resolve, reject) => {
                 console.log("CREATING/UPDATING COUNTRY...");
-                Country.findOne({ name: countryObj.name }, function (err, country) {
+                Country.findOne({ name: countryObj.name }, function(err, country) {
                     if (!err) {
                         if (!country) {
                             country = Country.getCountry(countryObj);
@@ -13,7 +13,7 @@ module.exports = function (models) {
                             country.description = countryObj.description;
                             country.countryUrl = countryObj.countryUrl;
                         }
-                        country.save(function (err) {
+                        country.save(function(err) {
                             if (err) {
                                 console.log("CANNOT CREATE COUNTRY");
                                 return reject(err);
@@ -23,7 +23,7 @@ module.exports = function (models) {
                         });
                     }
                 });
-             });
+            });
         },
         createCountry__(countryInfo) {
 
@@ -62,7 +62,7 @@ module.exports = function (models) {
                     console.log(`COUNTRY WITH ${countryId} WAS FOUND`);
                     return resolve(country);
                 });
-            })
+            });
         },
         getCountryByName(countryName) {
             return new Promise((resolve, reject) => {
@@ -83,7 +83,7 @@ module.exports = function (models) {
                     console.log(`COUNTRY WITH ${countryName} WAS FOUND`);
                     return resolve(country);
                 });
-            })
+            });
         },
         getAllCountries_() {
             return new Promise((resolve, reject) => {
@@ -114,4 +114,4 @@ module.exports = function (models) {
             });
         }
     };
-}
+};

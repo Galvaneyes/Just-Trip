@@ -1,5 +1,5 @@
 module.exports = function(models) {
-const { Tour } = models.models;
+    const { Tour } = models.models;
 
     return {
         createTour(tourInfo) {
@@ -22,7 +22,7 @@ const { Tour } = models.models;
             return new Promise((resolve, reject) => {
                 tourInfo.save(err => {
                     if (err) {
-                    return reject(err);
+                        return reject(err);
                     }
 
                     return resolve(tourInfo);
@@ -32,13 +32,13 @@ const { Tour } = models.models;
         getTourById(tourId) {
             return new Promise((resolve, reject) => {
                 console.log(`SEARCHING FOR TOUR WITH ID:${tourId}`);
-                Tour.findOne({ _id : tourId }, (err, tour) => {
+                Tour.findOne({ _id: tourId }, (err, tour) => {
                     if (err) {
                         console.log("ERROR WHEN CONNECTION TO THE SERVER");
                         return reject(err);
                     }
 
-                    if(!tour) {
+                    if (!tour) {
                         console.log(`TOUR WITH ${tourId} WAS NOT FOUND`);
                         return reject(tourId);
                     }
@@ -46,7 +46,7 @@ const { Tour } = models.models;
                     console.log(`TOUR WITH ${tourId} WAS FOUND`);
                     return resolve(tour);
                 });
-            })
+            });
         },
         getTourByRange(page, size) {
             return new Promise((resolve, reject) => {
@@ -79,31 +79,31 @@ const { Tour } = models.models;
                 });
             });
         },
-        getToursInRangeOfDates(start,end) {
+        getToursInRangeOfDates(start, end) {
             return new Promise((resolve, reject) => {
                 Tour.where("beginTourDate")
                     .gte(start)
                     .where("endTourDate")
                     .lte(end)
                     .exec((err, tours) => {
-                        if(err) {
+                        if (err) {
                             return reject(err);
                         }
 
-                        return resolve(tours)
-                    })
-                });
+                        return resolve(tours);
+                    });
+            });
         },
         getSearchResults(search) {
             return new Promise((resolve, reject) => {
                 Tour.find(search, (err, tours) => {
-                    if(err) {
+                    if (err) {
                         return reject(err);
                     }
 
-                    return resolve(tours)
-                })
-            })
+                    return resolve(tours);
+                });
+            });
         }
     };
-}
+};

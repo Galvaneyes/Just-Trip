@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function(data) {
+module.exports = function({ data }) {
     return {
         get(req, res) {
             const isLogged = !!req.user;
@@ -11,18 +11,18 @@ module.exports = function(data) {
                     .send("YOU ARE NOT LOGGED");
             } else {
                 const user = {
-                user : {
-                    isLogged:isLogged
-                }
-            }
-                res.status(200).render("publish-travel", user)
+                    user: {
+                        isLogged: isLogged
+                    }
+                };
+                res.status(200).render("publish-travel", user);
             }
         },
         createTour(req, res) {
-            // MOCK USER 
-            if(!req.user) {
+            // MOCK USER
+            if (!req.user) {
                 return res.status(401)
-                        .send("You are not logged")
+                    .send("You are not logged");
             }
 
             const toursDetails = req.body;
@@ -33,10 +33,10 @@ module.exports = function(data) {
             data.createTour(toursDetails)
                 .then(tour => {
                     const userTourData = {
-                        userOfferTours : {
+                        userOfferTours: {
                             tourId: tour._id,
                             tourTitle: tour.headline,
-                            tourCountry :tour.country,
+                            tourCountry: tour.country,
                             tourCity: tour.city
                         }
                     };
@@ -45,7 +45,7 @@ module.exports = function(data) {
                 })
                 .then(model => {
                     res.status(200)
-                    .json(model);
+                        .json(model);
                 })
                 .catch(err => {
                     console.log(`TOUR ${err} CANT BE CREATED`);
@@ -53,5 +53,5 @@ module.exports = function(data) {
                         .send(`TOUR ${err} CANT BE CREATED`);
                 });
         }
-    }
-}
+    };
+};
