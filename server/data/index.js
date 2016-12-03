@@ -21,7 +21,7 @@ module.exports = function (config) {
     fs.readdirSync("./server/data")
         .filter(x => x.includes("-data"))
         .forEach(file => {
-            const dataModule = require(path.join(__dirname, file))({ models }); //use only models
+            const dataModule = require(path.join(__dirname, file))(models); //use only models
 
             Object.keys(dataModule)
                 .forEach(key => {

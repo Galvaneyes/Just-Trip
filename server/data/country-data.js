@@ -1,5 +1,5 @@
 module.exports = function(models) {
-    const { Country } = models.models;
+    const { Country } = models;
 
     return {
         createCountry(countryObj) {

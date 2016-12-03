@@ -1,5 +1,5 @@
 module.exports = function(models) {
-    const { City } = models.models;
+    const { City } = models;
 
     return {
         createCity(cityObj) {
