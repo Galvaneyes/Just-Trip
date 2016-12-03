@@ -10,7 +10,7 @@ block container
             img.img-circle.img-shadow(alt='', src='./images/profile-picture.png')
             div.info
             div.title
-                a.animated.fadeInUp(target='_blank', href='#') #{user.username}
+                a.animated.fadeInUp(href='/profile') #{user.username}
             div.desc #{user.firstname}
             div.desc #{user.lastname}
             div.desc #{user.email}
