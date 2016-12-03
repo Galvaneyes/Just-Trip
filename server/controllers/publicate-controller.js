@@ -74,6 +74,7 @@ module.exports = function({ data, io }) {
                         .send(`TOUR ${err} CANT BE CREATED`);
                 });
         },
+        // UNDERCONSTRUCTION!!
         removeTour(req, res) {
             if (!req.user) {
                 return res.status(401)
@@ -89,7 +90,22 @@ module.exports = function({ data, io }) {
                         res.send("NOT AUTHORIZED")
                     }
 
-                    res.send("AUTHORIZED")
+                    // const searchParams = {
+                    //     userBoughtTours.tourId: {
+                    //         $in : [ {tourId : req.params.id}]
+                    // }};
+
+                    return data.getSearchResults({userBoughtTours : {$elemMatch : {tourCity : "Sofia"}}});
+                })
+                .then(users => {
+                    // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
+                    console.log("FIRST ===>" + users);
+                    // console.log("RESULTS ====>" + newUsers);
+                    res.send(users);
+                })
+                .catch(err => {
+                    console.log("ERROOOOR =====>" + err);
+                    res.send(err)
                 })
         }
     };
