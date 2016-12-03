@@ -88,7 +88,8 @@ data.getSearchResults(searchh)
     })
     .catch(err => {
         console.log(err);
-    })
+    });
+
 //COUNTRY TEST
 // const Bulgaria = {
 //     name: "Bulgaria",
