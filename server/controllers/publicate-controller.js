@@ -11,7 +11,7 @@ module.exports = function({ data, io }) {
             } else {
                 const user = {
                     user: {
-                        isLogged: isLogged
+                        isLogged: !!req.user
                     }
                 };
                 res.status(200).render("publish-travel", user);
@@ -79,6 +79,18 @@ module.exports = function({ data, io }) {
                 return res.status(401)
                     .render("not-login");
             }
+
+            console.log(req.params.id);
+            data.getTourById(req.params.id)
+                .then(tour => {
+                    console.log("REQESTER ====> " + req.user.username);
+                    console.log("CREATOR =====> " + tour.creator);
+                    if(req.user.username !== tour.creator) {
+                        res.send("NOT AUTHORIZED")
+                    }
+
+                    res.send("AUTHORIZED")
+                })
         }
     };
 };

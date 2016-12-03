@@ -52,11 +52,11 @@ module.exports = function({ data }) {
 
                         data.getUserByUsername(req.body.username)
                             .then(user => {
-                                const data = {
+                                const dataCollection = {
                                     user,
                                     tour
                                 };
-                                return resolve(data);
+                                return resolve(dataCollection);
                             })
                             .catch(err => {
                                 console.log(err);
@@ -64,14 +64,15 @@ module.exports = function({ data }) {
                             });
                     });
                 })
-                .then(data => {
-                    data.tour.usersInTour.push(req.body.username);
+                .then(dataCollection => {
+                    dataCollection.tour.usersInTour.push(req.body.username);
+                    console.log(data);
 
-                    return data.updateTour(data.tour)
+                    return data.updateTour(dataCollection.tour)
                         .then(tour => {
                             const dataUp = {
                                 tour: tour,
-                                user: data.user
+                                user: dataCollection.user
                             };
                             console.log(`DATA UP ==> ${dataUp}`);
                             return dataUp;
@@ -82,20 +83,20 @@ module.exports = function({ data }) {
                             return err;
                         });
                 })
-                .then(data => {
+                .then(dataCollection => {
                     const userTourData = {
                         userBoughtTours: {
-                            tourId: data.tour._id,
-                            tourTitle: data.tour.headline,
-                            tourCountry: data.tour.country,
-                            tourCity: data.tour.city
+                            tourId: dataCollection.tour._id,
+                            tourTitle: dataCollection.tour.headline,
+                            tourCountry: dataCollection.tour.country,
+                            tourCity: dataCollection.tour.city
                         }
                     };
                     // must be userData!
-                    console.log(data.user);
-                    data.user.userBoughtTours.push(userTourData);
+                    console.log(dataCollection.user);
+                    dataCollection.user.userBoughtTours.push(userTourData);
 
-                    return data.updateUser(data.user);
+                    return data.updateUser(dataCollection.user);
                 })
                 .then(model => {
                     res.status(200)
