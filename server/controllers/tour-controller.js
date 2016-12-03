@@ -4,15 +4,15 @@
 module.exports = function({ data }) {
     return {
         get(req, res) {
-            // MOCK LOGGED
-            const isLogged = true;
-            if (!isLogged) {
-                res.status(401)
-                    .send("YOU ARE NOT LOGGED");
-            }
+            const isLogged = !!req.user;
+            const user = {
+                user: {
+                    isLogged: isLogged
+                }
+            };
 
             res.status(200)
-                .render("search-page");
+                .render("search-page", user);
         },
         getTourById(req, res) {
             data.getTourById(req.params.id)
