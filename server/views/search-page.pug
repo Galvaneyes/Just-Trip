@@ -33,10 +33,11 @@ block container
                 .col-md-2
                     button.btn.btn-default.btn-primary(type='submit') Search
                         i.fa.fa-search(aria-hidden="true")
-    //- div
-    //-     div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
-    //-         each tour in tours
-    //-         a.list-group-item.active(href="/tours/#{tour.headline}")= tour.headline
-    //-             a.list-group-item= tour.country
-    //-             a.list-group-item= tour.city
-    //-             a.list-group-item= tour.description
+    if tours
+        div 
+            div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+                each tour in tours
+                    a.list-group-item.active(href="/tours/"+ tour._id)= tour.headline
+                        a.list-group-item= tour.country
+                        a.list-group-item= tour.city
+                        a.list-group-item= tour.description
