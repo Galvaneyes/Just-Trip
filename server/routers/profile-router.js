@@ -10,7 +10,8 @@ module.exports = function({ app, data }) {
 
     router
         .get("/", authMiddleware.isAuthenticated, profileController.getLoggedUserData)
-        .post("/", authMiddleware.isAuthenticated, profileController.getLoggedUserData)
+        .get("/edit", (req, res) => {res.send(`<form method="POST" action="/profile"><input type="text" name="firstname"><input type="submit">`)})
+        .post("/", authMiddleware.isAuthenticated, profileController.updateUserProfile)
         .get("/:name", profileController.getUserByUsername);
 
     app.use("/profile", router);
