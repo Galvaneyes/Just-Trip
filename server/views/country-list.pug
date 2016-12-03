@@ -1,0 +1,9 @@
+extends _layout
+
+block container
+    each country in countryList
+        h1(class="country-name" id=country._id) #{country.name}
+    div#ShowInfo
+    button#test TestAjax
+block scripts
+    script(src="/scripts/country.js")

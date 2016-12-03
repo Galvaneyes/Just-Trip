@@ -12,7 +12,8 @@ module.exports = function (config) {
     const User = require("../models/user-model.js");
     const Tour = require("../models/tour-model.js");
     const Country = require("../models/country-model.js");
-    const models = { User, Tour, Country };
+    const City = require("../models/city-model.js");
+    const models = { User, Tour, Country, City };
     const data = {};
 
     // It finds all properties
@@ -20,7 +21,7 @@ module.exports = function (config) {
     fs.readdirSync("./server/data")
         .filter(x => x.includes("-data"))
         .forEach(file => {
-            const dataModule = require(path.join(__dirname, file))({ models });
+            const dataModule = require(path.join(__dirname, file))({ models }); //use only models
 
             Object.keys(dataModule)
                 .forEach(key => {

@@ -1,6 +1,7 @@
-/*globals require describe it*/
+/*globals require Promise describe it*/
 
-let chai = require("chai");
+const chai = require("chai");
+const sinon = require("sinon");
 let expect = chai.expect;
 
 describe("Test environment", () => {
@@ -8,7 +9,46 @@ describe("Test environment", () => {
         expect(1).to.equal(1);
     });
 
-    it("Expect to fail", () => {
-        expect(1).to.equal(2);
+    // it("Expect to fail", () => {
+    //     expect(1).to.equal(2);
+    // })
+
+    describe("Test country data", () => {
+        let Country = { 
+            find: () => { },
+            findOne: () => { },
+         };
+        describe("Test getAllCountries_()", () => {
+            
+            let data = require("../server/data/country-data")({models:{ Country }});
+            
+            it("Expect to return 2 countries", done => {
+                //arrange
+                let countries = ["Bulgaria", "Austria"];
+                sinon.stub(Country, "find", cb=>{
+                    console.log("within country");
+                    cb(null, countries);
+                });
+               
+                //act
+                data.getAllCountries_()
+                .then(actualCountries =>{
+                    //assert
+                    console.log("assert");
+                    expect(actualCountries).to.eql(countries);
+                    done();
+                })
+                .catch(err => {
+                    //console.log(err);                    
+                });
+            });
+        });
+
+        describe("Test getCountriesById()", () => {
+            //let data=require("../server/data/tour-data")();
+
+            //it("Expect to return 1 tour",()=>{
+
+        });
     })
 })
