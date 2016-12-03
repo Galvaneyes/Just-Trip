@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function({ data }) {
+module.exports = function({ data, io }) {
     return {
         get(req, res) {
             const isLogged = !!req.user;
@@ -43,9 +43,17 @@ module.exports = function({ data }) {
 
                     return data.updateUserProperty(user, userTourData);
                 })
-                .then(model => {
+                .then(({ updatedUser, tour }) => {
+                    io.sockets.emit('newTour', {
+                        headline: `${toursDetails.headline}`,
+                        country: `${toursDetails.country}`,
+                        city: `${toursDetails.city}`,
+                        date: `${toursDetails.beginTourDate}`,
+                        tourId: `${tour.tourId}`,
+                        creator: `${user}`
+                    });
                     res.status(200)
-                        .json(model);
+                        .json(updatedUser);
                 })
                 .catch(err => {
                     console.log(`TOUR ${err} CANT BE CREATED`);

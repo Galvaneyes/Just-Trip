@@ -9,6 +9,7 @@ html(lang="en")
         link(rel="stylesheet" href="./styles/bootstrap-css.css")
         link(rel="stylesheet" href="./styles/main.css")
         link(rel="stylesheet" href="./styles/animate.css")
+        link(rel="stylesheet" href="./styles/notifications.css")
         block styles
 
     body
@@ -57,12 +58,16 @@ html(lang="en")
         div.container.home-page
             block container
 
+        div#notification
+
         footer
             div.panel-footer.footer
                 p.footer-text Copyright © Just-Trip 2016. All right reserved. 
 
     script(src="/bower_components/jquery/dist/jquery.js")
     script(src="/bower_components/bootstrap/dist/js/bootstrap.js")
+    script(src="../socket.io/socket.io.js")
+    script(src="../scripts/sockets.js")
     block scripts
     
 

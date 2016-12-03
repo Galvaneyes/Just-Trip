@@ -3,10 +3,11 @@
 
 const config = require("./server/config");
 const data = require("./server/data")(config);
-const app = require("./server/config/application")({ data });
+const { app, server } = require("./server/config/application")({ data });
+let io = require("./server/config/sockets")({ server });
 const pug = require("pug");
 const fs = require("fs");
-require("./server/routers")({ app, data });
+require("./server/routers")({ app, data, io });
 
 // TEST FOR CREATING AND FINDING
 const admin = {
@@ -114,6 +115,6 @@ data.getSearchResults(searchh)
 //     });
 
 //End of country test
-app.listen(config.port, () => {
+server.listen(config.port, () => {
     console.log(`Application listen on port: ${config.port}`);
 });

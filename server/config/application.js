@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-module.exports = function ({ data }) {
+module.exports = function({ data }) {
     const app = express();
     const rootPath = path.join(__dirname, "/../../");
 
@@ -23,5 +23,7 @@ module.exports = function ({ data }) {
 
     require("./passport")({ app, data });
 
-    return app;
+    const server = require('http').createServer(app);
+
+    return { app, server };
 };

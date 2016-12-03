@@ -192,8 +192,10 @@ module.exports = function(models) {
                         // if(updatedUser.nModified === 0 && updatedUser.n === 0){
                         //     return reject(updatedUser);
                         // }
+                        let tour = updateData.userOfferTours;
                         console.log(`USER ${username} UPDATED SUCCESSFULLY`);
-                        return resolve(updatedUser);
+                        // resolve now returns tour as well, allowing easier navigation to new tour.
+                        return resolve({ updatedUser, tour });
                     });
             });
         },
