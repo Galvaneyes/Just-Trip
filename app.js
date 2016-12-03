@@ -149,7 +149,7 @@ data.getCountryByName("Bulgaria")
     })
     .catch(err => {
         console.log(err);
-        data.createCountry(USA);
+        data.createCountry(Bulgaria);
     });
 
 data.getCityByName("Sofia")
