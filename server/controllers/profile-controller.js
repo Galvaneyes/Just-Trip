@@ -4,18 +4,6 @@
 module.exports = function(userData) {
     return {
         getLoggedUserData(req, res) {
-
-            //const isLogged = true;
-            //if (!isLogged) {
-            //    res.status(401)
-            //        .send("YOU ARE NOT LOGGED");
-            //} else {
-            //    res.status(200)
-            //        .json({
-            //            success: true,
-            //            functionality: "shows public information for the user"
-            //        });
-            //}
             userData.getUserByUsername(req.user.username)
                 .then(user => {
                     const profile = {
@@ -45,6 +33,30 @@ module.exports = function(userData) {
                     res.status(404)
                         .send(`USER ${err} DOESNT EXIST`);
                 });
+        },
+        updateUserProfile(req, res) {
+            const username = req.user.username;
+
+            userData.getUserByUsername(username)
+                .then(user => {
+                    user.firstname = req.body.firstname || user.firstname;
+                    user.lastname = req.body.lastname || user.lastname;
+                    user.email = req.body.email || user.email;
+                    user.city = req.body.city || user.city;
+                    user.country = req.body.country || user.country;
+
+                    return userData.updateUser(user);
+                })
+                .then(user => {
+                    console.log(`USER ${user.username} HAS BEEN SUCCESFULLY UPDATED!`);
+
+                    res.redirect(200, "/profile");
+                })
+                .catch(err => {
+                    console.log(`UPDATE FAILED! ${req.user.username}`);
+                    res.status(404)
+                        .send("PROFILE UPDATE FAILED")
+                })
         }
     }
 }
