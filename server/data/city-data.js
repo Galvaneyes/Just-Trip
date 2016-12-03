@@ -1,11 +1,11 @@
-module.exports = function(models) {
+module.exports = function (models) {
     const { City } = models;
 
     return {
         createCity(cityObj) {
             return new Promise((resolve, reject) => {
                 console.log("CREATING/UPDATING CITY...");
-                City.findOne({ name: cityObj.name }, function(err, city) {
+                City.findOne({ name: cityObj.name }, function (err, city) {
                     if (!err) {
                         if (!city) {
                             city = City.getCity(cityObj);
@@ -16,7 +16,7 @@ module.exports = function(models) {
                             city.pictureUrl = cityObj.pictureUrl;
                             city.country = cityObj.country;
                         }
-                        city.save(function(err) {
+                        city.save(function (err) {
                             if (err) {
                                 console.log("CANNOT CREATE City");
                                 return reject(err);
@@ -48,6 +48,51 @@ module.exports = function(models) {
                     return resolve(city);
                 });
             });
-        },       
+        },
+        getAllCities(cityProps) {
+            return new Promise((resolve, reject) => {
+                console.log("SEARCHING FOR ALL CITIES...");
+                City.find({}, cityProps, (err, cities) => {
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL CITIES!");
+                        return reject(err);
+                    }
+
+                    console.log("CITIES FOUND!");
+                    console.log(cities);
+                    return resolve(cities);
+                });
+            });
+        },
+        getCityListInCountry(countryName, cityProps) {
+            return new Promise((resolve, reject) => {
+                console.log("SEARCHING FOR ALL CITIES...");
+                City.find({ country: countryName }, cityProps, (err, cities) => {
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL CITIES!");
+                        return reject(err);
+                    }
+
+                    console.log("CITIES FOUND!");
+                    console.log(cities);
+                    return resolve(cities);
+                });
+            });
+        },
+        getCityDescriptionById(id, cityProps) {
+            return new Promise((resolve, reject) => {
+                 console.log("SEARCHING FOR ALL CITIES...");
+                City.findOne({ _id: id }, cityProps, (err, city) => {
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL CITIES!");
+                        return reject(err);
+                    }
+
+                    console.log("CITIES FOUND!");
+                    return resolve(city);
+                });
+            });
+        }
+
     };
 };

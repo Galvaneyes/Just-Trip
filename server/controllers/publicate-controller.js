@@ -95,13 +95,13 @@ module.exports = function({ data, io }) {
                     //         $in : [ {tourId : req.params.id}]
                     // }};
 
-                    return data.getAllUsers();
+                    return data.getSearchResults({userBoughtTours : {$elemMatch : {tourCity : "Sofia"}}});
                 })
                 .then(users => {
-                    const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
+                    // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
                     console.log("FIRST ===>" + users);
-                    console.log("RESULTS ====>" + newUsers);
-                    res.send(newUsers);
+                    // console.log("RESULTS ====>" + newUsers);
+                    res.send(users);
                 })
                 .catch(err => {
                     console.log("ERROOOOR =====>" + err);

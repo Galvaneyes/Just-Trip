@@ -112,22 +112,27 @@ module.exports = function({ data }) {
             let search = {};
 
             if (req.query.city) {
-                search.city = `${req.query.city}`;
+                const string = req.query.city;
+                const city = new RegExp(["^", string, "$"].join(""), "i");
+                search.city = city;
             }
 
             if (req.query.country) {
-                search.country = `${req.query.country}`;
+                const string = req.query.country;
+                const country = new RegExp(["^", string, "$"].join(""), "i");
+                search.country = country;
             }
 
             if (req.query.start) {
                 let date = new Date(`${req.query.start}`);
-
+                // Can change => $gt => $gte
                 search.beginTourDate = { $gt: date };
             }
 
             if (req.query.end) {
                 let fixDay = 2;
                 let date = new Date(`${req.query.end}`);
+                // Can change => $lt => $lte
                 date.setDate(date.getDate() + fixDay);
 
                 search.endTourDate = { $lt: date };
