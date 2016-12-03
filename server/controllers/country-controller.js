@@ -59,14 +59,24 @@ module.exports = function({ data }) {
         getAllCountries(req, res) {
             data.getAllCountries("name")
                 .then(countryList => {
-                    console.log(countryList[0].name);
-                    res.render("user-list", { result: countryList, user: { isLogged: true } });
+                    //console.log(countryList);
+                    res.render("country-list", { countryList, user: { isLogged: true } });
                 })
                 .catch(err => {
                     console.log(`COUNTRY LIST ERROR: ${err}`); //is this a descriptive error message
                     res.status(404)
                         .send(`COUNTRY LIST ERROR`);
                 });
+        },
+        getDescriptioById(req, res) {
+            console.log(req.params.id);
+          //  res.send("getDescriptioById");
+            data.getDescriptioById(req.params.id) //????????????????
+                .then(description => {
+                   // console.log(countryList[0].name);
+                    res.send(description);
+                })
+                
         }
 
     };

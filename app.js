@@ -35,6 +35,18 @@ const tour = {
     isValid: true
 };
 
+// console.log("tova e-------------------------------");
+// const Country = require("./server/models/country-model.js");
+// const dataModule = require("./server/data/country-data")({ Country });
+// dataModule.getAllCountries_()
+//     .then(result => {
+//         console.log("start-------------------------------");
+//         console.log(result[0]);
+//         console.log("end-------------------------------");
+//     }
+//     )
+
+
 // data.getTourById("583f1af52da8b22fd842ff8a")
 //     .then(tourId => {
 //         console.log(tourId);
@@ -94,26 +106,60 @@ data.getSearchResults(searchh)
     });
 
 //COUNTRY TEST
-// const Bulgaria = {
-//     name: "Bulgaria",
-//     description: "Place nice yet misleading info here",
-//     countryUrl: "I_be_a_proper_url.com"
-// };
+const Bulgaria = {
+    name: "Bulgaria",
+    description: "Place nice yet misleading info here",
+    countryUrl: "I_be_a_proper_url.com",
+    city: ["Sofia", "Harmanli"]
+};
 
-// const Murica = {
-//     name: "Amerikka",
-//     description: "Why bother with actual info, too many people would hate anyway",
-//     countryUrl: "freedomIsntFreeNorIsItReal.com"
-// };
+const USA = {
+    name: "USA",
+    description: "Why bother with actual info, too many people would hate anyway",
+    countryUrl: "freedomIsntFreeNorIsItReal.com",
+    city: ["Washington", "Seattle"]
+};
 
-// data.getCountryByName("Amerikka")
-//     .then(country => {
-//         console.log(country);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         data.createCountry(Murica);
-//     });
+const Sofia = {
+    name: "Sofia",
+    description: "Sofia descr",
+    cityUrl: "sofia.com",
+    country: "Bulgaria"
+}
+
+const Seattle = {
+    name: "Seattle",
+    description: "Seattle descr",
+    cityUrl: "seattle.com",
+    country: "USA"
+}
+
+data.getCountryByName("USA")
+    .then(country => {
+        console.log(country);
+    })
+    .catch(err => {
+        console.log(err);
+        data.createCountry(USA);
+    });
+
+data.getCountryByName("Bulgaria")
+    .then(country => {
+        console.log(country);
+    })
+    .catch(err => {
+        console.log(err);
+        data.createCountry(USA);
+    });
+
+data.getCityByName("Sofia")
+    .then(city => {
+        console.log(city);
+    })
+    .catch(err => {
+        console.log(err);
+        data.createCity(Sofia);
+    });
 
 //End of country test
 server.listen(config.port, () => {

@@ -12,6 +12,7 @@ module.exports = function(models) {
                         } else {
                             country.description = countryObj.description;
                             country.countryUrl = countryObj.countryUrl;
+                            country.city = countryObj.city;
                         }
                         country.save(function(err) {
                             if (err) {
@@ -109,7 +110,23 @@ module.exports = function(models) {
                     }
 
                     console.log("COUNTRIES FOUND!");
+                   // console.log(countries);
                     return resolve(countries);
+                });
+            });
+        },
+        getDescriptioById(id) { 
+            //id="58427426c5175e19ecd8dfbb"; //test ????????????????????
+            return new Promise((resolve, reject) => {
+                console.log("SEARCHING FOR ALL COUNTRIES...");
+                Country.findOne({_id:id}, (err, country) => {
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL COUNTRIES!");
+                        return reject(err);
+                    }
+
+                    console.log("COUNTRIES FOUND!");
+                    return resolve(country.description);
                 });
             });
         }
