@@ -10,7 +10,7 @@ module.exports = function({ app, data, io }) {
 
     router
         .get("/", authMiddleware.isAuthenticated, publicate.get)
-        .post("/", publicate.createTour);
+        .post("/", authMiddleware.isAuthenticated, publicate.createTour);
 
     app.use("/publicate", router);
 };

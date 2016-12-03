@@ -8,7 +8,7 @@ module.exports = function({ data, io }) {
 
             if (!isLogged) {
                 res.status(401)
-                    .send("YOU ARE NOT LOGGED");
+                    .render("not-login");
             } else {
                 const user = {
                     user: {
@@ -22,7 +22,7 @@ module.exports = function({ data, io }) {
 
             if (!req.user) {
                 return res.status(401)
-                    .send("You are not logged");
+                    .render("not-login");
             }
             const fixDay = 1;
             let endJoinDate = new Date(`${req.body.endJoinDate}`);
