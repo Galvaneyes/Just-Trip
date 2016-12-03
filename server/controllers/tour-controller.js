@@ -85,13 +85,11 @@ module.exports = function({ data }) {
                 })
                 .then(dataCollection => {
                     const userTourData = {
-                        userBoughtTours: {
                             tourId: dataCollection.tour._id,
                             tourTitle: dataCollection.tour.headline,
                             tourCountry: dataCollection.tour.country,
                             tourCity: dataCollection.tour.city
-                        }
-                    };
+                        };
                     // must be userData!
                     console.log(dataCollection.user);
                     dataCollection.user.userBoughtTours.push(userTourData);
