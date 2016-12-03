@@ -50,7 +50,7 @@ module.exports = function(userData) {
                 .then(user => {
                     console.log(`USER ${user.username} HAS BEEN SUCCESFULLY UPDATED!`);
 
-                    res.redirect(200, "/profile");
+                    res.redirect(301, "/profile");
                 })
                 .catch(err => {
                     console.log(`UPDATE FAILED! ${req.user.username}`);
