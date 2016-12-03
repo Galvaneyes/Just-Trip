@@ -133,7 +133,7 @@ module.exports = function(tourData) {
                 let fixDay = 2;
                 let date = new Date(`${req.query.end}`);
                 date.setDate(date.getDate() + fixDay)
-
+                console.log(date);
                 search.endTourDate= {$lt: date}
             }
 
