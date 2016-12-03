@@ -1,11 +1,11 @@
-module.exports = function(models) {
+module.exports = function (models) {
     const { Country } = models;
 
     return {
         createCountry(countryObj) {
             return new Promise((resolve, reject) => {
                 console.log("CREATING/UPDATING COUNTRY...");
-                Country.findOne({ name: countryObj.name }, function(err, country) {
+                Country.findOne({ name: countryObj.name }, function (err, country) {
                     if (!err) {
                         if (!country) {
                             country = Country.getCountry(countryObj);
@@ -14,7 +14,7 @@ module.exports = function(models) {
                             country.countryUrl = countryObj.countryUrl;
                             country.city = countryObj.city;
                         }
-                        country.save(function(err) {
+                        country.save(function (err) {
                             if (err) {
                                 console.log("CANNOT CREATE COUNTRY");
                                 return reject(err);
@@ -103,30 +103,45 @@ module.exports = function(models) {
         getAllCountries(countryProps) { //FIX in an object, specify which properties to return
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL COUNTRIES...");
-                Country.find({}, countryProps, (err, countries) => { //was 'name'
+                Country.find({}, countryProps, { sort: { name: +1 } }, (err, countries) => { //was 'name'
                     if (err) {
                         console.log("ERROR WHEN GETTING ALL COUNTRIES!");
                         return reject(err);
                     }
 
                     console.log("COUNTRIES FOUND!");
-                   // console.log(countries);
+                    // console.log(countries);
                     return resolve(countries);
                 });
             });
         },
-        getDescriptioById(id) { 
-            //id="58427426c5175e19ecd8dfbb"; //test ????????????????????
+        getCountryList(mask, countryProps) { //FIX in an object, specify which properties to return
+            return new Promise((resolve, reject) => {
+                console.log("SEARCHING FOR ALL COUNTRIES...MASK");
+                let re = new RegExp(mask, 'i');
+                Country.find({ name: { $regex: re } }, countryProps, { sort: { name: +1 } }, (err, countries) => { //was 'name'
+                    if (err) {
+                        console.log("ERROR WHEN GETTING ALL COUNTRIES MASK!");
+                        return reject(err);
+                    }
+
+                    console.log("COUNTRIES FOUND MASK!");
+                    // console.log(countries);
+                    return resolve(countries);
+                });
+            });
+        },
+        getCountryDescriptionById(id, countryProps) {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL COUNTRIES...");
-                Country.findOne({_id:id}, (err, country) => {
+                Country.findOne({ _id: id }, countryProps, (err, country) => {
                     if (err) {
                         console.log("ERROR WHEN GETTING ALL COUNTRIES!");
                         return reject(err);
                     }
 
                     console.log("COUNTRIES FOUND!");
-                    return resolve(country.description);
+                    return resolve(country);
                 });
             });
         }

@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function({ data }) {
+module.exports = function ({ data }) {
     const adapter = require("./adapters/tour-site")(data);
     return {
         updateCountryData(req, res) {
@@ -60,7 +60,7 @@ module.exports = function({ data }) {
             data.getAllCountries("name")
                 .then(countryList => {
                     //console.log(countryList);
-                    res.render("country-list", { countryList, user: { isLogged: true } });
+                    res.render("country-page", { countryList, user: { isLogged: true } });
                 })
                 .catch(err => {
                     console.log(`COUNTRY LIST ERROR: ${err}`); //is this a descriptive error message
@@ -68,16 +68,25 @@ module.exports = function({ data }) {
                         .send(`COUNTRY LIST ERROR`);
                 });
         },
-        getDescriptioById(req, res) {
+        getCountryDescriptionById(req, res) {
             console.log(req.params.id);
-          //  res.send("getDescriptioById");
-            data.getDescriptioById(req.params.id) //????????????????
-                .then(description => {
-                   // console.log(countryList[0].name);
-                    res.send(description);
+            data.getCountryDescriptionById(req.params.id, "description")
+                .then(country => {
+                    res.send(country.description);
                 })
-                
+
+        },
+        getCountryList(req, res) {
+            console.log(req.params.mask);
+            //  res.send("getDescriptioById");
+            data.getCountryList(req.params.mask, "name")
+                .then(countryList => {
+                    console.log(countryList);
+                    res.render("country-list", { countryList });
+                })
+
         }
+
 
     };
 };
