@@ -4,15 +4,15 @@
 module.exports = function({ data }) {
     return {
         get(req, res) {
-            // MOCK LOGGED
-            const isLogged = true;
-            if (!isLogged) {
-                res.status(401)
-                    .send("YOU ARE NOT LOGGED");
-            }
+            const isLogged = !!req.user;
+            const user = {
+                user: {
+                    isLogged: isLogged
+                }
+            };
 
             res.status(200)
-                .render("search-page");
+                .render("search-page", user);
         },
         getTourById(req, res) {
             data.getTourById(req.params.id)
@@ -81,8 +81,6 @@ module.exports = function({ data }) {
                             console.log(err);
                             return err;
                         });
-
-                    //return data.updateTour(tour);
                 })
                 .then(data => {
                     const userTourData = {
@@ -123,9 +121,7 @@ module.exports = function({ data }) {
             }
 
             if (req.query.start) {
-                //let fixDay = 1;
                 let date = new Date(`${req.query.start}`);
-                //date.setDate(date.getDate() + fixDay)
 
                 search.beginTourDate = { $gt: date };
             }

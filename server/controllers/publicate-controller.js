@@ -4,11 +4,10 @@
 module.exports = function({ data, io }) {
     return {
         get(req, res) {
-            const isLogged = !!req.user;
 
-            if (!isLogged) {
+            if (!req.user) {
                 res.status(401)
-                    .send("YOU ARE NOT LOGGED");
+                    .render("not-login");
             } else {
                 const user = {
                     user: {
@@ -19,14 +18,28 @@ module.exports = function({ data, io }) {
             }
         },
         createTour(req, res) {
-            // MOCK USER
+
             if (!req.user) {
                 return res.status(401)
-                    .send("You are not logged");
+                    .render("not-login");
             }
+
+            const fixDay = 1;
+            let endJoinDate = new Date(`${req.body.endJoinDate}`);
+            endJoinDate.setDate(endJoinDate.getDate() + fixDay);
+            req.body.endJoinDate = endJoinDate;
+
+            let beginTourDate = new Date(`${req.body.beginTourDate}`);
+            beginTourDate.setDate(beginTourDate.getDate() + fixDay);
+            req.body.beginTourDate = beginTourDate;
+
+            let endTourDate = new Date(`${req.body.endTourDate}`);
+            endTourDate.setDate(endTourDate.getDate() + fixDay);
+            req.body.endTourDate = endTourDate
 
             const toursDetails = req.body;
             toursDetails.isValid = "true";
+
             const user = req.user.username;
             toursDetails.creator = user;
 
@@ -60,6 +73,12 @@ module.exports = function({ data, io }) {
                     res.status(404)
                         .send(`TOUR ${err} CANT BE CREATED`);
                 });
+        },
+        removeTour(req, res) {
+            if (!req.user) {
+                return res.status(401)
+                    .render("not-login");
+            }
         }
     };
 };
