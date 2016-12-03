@@ -10,10 +10,10 @@ block container
             img.img-circle.img-shadow(alt='', src='./images/profile-picture.png')
             div.info
             div.title
-                a(target='_blank', href='#') Username
-            div.desc FirstName
-            div.desc LastName
-            div.desc Email
+                a(target='_blank', href='#') #{user.username} Username
+            div.desc #{user.firstname} FirstName
+            div.desc #{user.lastname} LastName
+            div.desc #{user.email} Email
             div.bottom
             a.btn-links.btn-primary.btn-twitter.btn-sm(href='https://twitter.com/')
                 i.fa.fa-twitter
