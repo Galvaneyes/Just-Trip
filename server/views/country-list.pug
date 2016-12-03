@@ -1,9 +1,11 @@
-extends _layout
 
-block container
-    each country in countryList
-        h1(class="country-name" id=country._id) #{country.name}
-    div#ShowInfo
-    button#test TestAjax
-block scripts
-    script(src="/scripts/country.js")
+div
+    table
+        tr
+            td
+                each country in countryList
+                    div(class="country-name" id=country._id name=country.name) #{country.name}
+                        button.del Del
+                        button.edit Edit
+            td
+                div#Left

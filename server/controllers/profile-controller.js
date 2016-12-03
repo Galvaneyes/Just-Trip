@@ -8,6 +8,10 @@ module.exports = function({ data }) {
                 .then(user => {
                     const profile = {
                         user: {
+                            username: user.username,
+                            firstname: user.firstname,
+                            lastname: user.lastname,
+                            email: user.email,
                             isLogged: true,
                             userOfferTours: user.userOfferTours,
                             userBoughtTours: user.userBoughtTours

@@ -1,0 +1,23 @@
+extends _layout
+
+block container
+    div.form-section
+        div.row
+            div
+                div.col-md-4
+                    div.form-group
+                        input#mask.form-control(type='text', placeholder='CountryMask' name="countryMask")
+                div.col-md-4
+                    div.form-group
+                        input#location.form-control(type='text', placeholder='City' name="city")
+                .col-md-2
+                    button#searchCountry.btn.btn-default.btn-primary Search
+                        i.fa.fa-search(aria-hidden="true")
+    div#ShowInfo
+    div#countryListContainer
+
+block scripts
+    script(src="/scripts/country.js")
+
+block styles
+    link(rel="stylesheet" href="/styles/country.css")

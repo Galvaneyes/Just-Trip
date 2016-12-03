@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(models) {
-    const { User } = models.models;
+    const { User } = models;
     const encrypt = require('../../utils/encrypt');
 
     return {

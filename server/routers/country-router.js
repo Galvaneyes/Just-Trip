@@ -10,10 +10,10 @@ module.exports = function ({ app, data }) {
     router
         // .get("/:name", countryController.getCountryByName)
         // .get("/:keyword", countryController.getCountryByKeyword)
-        .get("/list", countryController.getAllCountries)
-        .get("/", countryController.seedCountryData) //updateCountryData
-        .get("/ajax/getDescriptioById/:id", countryController.getDescriptioById);
-    //getCountryById
+        .get("/", countryController.getAllCountries)
+        .get("/ajax/getCountryList/:mask", countryController.getCountryList)
+        //.get("/", countryController.seedCountryData) //updateCountryData
+        .get("/ajax/getDescriptionById/:id", countryController.getCountryDescriptionById);
 
     app.use("/countries", router);
 };

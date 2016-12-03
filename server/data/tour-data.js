@@ -1,5 +1,5 @@
 module.exports = function(models) {
-    const { Tour } = models.models;
+    const { Tour } = models;
 
     return {
         createTour(tourInfo) {
