@@ -81,8 +81,6 @@ module.exports = function({ data }) {
                             console.log(err);
                             return err;
                         });
-
-                    //return data.updateTour(tour);
                 })
                 .then(data => {
                     const userTourData = {
@@ -123,9 +121,7 @@ module.exports = function({ data }) {
             }
 
             if (req.query.start) {
-                //let fixDay = 1;
                 let date = new Date(`${req.query.start}`);
-                //date.setDate(date.getDate() + fixDay)
 
                 search.beginTourDate = { $gt: date };
             }
