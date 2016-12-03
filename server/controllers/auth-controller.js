@@ -34,11 +34,11 @@ module.exports = function({ data }) {
         },
         tryToCreateUser(req, res) {
             // TODO: rewrite with ajax !
-            if (!validator.validateName(req.body.username)) {
+            if (!validator.validateString(req.body.username)) {
                 res.status(400).send("Username must be string and atleast 3 characters!");
-            } else if (!validator.validateName(req.body.firstname, 2)) {
+            } else if (!validator.validateString(req.body.firstname, 2)) {
                 res.status(400).send("Firstname must be string and atleast 3 characters!");
-            } else if (!validator.validateName(req.body.lastname, 2)) {
+            } else if (!validator.validateString(req.body.lastname, 2)) {
                 res.status(400).send("Lastname must be string and atleast 3 characters!");
             } else if (!validator.validatePassword(req.body.password)) {
                 res.status(400).send("Password must be atleast 3 characters long and contain atleast 1 letter and atleast 1 digit!");

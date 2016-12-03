@@ -2,6 +2,7 @@
 "use strict";
 
 module.exports = function({ data, io }) {
+    const validator = require("../../utils/validator");
     return {
         get(req, res) {
 
@@ -37,42 +38,53 @@ module.exports = function({ data, io }) {
             endTourDate.setDate(endTourDate.getDate() + fixDay);
             req.body.endTourDate = endTourDate;
 
-            const toursDetails = req.body;
-            toursDetails.isValid = "true";
+            // TODO: ajax!
+            if (!validator.validateString(req.body.headline, 1)) {
+                res.status(400).send("Headline is required!");
+            } else if (!validator.validateString(req.body.country, 1)) {
+                res.status(400).send("Country is required!");
+            } else if (!validator.validateString(req.body.city, 1)) {
+                res.status(400).send("City is required!");
+            } else if (!validator.validateString(req.user.username, 1)) {
+                res.status(400).send("You must be loged in to publish!");
+            } else {
+                const toursDetails = req.body;
+                toursDetails.isValid = "true";
 
-            const user = req.user.username;
-            toursDetails.creator = user;
+                const user = req.user.username;
+                toursDetails.creator = user;
 
-            data.createTour(toursDetails)
-                .then(tour => {
-                    const userTourData = {
-                        userOfferTours: {
-                            tourId: tour._id,
-                            tourTitle: tour.headline,
-                            tourCountry: tour.country,
-                            tourCity: tour.city
-                        }
-                    };
+                data.createTour(toursDetails)
+                    .then(tour => {
+                        const userTourData = {
+                            userOfferTours: {
+                                tourId: tour._id,
+                                tourTitle: tour.headline,
+                                tourCountry: tour.country,
+                                tourCity: tour.city
+                            }
+                        };
 
-                    return data.updateUserProperty(user, userTourData);
-                })
-                .then(({ updatedUser, tour }) => {
-                    io.sockets.emit('newTour', {
-                        headline: `${toursDetails.headline}`,
-                        country: `${toursDetails.country}`,
-                        city: `${toursDetails.city}`,
-                        date: `${toursDetails.beginTourDate}`,
-                        tourId: `${tour.tourId}`,
-                        creator: `${user}`
+                        return data.updateUserProperty(user, userTourData);
+                    })
+                    .then(({ updatedUser, tour }) => {
+                        io.sockets.emit('newTour', {
+                            headline: `${toursDetails.headline}`,
+                            country: `${toursDetails.country}`,
+                            city: `${toursDetails.city}`,
+                            date: `${toursDetails.beginTourDate}`,
+                            tourId: `${tour.tourId}`,
+                            creator: `${user}`
+                        });
+                        res.status(200)
+                            .json(updatedUser);
+                    })
+                    .catch(err => {
+                        console.log(`TOUR ${err} CANT BE CREATED`);
+                        res.status(404)
+                            .send(`TOUR ${err} CANT BE CREATED`);
                     });
-                    res.status(200)
-                        .json(updatedUser);
-                })
-                .catch(err => {
-                    console.log(`TOUR ${err} CANT BE CREATED`);
-                    res.status(404)
-                        .send(`TOUR ${err} CANT BE CREATED`);
-                });
+            }
         },
         // UNDERCONSTRUCTION!!
         removeTour(req, res) {

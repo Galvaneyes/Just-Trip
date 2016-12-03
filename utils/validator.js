@@ -2,12 +2,12 @@
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,100}$/;
 
-function validateName(name, minLength, maxLength) {
+function validateString(str, minLength, maxLength) {
     let min = minLength || 3;
     let max = maxLength || 100;
 
-    if (typeof name === "string") {
-        if (name.length > min && name.length < max) {
+    if (typeof str === "string") {
+        if (str.length > min && str.length < max) {
             return true;
         }
     }
@@ -26,6 +26,6 @@ function validatePassword(password) {
 
 
 module.exports = {
-    validateName,
+    validateString,
     validatePassword
 };
