@@ -87,7 +87,7 @@ module.exports = function({ data, io }) {
                     console.log("REQESTER ====> " + req.user.username);
                     console.log("CREATOR =====> " + tour.creator);
                     if (req.user.username !== tour.creator) {
-                        res.send("NOT AUTHORIZED")
+                        res.send("NOT AUTHORIZED");
                     }
 
                     // const searchParams = {
