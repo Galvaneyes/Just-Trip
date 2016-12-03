@@ -121,13 +121,14 @@ module.exports = function({ data }) {
 
             if (req.query.start) {
                 let date = new Date(`${req.query.start}`);
-
+                // Can change => $gt => $gte
                 search.beginTourDate = { $gt: date };
             }
 
             if (req.query.end) {
                 let fixDay = 2;
                 let date = new Date(`${req.query.end}`);
+                // Can change => $lt => $lte
                 date.setDate(date.getDate() + fixDay);
 
                 search.endTourDate = { $lt: date };
