@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function ({ data }) {
+module.exports = function({ data }) {
     const adapter = require("./adapters/tour-site")(data);
     return {
         updateCountryData(req, res) {
@@ -73,8 +73,7 @@ module.exports = function ({ data }) {
             data.getCountryDescriptionById(req.params.id, "description")
                 .then(country => {
                     res.send(country.description);
-                })
-
+                });
         },
         getCountryList(req, res) {
             console.log(req.params.mask);
@@ -83,10 +82,7 @@ module.exports = function ({ data }) {
                 .then(countryList => {
                     console.log(countryList);
                     res.render("country-list", { countryList });
-                })
-
+                });
         }
-
-
     };
 };

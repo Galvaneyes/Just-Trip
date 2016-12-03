@@ -7,4 +7,4 @@ module.exports = function() {
             res.render("about-us");
         }
     };
-}
+};

@@ -35,7 +35,7 @@ module.exports = function({ data, io }) {
 
             let endTourDate = new Date(`${req.body.endTourDate}`);
             endTourDate.setDate(endTourDate.getDate() + fixDay);
-            req.body.endTourDate = endTourDate
+            req.body.endTourDate = endTourDate;
 
             const toursDetails = req.body;
             toursDetails.isValid = "true";
@@ -86,7 +86,7 @@ module.exports = function({ data, io }) {
                 .then(tour => {
                     console.log("REQESTER ====> " + req.user.username);
                     console.log("CREATOR =====> " + tour.creator);
-                    if(req.user.username !== tour.creator) {
+                    if (req.user.username !== tour.creator) {
                         res.send("NOT AUTHORIZED")
                     }
 
@@ -95,7 +95,7 @@ module.exports = function({ data, io }) {
                     //         $in : [ {tourId : req.params.id}]
                     // }};
 
-                    return data.getSearchResults({userBoughtTours : {$elemMatch : {tourCity : "Sofia"}}});
+                    return data.getSearchResults({ userBoughtTours: { $elemMatch: { tourCity: "Sofia" } } });
                 })
                 .then(users => {
                     // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
@@ -105,8 +105,8 @@ module.exports = function({ data, io }) {
                 })
                 .catch(err => {
                     console.log("ERROOOOR =====>" + err);
-                    res.send(err)
-                })
+                    res.send(err);
+                });
         }
     };
 };
