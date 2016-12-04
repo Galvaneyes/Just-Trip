@@ -96,11 +96,12 @@ module.exports = function(models) {
         },
         getSearchResults(search) {
             return new Promise((resolve, reject) => {
+                console.log("IT STARTTTTT");
                 Tour.find(search, (err, tours) => {
                     if (err) {
                         return reject(err);
                     }
-
+                    console.log("===> RESULTS");
                     return resolve(tours);
                 });
             });

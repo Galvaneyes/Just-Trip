@@ -83,83 +83,102 @@ const tour = {
 //         console.log(err);
 //     })
 
-// let search = {
-//     city: undefined || "Sofia",
-//     country: "Bulgaria",
-//     beginTourDate: { $gt: new Date("2016-12-1")},
-//     endTourDate:{ $lt: new Date("2016-12-30")}
-// };
+let search = {
+    city: "Plovdiv",
+    obj:[{name:"ivan"}, {name:"Petar"}],
+    country: "Bulgaria",
+    beginTourDate: { $gte: new Date("2016-12-1")},
+    endTourDate:{ $lte: new Date("2016-12-3")}
+};
 
 let searchh = {
     city: 'Sofia',
+    obj:[{name:"ivan"}, {name:"gogo"}],
     country: 'Bulgaria',
     beginTourDate: { '$gt': new Date('2016-11-29') },
-    endTourDate: { '$lt': new Date('2016-12-1') }
+    endTourDate: { '$lt': new Date('2016-12-6') }
 };
 
-data.getSearchResults(searchh)
-    .then(tours => {
-        console.log(tours);
+let sear = [search, searchh];
+
+sear.forEach(x => {
+    x.obj.forEach(x => {
+        if(x.name == "ivan") {
+            x.isDeleted = "true";
+        }
     })
-    .catch(err => {
-        console.log(err);
-    });
+});
+
+console.log(sear[0]);
+
+// Promise.all(sear.map(x => data.getSearchResults(x)))
+//     .then(x => {
+//         console.log(x);
+//     });
+
+// data.getSearchResults(search)
+//     .then(tours => {
+//         console.log(tours);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
 
 //COUNTRY TEST
-const Bulgaria = {
-    name: "Bulgaria",
-    description: "Place nice yet misleading info here",
-    countryUrl: "I_be_a_proper_url.com",
-    city: ["Sofia", "Harmanli"]
-};
+// const Bulgaria = {
+//     name: "Bulgaria",
+//     description: "Place nice yet misleading info here",
+//     countryUrl: "I_be_a_proper_url.com",
+//     city: ["Sofia", "Harmanli"]
+// };
 
-const USA = {
-    name: "USA",
-    description: "Why bother with actual info, too many people would hate anyway",
-    countryUrl: "freedomIsntFreeNorIsItReal.com",
-    city: ["Washington", "Seattle"]
-};
+// const USA = {
+//     name: "USA",
+//     description: "Why bother with actual info, too many people would hate anyway",
+//     countryUrl: "freedomIsntFreeNorIsItReal.com",
+//     city: ["Washington", "Seattle"]
+// };
 
-const Sofia = {
-    name: "Sofia",
-    description: "Sofia descr",
-    cityUrl: "sofia.com",
-    country: "Bulgaria"
-}
+// const Sofia = {
+//     name: "Sofia",
+//     description: "Sofia descr",
+//     cityUrl: "sofia.com",
+//     country: "Bulgaria"
+// }
 
-const Seattle = {
-    name: "Seattle",
-    description: "Seattle descr",
-    cityUrl: "seattle.com",
-    country: "USA"
-}
+// const Seattle = {
+//     name: "Seattle",
+//     description: "Seattle descr",
+//     cityUrl: "seattle.com",
+//     country: "USA"
+// }
 
-data.getCountryByName("USA")
-    .then(country => {
-        console.log(country);
-    })
-    .catch(err => {
-        console.log(err);
-        data.createCountry(USA);
-    });
+// data.getCountryByName("USA")
+//     .then(country => {
+//         console.log(country);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         data.createCountry(USA);
+//     });
 
-data.getCountryByName("Bulgaria")
-    .then(country => {
-        console.log(country);
-    })
-    .catch(err => {
-        console.log(err);
-        data.createCountry(Bulgaria);
-    });
+// data.getCountryByName("Bulgaria")
+//     .then(country => {
+//         console.log(country);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         data.createCountry(Bulgaria);
+//     });
 
-data.getCityByName("Sofia")
-    .then(city => {
-        console.log(city);
-    })
-    .catch(err => {
-        console.log(err);
-        data.createCity(Sofia);
-    });
+// data.getCityByName("Sofia")
+//     .then(city => {
+//         console.log(city);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         data.createCity(Sofia);
+//     });
 
 //End of country test
 server.listen(config.port, () => {
