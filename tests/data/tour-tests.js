@@ -86,11 +86,12 @@ describe("Tour data", () => {
         };
 
         it("Expect to update tour correctly", done => {
+            let mockedTour = new Tour(tourInfo);
+
             sinon.stub(Tour.prototype, "save", cb => {
-                cb(null);
+                cb(null, mockedTour);
             });
 
-            let mockedTour = new Tour(tourInfo);
 
             data.updateTour(mockedTour).then(expectedTour => {
                 expect(expectedTour.headline).to.equals(tourInfo.headline);

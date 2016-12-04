@@ -20,7 +20,7 @@ module.exports = function(models) {
         },
         updateTour(tourInfo) {
             return new Promise((resolve, reject) => {
-                tourInfo.save((err, tour)=> {
+                tourInfo.save((err, tour) => {
                     if (err) {
                         return reject(err);
                     }
