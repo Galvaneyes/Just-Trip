@@ -10,15 +10,14 @@ module.exports = function({ data, io }) {
                 res.status(401)
                     .render("not-login");
             } else {
-                const user = {
-                    user: {
-                        isLogged: !!req.user
-                    }
-                };
-
                 Promise.all([data.getAllCountries("name"), data.getAllCities("name")])
                     .then(([countries, cities]) => {
-                        res.status(200).render("publish-travel", { user, countries, cities });
+                        const user= {
+                                isLogged: !!req.user
+                            }
+
+                        res.status(200)
+                            .render("publish-travel", { user, countries, cities });
                     });
             }
         },
