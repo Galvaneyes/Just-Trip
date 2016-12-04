@@ -85,7 +85,7 @@ module.exports = function({ data }) {
                 })
                 .then(dataCollection => {
                     const userTourData = {
-                            tourId: dataCollection.tour._id,
+                            tourId: dataCollection.tour.getId,
                             tourTitle: dataCollection.tour.headline,
                             tourCountry: dataCollection.tour.country,
                             tourCity: dataCollection.tour.city

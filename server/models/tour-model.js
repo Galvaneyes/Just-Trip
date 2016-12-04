@@ -24,6 +24,12 @@ tourSchema.virtual("getUserCount").get(function() {
     return usersCount;
 });
 
+tourSchema.virtual("getId").get(function() {
+    let tourId = this._id.toString();
+
+    return tourId;
+});
+
 tourSchema.methods.isUserExist = function(username) {
     let isUserExist = this.usersInTour.includes(username);
 

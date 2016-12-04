@@ -47,7 +47,7 @@ module.exports = function({ data, io }) {
                 .then(tour => {
                     const userTourData = {
                         userOfferTours: {
-                            tourId: tour._id,
+                            tourId: tour.getId,
                             tourTitle: tour.headline,
                             tourCountry: tour.country,
                             tourCity: tour.city
@@ -89,13 +89,14 @@ module.exports = function({ data, io }) {
                     if(req.user.username !== tour.creator) {
                         res.send("NOT AUTHORIZED")
                     }
+                    // const id = mongoose.Types.ObjectId("5842aa4fb6d4ef10c084ad13")
+                    const searchParams = {
+                        userBoughtTours: {
+                            $elemMatch : {tourId : "5843635aafee9f159cf37849"}
+                        }
+                    };
 
-                    // const searchParams = {
-                    //     userBoughtTours.tourId: {
-                    //         $in : [ {tourId : req.params.id}]
-                    // }};
-
-                    return data.getSearchResults({userBoughtTours : {$elemMatch : {tourCity : "Sofia"}}});
+                    return data.getUsersBySpecificCriteria(searchParams);
                 })
                 .then(users => {
                     // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
