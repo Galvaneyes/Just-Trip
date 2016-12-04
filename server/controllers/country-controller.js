@@ -4,6 +4,7 @@
 module.exports = function ({ data }) {
     const adapter1 = require("./adapters/tour-site")(data);
     const adapter2 = require("./adapters/travel-site")(data);
+
     return {
         updateCountryData(req, res) {
             const isLogged = true; //for testing purposes
@@ -34,9 +35,9 @@ module.exports = function ({ data }) {
                 } else if (req.params.i === "2") {
                     return adapter2.getHits(req, res);
                 } else {
-                    console.log(`INCORRECT CRAW NUMBER`); //is this a descriptive error message
+                    console.log(`INCORRECT CRAWL NUMBER`);
                     res.status(404)
-                        .send(`INCORRECT CRAW NUMBER ${req.params.i}`);
+                        .send(`INCORRECT CRAWL NUMBER ${req.params.i}`);
                 }
 
             }
@@ -49,9 +50,9 @@ module.exports = function ({ data }) {
                         .json(country);
                 })
                 .catch(err => {
-                    console.log(`COUNTRY ${err} DOESNT EXIST`); //is this a descriptive error message
+                    console.log(`COUNTRY ${err} DOESN'T EXIST`);
                     res.status(404)
-                        .send(`COUNTRY ${err} DOESNT EXIST`);
+                        .send(`COUNTRY ${err} DOESN'T EXIST`);
                 });
         },
         getCountryByKeyword(req, res) {
@@ -61,9 +62,9 @@ module.exports = function ({ data }) {
                         .json(country);
                 })
                 .catch(err => {
-                    console.log(`COUNTRY ${err} DOESNT EXIST`); //is this a descriptive error message
+                    console.log(`COUNTRY ${err} DOESN'T EXIST`);
                     res.status(404)
-                        .send(`COUNTRY ${err} DOESNT EXIST`);
+                        .send(`COUNTRY ${err} DOESN'T EXIST`);
                 });
         },
         getAllCountries(req, res) {
@@ -73,7 +74,7 @@ module.exports = function ({ data }) {
                     res.render("country-page", { countryList, user: { isLogged: true } });
                 })
                 .catch(err => {
-                    console.log(`COUNTRY LIST ERROR: ${err}`); //is this a descriptive error message
+                    console.log(`COUNTRY LIST ERROR: ${err}`);
                     res.status(404)
                         .send(`COUNTRY LIST ERROR`);
                 });
@@ -83,8 +84,7 @@ module.exports = function ({ data }) {
             data.getCountryDescriptionById(req.params.id, "description")
                 .then(country => {
                     res.send(country.description);
-                })
-
+                });
         },
         getCountryList(req, res) {
             console.log(req.params.mask);
@@ -93,10 +93,7 @@ module.exports = function ({ data }) {
                 .then(countryList => {
                     console.log(countryList);
                     res.render("country-list", { countryList });
-                })
-
+                });
         }
-
-
     };
 };

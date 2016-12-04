@@ -85,20 +85,21 @@ module.exports = function({ data }) {
                 })
                 .then(dataCollection => {
                     const userTourData = {
-                            tourId: dataCollection.tour._id,
+                            tourId: dataCollection.tour.getId,
                             tourTitle: dataCollection.tour.headline,
                             tourCountry: dataCollection.tour.country,
                             tourCity: dataCollection.tour.city
                         };
-                    // must be userData!
+
                     console.log(dataCollection.user);
                     dataCollection.user.userBoughtTours.push(userTourData);
 
                     return data.updateUser(dataCollection.user);
                 })
                 .then(model => {
+
                     res.status(200)
-                        .json(model);
+                        .render(model);
                 })
                 .catch(err => {
                     console.log(err);
@@ -145,8 +146,12 @@ module.exports = function({ data }) {
             console.log(search.endTourDate);
             data.getSearchResults(search)
                 .then(tours => {
+                    // const searchResult = {
+                    //    tours: tours
+                    // };
+
                     res.status(200)
-                        .send(tours);
+                        .render("search-page",{tours});
                 })
                 .catch(err => {
                     console.log(err);

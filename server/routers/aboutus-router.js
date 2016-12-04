@@ -8,7 +8,7 @@ module.exports = function({ app, data }) {
     const router = express.Router();
 
     router
-        .get("/", aboutUsController.loadAboutUsPage)
+        .get("/", aboutUsController.loadAboutUsPage);
 
     app.use("/about-us", router);
 };

@@ -26,11 +26,6 @@ module.exports = function (data) {
     function getDescr(imageUrl_Descr) {
         return imageUrl_Descr.split("<br>\n")[1];
     }
-    function getTitle(imageUrl) {
-        let a = imageUrl.split("/");
-        return a[a.length - 1].split(".")[0];
-
-    }
     function waitRandom(time) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -46,7 +41,7 @@ module.exports = function (data) {
         let url = urlCountries.pop().url;
         console.log(`Working with Url: ${url}`);
         return httpRequester.get(url)
-            .then((result) => {
+            .then(result => {
                 let selectors = [];
                 selectors.push({ name: 'imageUrl_Descr', selector: 'div.entry-content > p:nth-child(2)', parse: parseAll });
                 selectors.push({ name: 'places', selector: 'ul.places > li > a', parse: parsePlaces });
@@ -66,7 +61,7 @@ module.exports = function (data) {
                 //  console.log("save from:" + url);
                 //  console.log({ title, imageUrl, descr, places });
                 console.log(places);
-                city = [];
+                let city = [];
                 for (let place of places) {
                     city.push(place.html);
                     place.country = title;
@@ -85,7 +80,7 @@ module.exports = function (data) {
                 return waitRandom(5000).then(() => { return getDestinationInfo(); });
             })
 
-            .catch((err) => {
+            .catch(err => {
                 console.dir(err, { colors: true });
             });
     }
@@ -99,7 +94,7 @@ module.exports = function (data) {
         let url = place.url;
         console.log(`Working with Url: ${url}`);
         return httpRequester.get(url)
-            .then((result) => {
+            .then(result => {
                 let selectors = [];
                 selectors.push({ name: 'imageUrl_Descr', selector: 'div.entry-content > p:nth-child(2)', parse: parseAll });
                 selectors.push({ name: 'title', selector: 'header > h1', parse: parseTitle });
@@ -110,7 +105,6 @@ module.exports = function (data) {
             .then(item => {
                 let imageUrl_Descr = item["imageUrl_Descr"][0];
                 let pictureUrl = getImageUrl(imageUrl_Descr);
-                //let title = getTitle(imageUrl);
                 let title = item["title"][0];
                 let description = getDescr(imageUrl_Descr);
 
@@ -127,7 +121,7 @@ module.exports = function (data) {
                 return waitRandom(5000).then(() => { return getDestinationInfoPlaces(); });
             })
 
-            .catch((err) => {
+            .catch(err => {
                 console.dir(err, { colors: true });
             });
     }
@@ -135,13 +129,13 @@ module.exports = function (data) {
 
     function getList(url) {
         return httpRequester.get(url)
-            .then((result) => {
+            .then(result => {
                 let selector = 'a[href*="/travel-guides/"]';
                 const html = result.body;
                 //console.log("===============html:" + html);
                 return htmlParser.simpleParser(selector, html);
             })
-            .catch((err) => {
+            .catch(err => {
                 console.dir(err, { colors: true });
             });
     }
@@ -173,7 +167,7 @@ module.exports = function (data) {
             getList(`http://www.nomadicmatt.com/travel-guides/`)
                 .then(resultList => {
                     console.log("length: " + resultList.length);
-                    urlCountries = resultList.slice(60, 66);
+                    urlCountries = resultList;//.slice(60, 66);
                     //urlPlaces = [{ url: "http://www.nomadicmatt.com/travel-guides/caribbean-travel-tips/st-lucia/", country: "caribbean" }];
                     return getParallel().then(() => getParallelPlaces())
                 })

@@ -1,7 +1,7 @@
 /* globals module require */
 "use strict";
 
-module.exports = function () {
+module.exports = function() {
     return {
         redirectHomePage(req, res) {
             res.redirect("/home");
@@ -10,11 +10,12 @@ module.exports = function () {
             const isLogged = !!req.user;
 
             const user = {
-                user : {
-                    isLogged:isLogged
+                user: {
+                    isLogged: isLogged
                 }
-            }
+            };
+
             res.render("home-page", user);
         }
     };
-}
+};
