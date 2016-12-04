@@ -18,7 +18,7 @@ countrySchema.static('getCountry', country => {
         description: country.description,
         pictureUrl: country.pictureUrl,
         countryUrl: country.countryUrl,
-        city: country.city
+        city: country.cities
     });
 });
 

@@ -18,7 +18,7 @@ describe("Test country data", () => {
             });
 
             //act
-            let data = require("../server/data/country-data")({Country});
+            let data = require("../../server/data/country-data")({Country});
             data.getAllCountries_()
                 .then(actualCountries => {
                     //assert
