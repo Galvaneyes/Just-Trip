@@ -26,7 +26,6 @@ html(lang="en")
 
                 div#bs-example-navbar-collapse-1.navbar-collapse.collapse.in(aria-expanded="true")
                     ul.nav.navbar-nav
-                        //- if user.isLogged
                         if user && user.isLogged
                             li
                                 a.btn.btn-default.btn-lg.nav-items(href="/") Home
@@ -50,7 +49,6 @@ html(lang="en")
                             li
                                 a.btn.btn-default.btn-lg.nav-items(href="/about-us") About us
                     ul.nav.navbar-nav.navbar-right
-                        //- if user.isLogged
                         if user && user.isLogged
                             li
                                 a.btn.btn-default.btn-lg.nav-items(href="logout") Log Out

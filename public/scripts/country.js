@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $ document alert*/
 
 function afterGet() {
   $(".country-name_")
