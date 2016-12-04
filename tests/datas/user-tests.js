@@ -58,8 +58,12 @@ describe("User data", () => {
                 let id = query._id;
                 let foundUser = users.find(u => u._id === id);
 
-                cb(null, foundUser);
+                cb(null, foundUser || null);
             });
+        });
+
+        afterEach(() => {
+            sinon.restore();
         });
 
         it("Expect to return the user", done => {
@@ -68,6 +72,14 @@ describe("User data", () => {
                     expect(actualUser).to.eql(user);
                     done();
                 });
+        });
+
+        it("Expect to return null, if user is not found", done => {
+            data.getUserById(42)
+                .then(actualUser => {
+                    expect(actualUser).to.be.null;
+                    done();
+                })
         });
     });
 });
