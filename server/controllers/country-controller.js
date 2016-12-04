@@ -7,10 +7,10 @@ module.exports = function ({ data }) {
 
     return {
         updateCountryData(req, res) {
-            const isLogged = true; //for testing purposes
+            const isLogged = !!req.user;  //perhaps admin
             if (!isLogged) {
                 res.status(401)
-                    .send("YOU ARE NOT LOGGED");
+                    .send("YOU ARE NOT LOGGED"); //admin
 
             } else {
 
@@ -24,7 +24,7 @@ module.exports = function ({ data }) {
 
         seedCountryData(req, res) {
 
-            const isLogged = true; //for testing purposes
+            const isLogged = !!req.user;
             if (!isLogged) {
                 res.status(401)
                     .send("YOU ARE NOT LOGGED");
@@ -70,8 +70,7 @@ module.exports = function ({ data }) {
         getAllCountries(req, res) {
             data.getAllCountries("name")
                 .then(countryList => {
-                    //console.log(countryList);
-                    res.render("country-page", { countryList, user: { isLogged: true } });
+                    res.render("country-page", { countryList, user: { isLogged: !!req.user } });
                 })
                 .catch(err => {
                     console.log(`COUNTRY LIST ERROR: ${err}`);
@@ -88,11 +87,10 @@ module.exports = function ({ data }) {
         },
         getCountryList(req, res) {
             console.log(req.params.mask);
-            //  res.send("getDescriptioById");
             data.getCountryList(req.params.mask, "name")
                 .then(countryList => {
                     console.log(countryList);
-                    res.render("country-list", { countryList });
+                    res.render("country-list", { countryList, user: { isLogged: !!req.user } });
                 });
         }
     };
