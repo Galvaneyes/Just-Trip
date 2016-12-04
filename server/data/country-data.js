@@ -118,7 +118,10 @@ module.exports = function (models) {
         },
         getCountryList(mask, countryProps) { //FIX in an object, specify which properties to return
             return new Promise((resolve, reject) => {
-                console.log("SEARCHING FOR ALL COUNTRIES...MASK");
+                if (mask === "*") {
+                    mask = "(.*?)";
+                }
+                console.log(`SEARCHING FOR ALL COUNTRIES..${mask}`);
                 let re = new RegExp(mask, 'i');
                 Country.find({ name: { $regex: re } }, countryProps, { sort: { name: +1 } }, (err, countries) => { //was 'name'
                     if (err) {

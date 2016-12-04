@@ -42,10 +42,11 @@ $(document).ready(function () {
   $("#searchCountry")
     .click(function (e) {
       let countryPattern = $("#countryPattern").val();
-      // alert(countryPattern);
+      if (countryPattern === '') {
+        countryPattern = "*";
+      }
 
       $.get("/countries/ajax/getCountryList/" + countryPattern, function (data, status) {
-        //  alert("Data: " + data + "\nStatus: " + status);
         $("#countryListContainer").html(data);
         afterGet();
         //   .css({ "position": "absolute", "top": mouseY + "px", "left": mouseX + "px" });

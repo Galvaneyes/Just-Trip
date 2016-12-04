@@ -22,7 +22,7 @@ block container
                     label.col-lg-2.control-label(for='select') Country
                     div.col-lg-10
                         select#select.form-control(name="country")
-                            option(value="", disabled selected hidden ) Country
+                            option(value="", disabled selected hidden ) Pick a country or add it in Places if missing
                             each country in countries
                                 option(value=country.name) #{country.name}                            
                 div.form-group
@@ -33,6 +33,7 @@ block container
                             option(value="", disabled selected hidden ) City
                             each city in cities
                                 option(value=city.name) #{city.name}  
+                            option(value="Other") Other 
                 div.form-group
                     label.col-lg-2.control-label End date
                     div.col-lg-10
