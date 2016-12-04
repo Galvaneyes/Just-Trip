@@ -17,6 +17,8 @@ block container
                 a #{tour.country}
             h5 City:
                 a #{tour.city}
+            h5 Capacity:
+                a #{tour.capacity}
             h5 Price per person:
                 a #{tour.price}
             h5 End join date:
@@ -28,5 +30,7 @@ block container
             h5 Description:
                 a #{tour.description}
             div.br-line
-            
+            if user.IsLogged
+                a.btn.btn-success(href="#") Join 
+                a.btn.btn-danger(href="#") Remove 
 
