@@ -88,7 +88,8 @@ module.exports = function({ data }) {
                             tourId: dataCollection.tour.getId,
                             tourTitle: dataCollection.tour.headline,
                             tourCountry: dataCollection.tour.country,
-                            tourCity: dataCollection.tour.city
+                            tourCity: dataCollection.tour.city,
+                            isDeleted: "false"
                         };
 
                     console.log(dataCollection.user);
@@ -146,9 +147,6 @@ module.exports = function({ data }) {
             console.log(search.endTourDate);
             data.getSearchResults(search)
                 .then(tours => {
-                    // const searchResult = {
-                    //    tours: tours
-                    // };
 
                     res.status(200)
                         .render("search-page",{tours});

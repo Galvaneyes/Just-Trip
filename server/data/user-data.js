@@ -180,6 +180,7 @@ module.exports = function(models) {
                 });
             });
         },
+        // SOMETHING IS WRONG HERE!
         updateUserProperty(username, updateData) {
             return new Promise((resolve, reject) => {
                 User.update({ username: username }, { $push: updateData },
@@ -188,10 +189,7 @@ module.exports = function(models) {
                             console.log(`ERROR WHEN UPDATE USER:${username}`);
                             return reject(err);
                         }
-                        // If nothing has been updated break
-                        // if(updatedUser.nModified === 0 && updatedUser.n === 0){
-                        //     return reject(updatedUser);
-                        // }
+
                         let tour = updateData.userOfferTours;
                         console.log(`USER ${username} UPDATED SUCCESSFULLY`);
                         // resolve now returns tour as well, allowing easier navigation to new tour.
@@ -199,13 +197,30 @@ module.exports = function(models) {
                     });
             });
         },
+        updateUserFields(username, updateData) {
+            return new Promise((resolve, reject) => {
+                User.update({ username: username }, { $set: updateData },
+                    (err, updatedUser) => {
+                        if (err) {
+                            console.log(`ERROR WHEN UPDATE USER:${username}`);
+                            return reject(err);
+                        }
+
+                        //let tour = updateData.userOfferTours;
+                        console.log(`USER ${username} UPDATED SUCCESSFULLY`);
+                        // resolve now returns tour as well, allowing easier navigation to new tour.
+                        return resolve(updatedUser);
+                    });
+            });
+        },
         updateUser(user) {
+            console.log("UPDATE IS CALLED ++++++=" + user);
             return new Promise((resolve, reject) => {
                 user.save(err => {
                     if (err) {
                         return reject(err);
                     }
-
+                    console.log("UPDATE FINISH ++++++=" + user);
                     return resolve(user);
                 });
             });
