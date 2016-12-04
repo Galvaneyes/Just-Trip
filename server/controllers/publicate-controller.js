@@ -15,7 +15,11 @@ module.exports = function({ data, io }) {
                         isLogged: !!req.user
                     }
                 };
-                res.status(200).render("publish-travel", user);
+
+                Promise.all([data.getAllCountries("name"), data.getAllCities("name")])
+                    .then(([countries, cities]) => {
+                        res.status(200).render("publish-travel", { user, countries, cities });
+                    });
             }
         },
         createTour(req, res) {
@@ -48,7 +52,7 @@ module.exports = function({ data, io }) {
             } else if (!validator.validateString(req.user.username, 1)) {
                 res.status(400).send("You must be loged in to publish!");
             } else {
-            // TO DO: IT IS NOT CORRECT
+                // TO DO: IT IS NOT CORRECT
                 const user = req.user.username;
                 const toursDetails = {
                     headline: validator.escapeHtml(req.body.headline),
@@ -58,16 +62,16 @@ module.exports = function({ data, io }) {
                     creator: validator.escapeHtml(user),
                     isValid: "true"
                 };
-            data.createTour(toursDetails)
-                .then(tour => {
-                    const userTourData = {
-                        userOfferTours: {
-                            tourId: tour.getId,
-                            tourTitle: tour.headline,
-                            tourCountry: tour.country,
-                            tourCity: tour.city
-                        }
-                    };
+                data.createTour(toursDetails)
+                    .then(tour => {
+                        const userTourData = {
+                            userOfferTours: {
+                                tourId: tour.getId,
+                                tourTitle: tour.headline,
+                                tourCountry: tour.country,
+                                tourCity: tour.city
+                            }
+                        };
                         return data.updateUserProperty(user, userTourData);
                     })
                     .then(({ updatedUser, tour }) => {

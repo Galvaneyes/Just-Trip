@@ -22,13 +22,17 @@ block container
                     label.col-lg-2.control-label(for='select') Country
                     div.col-lg-10
                         select#select.form-control(name="country")
-                            option Bulgaria
-                            option Germany
-                            option Telerik
+                            option(value="", disabled selected hidden ) Country
+                            each country in countries
+                                option(value=country.name) #{country.name}                            
                 div.form-group
                     label.col-lg-2.control-label City
                     div.col-lg-10
                         input.form-control(type="text" placeholder="City" name="city")
+                        select#selectCity.form-control(name="city")
+                            option(value="", disabled selected hidden ) City
+                            each city in cities
+                                option(value=city.name) #{city.name}  
                 div.form-group
                     label.col-lg-2.control-label End date
                     div.col-lg-10
