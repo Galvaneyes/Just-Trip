@@ -106,36 +106,51 @@ module.exports = function({ data, io }) {
                     .render("not-login");
             }
 
-            console.log(req.params.id);
-            data.getTourById(req.params.id)
+            const tourId = req.params.id;
+
+            data.getTourById(tourId)
                 .then(tour => {
-                    console.log("REQESTER ====> " + req.user.username);
-                    console.log("CREATOR =====> " + tour.creator);
                     if (req.user.username !== tour.creator) {
                         res.send("NOT AUTHORIZED");
                     }
+                    tour.isDeleted = "true";
+                    tour.isValid = "false";
 
-                    return data.getUsersBySpecificCriteria({ userBoughtTours: { $elemMatch: { tourId: "5844214cd098fa1ac0c59943" } } });
+                    return data.updateTour(tour)
                 })
-                .then(users => {
+                .then(updatedTour => {
+                    console.log("UPDATED TOUR======>" + updatedTour.headline);
+                    return data.getUserByUsername(updatedTour.creator);
+                })
+                .then(tourCreator => {
+                    console.log("CREATOR OF TOUR====>" + tourCreator.username);
+                    tourCreator.userOfferTours.forEach(tour => {
+                            if(tour.tourId == `${req.params.id}`) {
+                                tour.isDeleted = "true";
+                                return;
+                            }
+                        })
+                    return data.updateUserFields(tourCreator.username, {userOfferTours:tourCreator.userOfferTours})})
+                .then(() => {
+                        const search = {
+                        userBoughtTours: {
+                            $elemMatch: { tourId: `${req.params.id}`
+                                }
+                            }
+                        };
 
+                        return data.getUsersBySpecificCriteria(search);
+                    })
+                .then(users => {
                     users.forEach(x => {
                         x.userBoughtTours.forEach(tour => {
-                            if(tour.tourId == "5844214cd098fa1ac0c59943") {
-                                console.log("IS DELETED===================>");
-                                console.log(tour);
+                            if(tour.tourId == `${req.params.id}`) {
                                 tour.isDeleted = "true";
-                                console.log("RESULT===============>");
-                                console.log(tour);
+                                return;
                             }
                         })
                     });
                     return Promise.resolve(users)
-                    // console.log("FIRST ===>" + users);
-
-                    // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
-                    // console.log("RESULTS ====>" + newUsers);
-                    //res.send(users);
                 })
                 .then(users => {
                     return Promise.all(users.map(user => data.updateUserFields(user.username, {userBoughtTours:user.userBoughtTours})));
