@@ -213,13 +213,13 @@ module.exports = function(models) {
             });
         },
         updateUser(user) {
-            console.log("UPDATE IS CALLED ++++++=" + user);
+            console.log("UPDATE IS CALLED ==========> " + user);
             return new Promise((resolve, reject) => {
                 user.save(err => {
                     if (err) {
                         return reject(err);
                     }
-                    console.log("UPDATE FINISH ++++++=" + user);
+                    console.log("UPDATE FINISH <=========" + user);
                     return resolve(user);
                 });
             });
