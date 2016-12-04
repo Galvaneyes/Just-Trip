@@ -3,6 +3,7 @@
 
 const mongoose = require("mongoose");
 //const regex = "/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i";
+let allRoles = ["admin", "moderator", "regular"];
 
 const userSchema = new mongoose.Schema({
     username: { type: String, validate: /[a-zA-Z0-9]+/, required: true, unique: true },
@@ -16,6 +17,7 @@ const userSchema = new mongoose.Schema({
     city: { type: String },
     userOfferTours: [{}],
     userBoughtTours: [{}],
+    roles: {type: [String], default: "regular" , enum: allRoles},
     facebookId: { type: String },
     facebookToken: { type: String }
 });
