@@ -1,0 +1,37 @@
+extends _layout
+block styles
+    link(rel="stylesheet" href="static/login-files/css/style.css")
+    link(rel="stylesheet" href="static/styles/excursion-details-style.css")
+block container
+    div
+        h1 #{trip.headline}
+        div.br-line
+        img.excursion-img(src='static/images/travel.jpg')
+        div.br-line
+        div
+            h4 Create by: 
+                a(href="/profile/#{trip.creator}") #{trip.creator}
+            div.br-line
+            h4 Information about the excursion:
+            div.br-line
+            h5 Country:
+                a #{trip.country}
+            h5 City:
+                a #{trip.city}
+            h5 Capacity:
+                a #{trip.capacity}
+            h5 Price per person:
+                a #{trip.price}
+            h5 End join date:
+                a #{trip.endJoinDate}
+            h5 Begin trip date:
+                a #{trip.beginTripDate}
+            h5 End trip date:
+                a #{trip.endTripDate}
+            h5 Description:
+                a #{trip.description}
+            div.br-line
+            if user && user.isLogged
+                a.btn.btn-success(href="#") Join 
+                a.btn.btn-danger(href="#") Remove 
+

@@ -6,10 +6,10 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
         block meta
         title Just-Trip
-        link(rel="stylesheet" href="./styles/bootstrap-css.css")
-        link(rel="stylesheet" href="./styles/main.css")
-        link(rel="stylesheet" href="./styles/animate.css")
-        link(rel="stylesheet" href="./styles/notifications.css")
+        link(rel="stylesheet" href="static/styles/bootstrap-css.css")
+        link(rel="stylesheet" href="static/styles/main.css")
+        link(rel="stylesheet" href="static/styles/animate.css")
+        link(rel="stylesheet" href="static/styles/notifications.css")
         block styles
 
     body
@@ -22,7 +22,7 @@ html(lang="en")
                         span.icon-bar
                         span.icon-bar
                     a.navbar-brand(href="/")
-                        img(src="./images/logo.png" style="height: 40px") 
+                        img(src="static/images/logo.png" style="height: 40px") 
 
                 div#bs-example-navbar-collapse-1.navbar-collapse.collapse.in(aria-expanded="true")
                     ul.nav.navbar-nav
@@ -51,12 +51,12 @@ html(lang="en")
                     ul.nav.navbar-nav.navbar-right
                         if user && user.isLogged
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="logout") Log Out
+                                a.btn.btn-default.btn-lg.nav-items(href="/logout") Log Out
                         else 
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="login") Login
+                                a.btn.btn-default.btn-lg.nav-items(href="/login") Login
                             li
-                                a.btn.btn-default.btn-lg.nav-items(href="register") Register
+                                a.btn.btn-default.btn-lg.nav-items(href="/register") Register
         div.container.home-page
             block container
 
@@ -66,10 +66,10 @@ html(lang="en")
             div.panel-footer.footer
                 p.footer-text Copyright © Just-Trip 2016. All right reserved. 
 
-    script(src="/bower_components/jquery/dist/jquery.js")
-    script(src="/bower_components/bootstrap/dist/js/bootstrap.js")
-    script(src="../socket.io/socket.io.js")
-    script(src="../scripts/sockets.js")
+    script(src="static/bower_components/jquery/dist/jquery.js")
+    script(src="static/bower_components/bootstrap/dist/js/bootstrap.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/scripts/sockets.js")
     block scripts
     
 

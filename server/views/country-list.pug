@@ -4,9 +4,7 @@ div
         tr
             td
                 each country in countryList
-                    div(class="country-name" id=country._id name=country.name) #{country.name}
-                        if user && user.isLogged
-                            button.del Add
-                            button.edit Edit
+                    div
+                        button(class="country-name" id=country._id name=country.name) #{country.name}
             td
                 div#Left
