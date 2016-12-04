@@ -40,6 +40,8 @@ describe("Tour data", () => {
         Tour
     });
 
+    let errorMsg = "error";
+
     describe("createTour()", () => {
         afterEach(() => {
             sinon.restore();
@@ -97,7 +99,6 @@ describe("Tour data", () => {
         });
 
         it("Expect to reject if fails to update tour", done => {
-            let errorMsg = "error";
             sinon.stub(Tour.prototype, "save", cb => {
                 cb(errorMsg);
             });
@@ -150,12 +151,56 @@ describe("Tour data", () => {
         });
 
         it("Expect to reject with error if can not connect to database", done => {
-            let errorMsg = "error";
             sinon.stub(Tour, "findOne", (query, cb) => {
                 cb(errorMsg);
             });
 
             data.getTourById(5).catch(err => {
+                expect(err).to.equals(errorMsg);
+                done();
+            });
+        });
+    });
+
+    describe("getSearchResults()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let tour1 = { headline: "Na gosti na Pesho!", _id: 1 };
+        let tour2 = { headline: "Purgatory", _id: 2 };
+        let tour3 = { headline: "Purgatory", _id: 3 };
+        let tours = [tour1, tour2, tour3];
+
+        it("Expect to return correct search results", done => {
+            let result = JSON.parse(JSON.stringify(tours));
+            sinon.stub(Tour, "find", (query, cb) => {
+                for (var key in query) {
+                    if (query.hasOwnProperty(key)) {
+                        result = result.filter(t => t[key] === query[key]);
+                    }
+                }
+
+                console.log(result);
+                cb(null, result);
+            });
+
+            let search = { headline: "Purgatory" };
+
+            data.getSearchResults(search).then(actualTours => {
+                expect(actualTours.length).to.eql(2);
+                done();
+            });
+        });
+
+        it("Expect to reject with err if encounter error", done => {
+            sinon.stub(Tour, "find", (query, cb) => {
+                cb(errorMsg);
+            });
+
+            let search = { headline: "Stairway to Heaven" };
+
+            data.getSearchResults(search).catch(err => {
                 expect(err).to.equals(errorMsg);
                 done();
             });
