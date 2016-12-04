@@ -148,6 +148,19 @@ module.exports = function (models) {
                     return resolve(country);
                 });
             });
+        },
+        removeCountry(id) {
+            return new Promise((resolve, reject) => {
+                console.log(`REMOVING COUNTRY..${id}`);
+                Country.findOneAndRemove({ _id: id }, (err, country) => {
+                    if (err) {
+                        console.log(`ERROR WHEN REMOVING COUNTRY..${id}`);
+                        return reject(err);
+                    }
+                    console.log(`COUNTRY..${id} REMOVED`);
+                    return resolve(country);
+                });
+            });
         }
     };
 };

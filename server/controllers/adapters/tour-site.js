@@ -8,7 +8,6 @@ module.exports = function (data) {
 
     function parseAll(href, html) {
         let res = "(" + href + ")" + html;
-        //  console.log('===========ALL:' + res);
         return res;
     }
 
@@ -24,11 +23,9 @@ module.exports = function (data) {
         if (urlCountries.length === 0) {
             return Promise.resolve({ title: "Finished" });
         }
-        //console.log(urlCountries);
         let country = urlCountries.pop();
         let url = urlMain + country.url;
         console.log("Working with countries urls: " + url);
-        // console.log("after:" + urlCountries.length);
         return httpRequester.get(url)
             .then(result => {
                 let selector = 'div.hl > div:nth-child(1) > ul > li';
