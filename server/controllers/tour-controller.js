@@ -142,7 +142,7 @@ module.exports = function({ data }) {
 
             console.log(search.beginTourDate);
             console.log(search.endTourDate);
-            data.getSearchResults(search,{}, {sort: { endJoinDate : -1 }})
+            data.getSearchResults(search,{}, {sort: { endJoinDate : +1 }})
                 .then(tours => {
                     const isLogged = !!req.user;
                     const user = {
