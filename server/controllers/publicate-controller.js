@@ -48,6 +48,7 @@ module.exports = function({ data, io }) {
             } else if (!validator.validateString(req.user.username, 1)) {
                 res.status(400).send("You must be loged in to publish!");
             } else {
+            // TO DO: IT IS NOT CORRECT
                 const user = req.user.username;
                 const toursDetails = {
                     headline: validator.escapeHtml(req.body.headline),
@@ -57,19 +58,16 @@ module.exports = function({ data, io }) {
                     creator: validator.escapeHtml(user),
                     isValid: "true"
                 };
-
-
-                data.createTour(toursDetails)
-                    .then(tour => {
-                        const userTourData = {
-                            userOfferTours: {
-                                tourId: tour._id,
-                                tourTitle: tour.headline,
-                                tourCountry: tour.country,
-                                tourCity: tour.city
-                            }
-                        };
-
+            data.createTour(toursDetails)
+                .then(tour => {
+                    const userTourData = {
+                        userOfferTours: {
+                            tourId: tour.getId,
+                            tourTitle: tour.headline,
+                            tourCountry: tour.country,
+                            tourCity: tour.city
+                        }
+                    };
                         return data.updateUserProperty(user, userTourData);
                     })
                     .then(({ updatedUser, tour }) => {
@@ -106,11 +104,14 @@ module.exports = function({ data, io }) {
                     if (req.user.username !== tour.creator) {
                         res.send("NOT AUTHORIZED");
                     }
-
+                    // const id = mongoose.Types.ObjectId("5842aa4fb6d4ef10c084ad13")
                     // const searchParams = {
-                    //     userBoughtTours.tourId: {
-                    //         $in : [ {tourId : req.params.id}]
-                    // }};
+                    //     userBoughtTours: {
+                    //         $elemMatch : {tourId : "5843635aafee9f159cf37849"}
+                    //     }
+                    // };
+
+                    // return data.getUsersBySpecificCriteria(searchParams);
 
                     return data.getSearchResults({ userBoughtTours: { $elemMatch: { tourCity: "Sofia" } } });
                 })
