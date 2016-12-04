@@ -15,12 +15,17 @@ describe("User data", () => {
     class User {
         constructor(properties) {
             this.username = properties.username,
-                this.salt = properties.salt,
-                this.passHash = properties.passHash,
-                this.firstname = properties.firstname,
-                this.lastname = properties.lastname
+            this.salt = properties.salt,
+            this.passHash = properties.passHash,
+            this.firstname = properties.firstname,
+            this.lastname = properties.lastname,
+            this.email = properties.email,
+            this.age = properties.age,
+            this.country = properties.country,
+            this.city = properties.city
         }
 
+        static create() {}
         static find() {}
         static findOne() {}
         static findAll() {}
@@ -121,6 +126,51 @@ describe("User data", () => {
             data.getUserByUsername(name)
                 .catch(err => {
                     expect(err).to.equals(name);
+                    done();
+                });
+        });
+    });
+
+    describe("createUser()", () => {
+        let username = "Pesho",
+            user = {
+                username: username,
+                salt: "",
+                passHash: "",
+                email: "",
+                firstname: "",
+                lastname: "",
+                age: "",
+                country: "",
+                city: ""
+            };
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("Expect user to be created", done => {
+            sinon.stub(User, "create", (user, cb) => {
+                cb(null, user);
+            });
+
+            data.createUser(user)
+                .then(actualUser => {
+                    expect(actualUser.username).to.equal(username);
+                    done();
+                });
+        });
+
+        it("Expect to reject user to be created", done => {
+            let errorMessage = "Error";
+
+            sinon.stub(User, "create", (user, cb) => {
+                cb(errorMessage, user);
+            });
+
+            data.createUser(user)
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equal(errorMessage);
                     done();
                 });
         });
