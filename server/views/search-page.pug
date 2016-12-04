@@ -37,7 +37,7 @@ block container
         div 
             div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
                 each tour in tours
-                    a.list-group-item.active(href="/tours/"+ tour._id)= tour.headline
+                    a.list-group-item.active(href="/tours/details/"+ tour._id)= tour.headline
                         a.list-group-item= tour.country
                         a.list-group-item= tour.city
                         a.list-group-item= tour.description

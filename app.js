@@ -18,7 +18,8 @@ const admin = {
     lastname: "name",
     age: 14,
     country: "Bulgaria",
-    city: "Sofia"
+    city: "Sofia",
+    roles: ["admin"]
 };
 
 const tour = {
@@ -56,14 +57,14 @@ const tour = {
 //         data.createTour(tour);
 //     });
 
-// data.getUserByUsername(admin.username)
-//     .then(user => {
-//         //console.log(user);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         return data.createUser(admin);
-//     });
+data.getUserByUsername(admin.username)
+    .then(user => {
+        //console.log(user);
+    })
+    .catch(err => {
+        console.log(err);
+        return data.createUser(admin);
+    });
 // END OF TEST
 
 // data.getUsersBySpecificCriteria({email: "no@email.com", age: 14})
