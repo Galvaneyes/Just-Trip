@@ -402,6 +402,40 @@ describe("User data", () => {
                     done();
                 });
         });
+    });
+
+    describe("updateUserProperty()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let userProperties = {username: "Pesho"},
+        mockedUser = new User(userProperties),
+        errorMessage = "Error";
+
+        it("Expect to update the user property", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(null, mockedUser);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .then(actualUser => {
+                    expect(actualUser.firstname).to.equals(mockedUser.firstname);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the user is not updated", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(errorMessage);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
 
     });
 });

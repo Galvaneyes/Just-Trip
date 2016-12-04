@@ -166,20 +166,20 @@ module.exports = function(models) {
                 });
             });
         },
-        updateUserArrayProperty(username, updateData) {
-            return new Promise((resolve, reject) => {
+        // updateUserArrayProperty(username, updateData) {
+        //     return new Promise((resolve, reject) => {
 
-                User.findOneAndUpdate(username, { $push: updateData }, { upsert: true, 'new': true }, (err, model) => {
-                    if (err) {
-                        console.log(`ERROR WHEN UPDATE USER:${username}`);
-                        return reject(err);
-                    }
+        //         User.findOneAndUpdate(username, { $push: updateData }, { upsert: true, 'new': true }, (err, model) => {
+        //             if (err) {
+        //                 console.log(`ERROR WHEN UPDATE USER:${username}`);
+        //                 return reject(err);
+        //             }
 
-                    console.log(`USER ${username} UPDATED SUCCESSFULLY`);
-                    return resolve(model);
-                });
-            });
-        },
+        //             console.log(`USER ${username} UPDATED SUCCESSFULLY`);
+        //             return resolve(model);
+        //         });
+        //     });
+        // },
         // SOMETHING IS WRONG HERE!
         updateUserProperty(username, updateData) {
             return new Promise((resolve, reject) => {
