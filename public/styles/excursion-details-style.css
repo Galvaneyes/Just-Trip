@@ -1,0 +1,50 @@
+a {
+        margin-left: 5px;
+}
+
+.excursion-img {
+    width: 260px;
+    height: 120px;
+}
+
+@media only screen and (min-width: 480px) {
+    .excursion-img {
+        width: 680px;
+        height: 330px;
+    }
+}
+
+h1 {
+    text-align: left;
+    text-shadow: 4px 2px 10px rgba(103, 103, 159, 1);
+}
+
+@media only screen and (min-width: 480px) {
+    h1 {
+        margin-left: 220px;
+        margin-bottom: auto;
+        text-shadow: 4px 2px 10px rgba(103, 103, 159, 1);
+    }
+}
+
+.br-line {
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #999;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    width: 270px;
+}
+
+@media only screen and (min-width: 480px) {
+    .br-line {
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #999;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        width: 680px;
+    }
+}
