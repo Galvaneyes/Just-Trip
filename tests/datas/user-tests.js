@@ -193,57 +193,6 @@ describe("User data", () => {
                     done();
                 });
         });
-
-        it("Expect to reject when username is empty", done => {
-            let name = "",
-                errorMessage = "Error";
-
-            user.username = name;
-
-            sinon.stub(User, "create", (user, cb) => {
-                cb(errorMessage, user);
-            });
-
-            data.createUser(user)
-                .catch(actualMessage => {
-                    expect(actualMessage).to.equals(errorMessage);
-                    done();
-                });
-        });
-
-        it("Expect to reject when firstName is empty", done => {
-            let firstName = "",
-                errorMessage = "Error";
-
-            user.firstname = firstName;
-
-            sinon.stub(User, "create", (user, cb) => {
-                cb(errorMessage, user);
-            });
-
-            data.createUser(user)
-                .catch(actualMessage => {
-                    expect(actualMessage).to.equals(errorMessage);
-                    done();
-                });
-        });
-
-        it("Expect to reject when lastName is empty", done => {
-            let lastName = "",
-                errorMessage = "Error";
-
-            user.lastname = lastName;
-
-            sinon.stub(User, "create", (user, cb) => {
-                cb(errorMessage, user);
-            });
-
-            data.createUser(user)
-                .catch(actualMessage => {
-                    expect(actualMessage).to.equals(errorMessage);
-                    done();
-                });
-        });
     });
 
     describe("createFacebookUser()", () => {
