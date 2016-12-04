@@ -2,6 +2,7 @@
 "use strict";
 
 module.exports = function({ data, io }) {
+    const validator = require("../../utils/validator");
     return {
         get(req, res) {
 
@@ -35,14 +36,28 @@ module.exports = function({ data, io }) {
 
             let endTourDate = new Date(`${req.body.endTourDate}`);
             endTourDate.setDate(endTourDate.getDate() + fixDay);
-            req.body.endTourDate = endTourDate
+            req.body.endTourDate = endTourDate;
 
-            const toursDetails = req.body;
-            toursDetails.isValid = "true";
-
-            const user = req.user.username;
-            toursDetails.creator = user;
-
+            // TODO: ajax!
+            if (!validator.validateString(req.body.headline, 1)) {
+                res.status(400).send("Headline is required!");
+            } else if (!validator.validateString(req.body.country, 1)) {
+                res.status(400).send("Country is required!");
+            } else if (!validator.validateString(req.body.city, 1)) {
+                res.status(400).send("City is required!");
+            } else if (!validator.validateString(req.user.username, 1)) {
+                res.status(400).send("You must be loged in to publish!");
+            } else {
+            // TO DO: IT IS NOT CORRECT
+                const user = req.user.username;
+                const toursDetails = {
+                    headline: validator.escapeHtml(req.body.headline),
+                    country: validator.escapeHtml(req.body.country),
+                    city: validator.escapeHtml(req.body.city),
+                    description: validator.escapeHtml(req.body.description),
+                    creator: validator.escapeHtml(user),
+                    isValid: "true"
+                };
             data.createTour(toursDetails)
                 .then(tour => {
                     const userTourData = {
@@ -53,26 +68,26 @@ module.exports = function({ data, io }) {
                             tourCity: tour.city
                         }
                     };
-
-                    return data.updateUserProperty(user, userTourData);
-                })
-                .then(({ updatedUser, tour }) => {
-                    io.sockets.emit('newTour', {
-                        headline: `${toursDetails.headline}`,
-                        country: `${toursDetails.country}`,
-                        city: `${toursDetails.city}`,
-                        date: `${toursDetails.beginTourDate}`,
-                        tourId: `${tour.tourId}`,
-                        creator: `${user}`
+                        return data.updateUserProperty(user, userTourData);
+                    })
+                    .then(({ updatedUser, tour }) => {
+                        io.sockets.emit('newTour', {
+                            headline: `${toursDetails.headline}`,
+                            country: `${toursDetails.country}`,
+                            city: `${toursDetails.city}`,
+                            date: `${toursDetails.beginTourDate}`,
+                            tourId: `${tour.tourId}`,
+                            creator: `${user}`
+                        });
+                        res.status(200)
+                            .json(updatedUser);
+                    })
+                    .catch(err => {
+                        console.log(`TOUR ${err} CANT BE CREATED`);
+                        res.status(404)
+                            .send(`TOUR ${err} CANT BE CREATED`);
                     });
-                    res.status(200)
-                        .json(updatedUser);
-                })
-                .catch(err => {
-                    console.log(`TOUR ${err} CANT BE CREATED`);
-                    res.status(404)
-                        .send(`TOUR ${err} CANT BE CREATED`);
-                });
+            }
         },
         // UNDERCONSTRUCTION!!
         removeTour(req, res) {
@@ -86,17 +101,19 @@ module.exports = function({ data, io }) {
                 .then(tour => {
                     console.log("REQESTER ====> " + req.user.username);
                     console.log("CREATOR =====> " + tour.creator);
-                    if(req.user.username !== tour.creator) {
-                        res.send("NOT AUTHORIZED")
+                    if (req.user.username !== tour.creator) {
+                        res.send("NOT AUTHORIZED");
                     }
                     // const id = mongoose.Types.ObjectId("5842aa4fb6d4ef10c084ad13")
-                    const searchParams = {
-                        userBoughtTours: {
-                            $elemMatch : {tourId : "5843635aafee9f159cf37849"}
-                        }
-                    };
+                    // const searchParams = {
+                    //     userBoughtTours: {
+                    //         $elemMatch : {tourId : "5843635aafee9f159cf37849"}
+                    //     }
+                    // };
 
-                    return data.getUsersBySpecificCriteria(searchParams);
+                    // return data.getUsersBySpecificCriteria(searchParams);
+
+                    return data.getSearchResults({ userBoughtTours: { $elemMatch: { tourCity: "Sofia" } } });
                 })
                 .then(users => {
                     // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
@@ -106,8 +123,8 @@ module.exports = function({ data, io }) {
                 })
                 .catch(err => {
                     console.log("ERROOOOR =====>" + err);
-                    res.send(err)
-                })
+                    res.send(err);
+                });
         }
     };
 };
