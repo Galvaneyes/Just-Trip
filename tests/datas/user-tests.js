@@ -15,10 +15,10 @@ describe("User data", () => {
     class User {
         constructor(properties) {
             this.username = properties.username,
-            this.salt = properties.salt,
-            this.passHash = properties.passHash,
-            this.firstname = properties.firstname,
-            this.lastname = properties.lastname
+                this.salt = properties.salt,
+                this.passHash = properties.passHash,
+                this.firstname = properties.firstname,
+                this.lastname = properties.lastname
         }
 
         static find() {}
@@ -26,7 +26,9 @@ describe("User data", () => {
         static findAll() {}
     }
 
-    let data = require("../../server/data/user-data")({ User });
+    let data = require("../../server/data/user-data")({
+        User
+    });
 
     describe("getAllUsers()", () => {
         it("Expect to return 2 users", done => {
@@ -48,10 +50,10 @@ describe("User data", () => {
         let userId = 1;
 
         let user = {
-            _id: userId,
-            name: "Pesho"
-        },
-        users = [user];
+                _id: userId,
+                name: "Pesho"
+            },
+            users = [user];
 
         beforeEach(() => {
             sinon.stub(User, "findOne", (query, cb) => {
@@ -79,7 +81,48 @@ describe("User data", () => {
                 .then(actualUser => {
                     expect(actualUser).to.be.null;
                     done();
-                })
+                });
+        });
+    });
+
+
+    describe("getUserByUsername()", () => {
+        let username = "Pesho";
+
+        let user = {
+                username
+            },
+            users = [user];
+
+        beforeEach(() => {
+            sinon.stub(User, "findOne", (query, cb) => {
+                let username = query.username;
+                let foundUser = users.find(u => u.username === username);
+
+                cb(null, foundUser || null);
+            });
+        });
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("Expect to return the user", done => {
+            data.getUserByUsername(username)
+                .then(actualUser => {
+                    expect(actualUser).to.eql(user);
+                    done();
+                });
+        });
+
+        it("Expect to reject with name, if user is not found", done => {
+            let name = "Gosho";
+
+            data.getUserByUsername(name)
+                .catch(err => {
+                    expect(err).to.equals(name);
+                    done();
+                });
         });
     });
 });
