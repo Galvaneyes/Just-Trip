@@ -29,10 +29,33 @@ describe("Tour data", () => {
         }
 
         save() {}
+        static create() {}
         static find() {}
     }
 
     let data = require("../../server/data/tour-data")({
         Tour
+    });
+
+    describe("createTour()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("Expect to create tour with the given information", done => {
+            sinon.stub(Tour, "create", (tour, cb) => {
+                cb(null, tour);
+            });
+
+            let tourInfo = {
+                headline: "Na gosti na Pesho"
+            };
+
+            data.createTour(tourInfo)
+                .then(expectedTour => {
+                    expect(expectedTour).to.eqls(tourInfo);
+                    done();
+                });
+        });
     });
 });
