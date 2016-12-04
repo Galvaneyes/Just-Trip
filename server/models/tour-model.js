@@ -15,6 +15,7 @@ const tourSchema = new mongoose.Schema({
     beginTourDate: Date,
     endTourDate: Date,
     isValid: Boolean,
+    isDeleted: Boolean,
     usersInTour:[]
 });
 

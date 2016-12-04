@@ -83,27 +83,46 @@ const tour = {
 //         console.log(err);
 //     })
 
-// let search = {
-//     city: undefined || "Sofia",
-//     country: "Bulgaria",
-//     beginTourDate: { $gt: new Date("2016-12-1")},
-//     endTourDate:{ $lt: new Date("2016-12-30")}
-// };
+let search = {
+    city: "Plovdiv",
+    obj:[{name:"ivan"}, {name:"Petar"}],
+    country: "Bulgaria",
+    beginTourDate: { $gte: new Date("2016-12-1")},
+    endTourDate:{ $lte: new Date("2016-12-3")}
+};
 
 let searchh = {
     city: 'Sofia',
+    obj:[{name:"ivan"}, {name:"gogo"}],
     country: 'Bulgaria',
     beginTourDate: { '$gt': new Date('2016-11-29') },
-    endTourDate: { '$lt': new Date('2016-12-1') }
+    endTourDate: { '$lt': new Date('2016-12-6') }
 };
 
-data.getSearchResults(searchh)
-    .then(tours => {
-        console.log(tours);
+let sear = [search, searchh];
+
+sear.forEach(x => {
+    x.obj.forEach(x => {
+        if(x.name == "ivan") {
+            x.isDeleted = "true";
+        }
     })
-    .catch(err => {
-        console.log(err);
-    });
+});
+
+console.log(sear[0]);
+
+// Promise.all(sear.map(x => data.getSearchResults(x)))
+//     .then(x => {
+//         console.log(x);
+//     });
+
+// data.getSearchResults(search)
+//     .then(tours => {
+//         console.log(tours);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
 
 //COUNTRY TEST
 const Bulgaria = {

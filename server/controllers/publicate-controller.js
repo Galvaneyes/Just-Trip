@@ -41,7 +41,7 @@ module.exports = function({ data, io }) {
             endTourDate.setDate(endTourDate.getDate() + fixDay);
             req.body.endTourDate = endTourDate;
 
-            // TODO: ajax!
+            // TODO: ajax! ==> TO UGLY!
             if (!validator.validateString(req.body.headline, 1)) {
                 res.status(400).send("Headline is required!");
             } else if (!validator.validateString(req.body.country, 1)) {
@@ -57,9 +57,15 @@ module.exports = function({ data, io }) {
                     headline: validator.escapeHtml(req.body.headline),
                     country: validator.escapeHtml(req.body.country),
                     city: validator.escapeHtml(req.body.city),
+                    endJoinDate:endJoinDate,
+                    beginTourDate: beginTourDate,
+                    endTourDate: endTourDate,
+                    maxUser: req.body.maxUser,
+                    price : req.body.price,
                     description: validator.escapeHtml(req.body.description),
                     creator: validator.escapeHtml(user),
-                    isValid: "true"
+                    isValid: "true",
+                    isDeleted: "false"
                 };
                 data.createTour(toursDetails)
                     .then(tour => {
@@ -68,7 +74,8 @@ module.exports = function({ data, io }) {
                                 tourId: tour.getId,
                                 tourTitle: tour.headline,
                                 tourCountry: tour.country,
-                                tourCity: tour.city
+                                tourCity: tour.city,
+                                isDeleted: "false"
                             }
                         };
                         return data.updateUserProperty(user, userTourData);
@@ -107,23 +114,35 @@ module.exports = function({ data, io }) {
                     if (req.user.username !== tour.creator) {
                         res.send("NOT AUTHORIZED");
                     }
-                    // const id = mongoose.Types.ObjectId("5842aa4fb6d4ef10c084ad13")
-                    // const searchParams = {
-                    //     userBoughtTours: {
-                    //         $elemMatch : {tourId : "5843635aafee9f159cf37849"}
-                    //     }
-                    // };
 
-                    // return data.getUsersBySpecificCriteria(searchParams);
-
-                    return data.getSearchResults({ userBoughtTours: { $elemMatch: { tourCity: "Sofia" } } });
+                    return data.getUsersBySpecificCriteria({ userBoughtTours: { $elemMatch: { tourId: "5844214cd098fa1ac0c59943" } } });
                 })
                 .then(users => {
+
+                    users.forEach(x => {
+                        x.userBoughtTours.forEach(tour => {
+                            if(tour.tourId == "5844214cd098fa1ac0c59943") {
+                                console.log("IS DELETED===================>");
+                                console.log(tour);
+                                tour.isDeleted = "true";
+                                console.log("RESULT===============>");
+                                console.log(tour);
+                            }
+                        })
+                    });
+                    return Promise.resolve(users)
+                    // console.log("FIRST ===>" + users);
+
                     // const newUsers = users.filter(x => x.userBoughtTours["tourId"] === `${req.params.id}` )
-                    console.log("FIRST ===>" + users);
                     // console.log("RESULTS ====>" + newUsers);
-                    res.send(users);
+                    //res.send(users);
                 })
+                .then(users => {
+                    return Promise.all(users.map(user => data.updateUserFields(user.username, {userBoughtTours:user.userBoughtTours})));
+                })
+                .then(result => {
+                        res.send(result);
+                    })
                 .catch(err => {
                     console.log("ERROOOOR =====>" + err);
                     res.send(err);
