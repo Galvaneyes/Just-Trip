@@ -1,6 +1,9 @@
 extends _layout
 block styles
+    link(rel="stylesheet" href="./styles/profile.css")
     link(href="./bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet")
+block scripts
+    script(src="./scripts/edit-profile.js")
 block container
     div.row
         div.col-lg-3.col-sm-6
@@ -11,7 +14,7 @@ block container
             div.info
             div.title
                 a.animated.fadeInUp(href='/profile') #{user.username}
-            div.desc #{user.firstname}
+            div.capitalize.desc #{user.firstname}
             div.desc #{user.lastname}
             div.desc #{user.email}
             div.bottom
@@ -32,4 +35,7 @@ block container
                 a.list-group-item.active  Bought Tours
                 each bought in user.userBoughtTours
                     a.list-group-item= bought.tourTitle
+    div.btn-carry
+        a.btn.btn-warning.btn-xs.edit-profile-btn.buttons-for-edit(href="#") Edit profile
+        a.btn.btn-success.btn-xs.save-changes-btn.buttons-for-edit(href="#") Save changes
 
