@@ -140,16 +140,19 @@ module.exports = function({ data }) {
                 search.endTourDate = { $lt: date };
             }
 
-            if (Object.keys(search).length === 0) {
-                return res.send("SEARCH NOT FOUND");
-            }
             console.log(search.beginTourDate);
             console.log(search.endTourDate);
-            data.getSearchResults(search)
+            data.getSearchResults(search,{}, {sort: { endJoinDate : -1 }})
                 .then(tours => {
+                    const isLogged = !!req.user;
+                    const user = {
+                        user: {
+                            isLogged: isLogged
+                        }
+                    };
 
                     res.status(200)
-                        .render("search-page",{tours});
+                        .render("search-page",{user, tours});
                 })
                 .catch(err => {
                     console.log(err);
