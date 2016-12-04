@@ -44,16 +44,16 @@ module.exports = function({ data }) {
                 res.status(400).send("Password must be atleast 3 characters long and contain atleast 1 letter and atleast 1 digit!");
             } else {
                 const user = {
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: req.body.password,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    age: req.body.age,
-                    country: req.body.country,
-                    city: req.body.city
+                    username: validator.escapeHtml(req.body.username),
+                    email: validator.escapeHtml(req.body.email),
+                    password: validator.escapeHtml(req.body.password),
+                    firstname: validator.escapeHtml(req.body.firstname),
+                    lastname: validator.escapeHtml(req.body.lastname),
+                    age: validator.escapeHtml(req.body.age),
+                    country: validator.escapeHtml(req.body.country),
+                    city: validator.escapeHtml(req.body.city)
                 };
-                console.log(user);
+
                 data.createUser(user)
                     .then(() => {
                         res.redirect(307, "/login");

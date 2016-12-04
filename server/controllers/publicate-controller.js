@@ -48,11 +48,16 @@ module.exports = function({ data, io }) {
             } else if (!validator.validateString(req.user.username, 1)) {
                 res.status(400).send("You must be loged in to publish!");
             } else {
-                const toursDetails = req.body;
-                toursDetails.isValid = "true";
-
                 const user = req.user.username;
-                toursDetails.creator = user;
+                const toursDetails = {
+                    headline: validator.escapeHtml(req.body.headline),
+                    country: validator.escapeHtml(req.body.country),
+                    city: validator.escapeHtml(req.body.city),
+                    description: validator.escapeHtml(req.body.description),
+                    creator: validator.escapeHtml(user),
+                    isValid: "true"
+                };
+
 
                 data.createTour(toursDetails)
                     .then(tour => {
