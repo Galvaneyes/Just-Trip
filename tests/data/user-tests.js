@@ -25,6 +25,10 @@ describe("User data", () => {
             this.city = properties.city
         }
 
+        save() {
+
+        }
+
         static create() {}
         static find() {}
         static findOne() {}
@@ -151,7 +155,6 @@ describe("User data", () => {
 
     describe("createUser()", () => {
         let username = "Pesho",
-            //to be changed when the login form is updated
             user = {
                 username: username,
                 salt: "salt123",
@@ -324,6 +327,43 @@ describe("User data", () => {
             data.getUserByCredentials(username, password)
                 .catch(actualError => {
                     expect(actualError).to.equal(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("updateUser()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let userInfo = {
+            firstname: "Pesho"
+        };
+
+        let mockedUser = new User(userInfo),
+            errorMessage = "Error";
+
+        it("Expect to update the user", done => {
+            sinon.stub(User.prototype, "save", cb => {
+                cb(null, mockedUser);
+            });
+
+            data.updateUser(mockedUser)
+                .then(expectedUser => {
+                    expect(expectedUser.firstname).to.equals(userInfo.firstname);
+                    done();
+                });
+        });
+
+        it("Expect to reject with errorMessage", done => {
+            sinon.stub(User.prototype, "save", cb => {
+                cb(errorMessage);
+            });
+
+            data.updateUser(mockedUser)
+                .catch(expectedError => {
+                    expect(expectedError).to.equals(errorMessage);
                     done();
                 });
         });
