@@ -11,6 +11,7 @@ module.exports = function (models) {
                             country = Country.getCountry(countryObj);
                         } else {
                             country.description = countryObj.description;
+                            country.pictureUrl = countryObj.pictureUrl;
                             country.countryUrl = countryObj.countryUrl;
                             country.city = countryObj.city;
                         }

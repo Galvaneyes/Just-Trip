@@ -2,9 +2,9 @@
 
 const httpRequester = require("../../../utils/http-requester");
 const htmlParser = require("../../../utils/html-parser");
-//const DataCountry = require("../../data/country-data");
 
-module.exports = function(countryData) {
+
+module.exports = function (data) {
 
     function parseAll(href, html) {
         let res = "(" + href + ")" + html;
@@ -46,14 +46,14 @@ module.exports = function(countryData) {
                     description: description,
                     countryUrl: url
                 };
-                countryData.createCountry(obj);
+                data.createCountry(obj);
                 console.log("save from" + url);
-                return waitRandom(500).then(() => { return getDestinationInfo(urlMain); });
+                return waitRandom(5000).then(() => { return getDestinationInfo(urlMain); });
             })
 
-        .catch(err => {
-            console.dir(err, { colors: true });
-        });
+            .catch(err => {
+                console.dir(err, { colors: true });
+            });
     }
 
     function getList(url) {
@@ -83,7 +83,8 @@ module.exports = function(countryData) {
 
     return {
         getHits(req, res) {
-            getList(`http://www.tourradar.com`).then(resultList => {
+            getList(`http://www.tourradar.com`)
+                .then(resultList => {
                     urlCountries = resultList; //.slice(0, 20);
                     return getParallel();
                 })

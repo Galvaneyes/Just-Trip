@@ -33,9 +33,9 @@ module.exports = function({ data }) {
                         .json(user);
                 })
                 .catch(err => {
-                    console.log(`USER ${err} DOESNT EXIST`);
+                    console.log(`USER ${err} DOESN'T EXIST`);
                     res.status(404)
-                        .send(`USER ${err} DOESNT EXIST`);
+                        .send(`USER ${err} DOESN'T EXIST`);
                 });
         },
         updateUserProfile(req, res) {

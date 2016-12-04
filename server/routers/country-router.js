@@ -12,7 +12,7 @@ module.exports = function ({ app, data }) {
         // .get("/:keyword", countryController.getCountryByKeyword)
         .get("/", countryController.getAllCountries)
         .get("/ajax/getCountryList/:mask", countryController.getCountryList)
-        //.get("/", countryController.seedCountryData) //updateCountryData
+        .get("/craw/:i", countryController.seedCountryData) //updateCountryData
         .get("/ajax/getDescriptionById/:id", countryController.getCountryDescriptionById);
 
     app.use("/countries", router);

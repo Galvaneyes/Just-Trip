@@ -9,7 +9,7 @@ describe("Test country data", () => {
         find: () => { },
         findOne: () => { }
     };
-    describe("Test getAllCountries_()", () => {
+    describe("getAllCountries_()", () => {
         it("Expect to return 2 countries", done => {
             //arrange
             let countries = ["Bulgaria", "Austria"];

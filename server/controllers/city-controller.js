@@ -6,41 +6,35 @@ module.exports = function ({ data }) {
         getCityList(req, res) {
             data.getAllCities("name")
                 .then(cityList => {
-                    //console.log(cityList);
                     res.render("cities-list", { cityList, user: { isLogged: true } });
                 })
                 .catch(err => {
-                    console.log(`CITY LIST ERROR: ${err}`); //is this a descriptive error message
+                    console.log(`City list error: ${err}`);
                     res.status(404)
-                        .send(`CITY LIST ERROR`);
+                        .send(`City list error`);
                 });
         },
         getCityListInCountry(req, res) {
             data.getCityListInCountry(req.params.countryName, "name")
                 .then(cityList => {
-                    //console.log(cityList);
-                    res.render("cities-list", { cityList, user: { isLogged: true } });
+                    res.render("cities-list", { cityList, user: { isLogged: true } }); //for testing purposes
                 })
                 .catch(err => {
-                    console.log(`CITY LIST ERROR: ${err}`); //is this a descriptive error message
+                    console.log(`City list error: ${err}`);
                     res.status(404)
-                        .send(`CITY LIST ERROR`);
+                        .send(`City list error`);
                 });
         },
         getCityDescriptionById(req, res) {
             data.getCityDescriptionById(req.params.id, "description")
                 .then(city => {
-                    //console.log(cityList);
                     res.send(city.description);
                 })
                 .catch(err => {
-                    console.log(`CITY LIST ERROR: ${err}`); //is this a descriptive error message
+                    console.log(`City list error: ${err}`);
                     res.status(404)
-                        .send(`CITY LIST ERROR`);
+                        .send(`City list error`);
                 });
-
         }
-
-
     };
 };

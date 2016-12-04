@@ -4,8 +4,9 @@
 const mongoose = require("mongoose");
 
 const countrySchema = new mongoose.Schema({
-    name: { type: String, required: false },
+    name: { type: String, required: true },
     description: { type: String, required: false },
+    pictureUrl: { type: String, required: false },
     countryUrl: { type: String, required: false },
     city: { type: [], required: false }
 });
@@ -15,6 +16,7 @@ countrySchema.static('getCountry', country => {
     return new Country({
         name: country.name,
         description: country.description,
+        pictureUrl: country.pictureUrl,
         countryUrl: country.countryUrl,
         city: country.city
     });

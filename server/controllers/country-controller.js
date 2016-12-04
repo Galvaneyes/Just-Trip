@@ -2,7 +2,8 @@
 "use strict";
 
 module.exports = function ({ data }) {
-    const adapter = require("./adapters/tour-site")(data);
+    const adapter1 = require("./adapters/tour-site")(data);
+    const adapter2 = require("./adapters/travel-site")(data);
     return {
         updateCountryData(req, res) {
             const isLogged = true; //for testing purposes
@@ -28,10 +29,19 @@ module.exports = function ({ data }) {
                     .send("YOU ARE NOT LOGGED");
 
             } else {
+                if (req.params.i === "1") {
+                    return adapter1.getHits(req, res);
+                } else if (req.params.i === "2") {
+                    return adapter2.getHits(req, res);
+                } else {
+                    console.log(`INCORRECT CRAW NUMBER`); //is this a descriptive error message
+                    res.status(404)
+                        .send(`INCORRECT CRAW NUMBER ${req.params.i}`);
+                }
 
-                return adapter.getHits(req, res);
             }
         },
+
         getCountryByName(req, res) {
             data.getCountryByName(req.params.name)
                 .then(country => {

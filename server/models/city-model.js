@@ -4,7 +4,7 @@
 const mongoose = require("mongoose");
 
 const citySchema = new mongoose.Schema({
-    name: { type: String, required: false },
+    name: { type: String, required: true },
     description: { type: String, required: false },
     pictureUrl: { type: String, required: false },
     cityUrl: { type: String, required: false },

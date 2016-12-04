@@ -1,3 +1,5 @@
+/* globals $ */
+
 function afterGet() {
   $(".country-name_")
     .mouseover(function (e) {
@@ -34,15 +36,15 @@ function afterGet() {
       var id = $(this).parent().attr("id");
       alert("Edit" + id);
     })
-};
+}
 
 $(document).ready(function () {
   $("#searchCountry")
     .click(function (e) {
-      let mask = $("#mask").val();
-      // alert(mask);
+      let countryPattern = $("#countryPattern").val();
+      // alert(countryPattern);
 
-      $.get("/countries/ajax/getCountryList/" + mask, function (data, status) {
+      $.get("/countries/ajax/getCountryList/" + countryPattern, function (data, status) {
         //  alert("Data: " + data + "\nStatus: " + status);
         $("#countryListContainer").html(data);
         afterGet();
