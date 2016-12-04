@@ -20,7 +20,7 @@ module.exports = function(models) {
         },
         updateTour(tourInfo) {
             return new Promise((resolve, reject) => {
-                tourInfo.save((err, tour)=> {
+                tourInfo.save((err, tour) => {
                     if (err) {
                         return reject(err);
                     }
@@ -48,6 +48,7 @@ module.exports = function(models) {
                 });
             });
         },
+        // deprecated
         getTourByRange(page, size) {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR TOUR COLLECTION...");
@@ -65,6 +66,7 @@ module.exports = function(models) {
                     });
             });
         },
+        // deprecated
         getAllTours() {
             return new Promise((resolve, reject) => {
                 console.log("SEARCHING FOR ALL TOURS...");
@@ -79,6 +81,7 @@ module.exports = function(models) {
                 });
             });
         },
+        // deprecated
         getToursInRangeOfDates(start, end) {
             return new Promise((resolve, reject) => {
                 Tour.where("beginTourDate")
