@@ -36,6 +36,10 @@ describe("User data", () => {
     });
 
     describe("getAllUsers()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
         it("Expect to return 2 users", done => {
             let users = ["pesho", "gosho"];
 
@@ -48,6 +52,21 @@ describe("User data", () => {
                     expect(actualUsers).to.eql(users);
                     done();
                 });
+        });
+
+        it("Expect to reject if there are no users", done => {
+            let users = [],
+                errorMessage = "Error";
+
+            sinon.stub(User, "find", (_, cb) => {
+                cb(errorMessage, users);
+            });
+
+            data.getAllUsers()
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equal(errorMessage);
+                    done();
+                })
         });
     });
 
@@ -89,7 +108,6 @@ describe("User data", () => {
                 });
         });
     });
-
 
     describe("getUserByUsername()", () => {
         let username = "Pesho";
@@ -133,16 +151,17 @@ describe("User data", () => {
 
     describe("createUser()", () => {
         let username = "Pesho",
+            //to be changed when the login form is updated
             user = {
                 username: username,
-                salt: "",
-                passHash: "",
-                email: "",
-                firstname: "",
-                lastname: "",
-                age: "",
-                country: "",
-                city: ""
+                salt: "salt123",
+                passHash: "passHash123",
+                email: "Pesho@myemail.com",
+                firstname: "Pesho",
+                lastname: "Peshov",
+                age: 30,
+                country: "Bulgaria",
+                city: "Sofia"
             };
 
         afterEach(() => {
@@ -161,7 +180,7 @@ describe("User data", () => {
                 });
         });
 
-        it("Expect to reject user to be created", done => {
+        it("Expect to reject with message when user is not created", done => {
             let errorMessage = "Error";
 
             sinon.stub(User, "create", (user, cb) => {
@@ -170,9 +189,195 @@ describe("User data", () => {
 
             data.createUser(user)
                 .catch(actualMessage => {
-                    expect(actualMessage).to.equal(errorMessage);
+                    expect(actualMessage).to.equals(errorMessage);
                     done();
                 });
         });
+
+        it("Expect to reject when username is empty", done => {
+            let name = "",
+                errorMessage = "Error";
+
+            user.username = name;
+
+            sinon.stub(User, "create", (user, cb) => {
+                cb(errorMessage, user);
+            });
+
+            data.createUser(user)
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
+
+        it("Expect to reject when firstName is empty", done => {
+            let firstName = "",
+                errorMessage = "Error";
+
+            user.firstname = firstName;
+
+            sinon.stub(User, "create", (user, cb) => {
+                cb(errorMessage, user);
+            });
+
+            data.createUser(user)
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
+
+        it("Expect to reject when lastName is empty", done => {
+            let lastName = "",
+                errorMessage = "Error";
+
+            user.lastname = lastName;
+
+            sinon.stub(User, "create", (user, cb) => {
+                cb(errorMessage, user);
+            });
+
+            data.createUser(user)
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("createFacebookUser()", () => {
+        let username = "Pesho",
+            user = {
+                username: username,
+                salt: "salt123",
+                passHash: "passhash123",
+                firstname: "Pesho",
+                lastname: "Peshov",
+                facebookId: "PeshoPesho",
+                facebookToken: "fbToken123"
+            };
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("Expect Facebook user to be created", done => {
+            sinon.stub(User, "create", (user, cb) => {
+                cb(null, user);
+            });
+
+            data.createUser(user)
+                .then(actualUser => {
+                    expect(actualUser.username).to.equal(username);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message when user is not create", done => {
+            let errorMessage = "Error";
+
+            sinon.stub(User, "create", (user, cb) => {
+                cb(errorMessage, user);
+            });
+
+            data.createUser(user)
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("getUserByCredentials()", () => {
+        let username = "Pesho",
+            password = "password";
+
+        let user = {
+                username,
+                password
+            },
+            users = [user];
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("Expect to return the user", done => {
+            sinon.stub(User, "findOne", (query, cb) => {
+                let username = query.username,
+                    password = query.password;
+
+                let foundUser = users.find(u => u.username === username && u.password === password);
+
+                cb(null, foundUser);
+            });
+
+            data.getUserByCredentials(username, password)
+                .then(actualUser => {
+                    expect(actualUser.username).to.eql(user.username);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if user is not found", done => {
+            let errorMessage = "Error";
+
+            sinon.stub(User, "findOne", (query, cb) => {
+                let username = query.username,
+                    password = query.password;
+
+                let foundUser = users.find(u => u.username === username && u.password === password);
+
+                cb(errorMessage, foundUser);
+            });
+
+            data.getUserByCredentials(username, password)
+                .catch(actualError => {
+                    expect(actualError).to.equal(errorMessage);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the username is wrong", done => {
+            let errorMessage = "Error",
+                userName = "Gosho";
+
+            sinon.stub(User, "findOne", (query, cb) => {
+                let username = userName,
+                    password = query.password;
+
+                let foundUser = users.find(u => u.username === username && u.password === password);
+
+                cb(errorMessage, foundUser);
+            });
+
+            data.getUserByCredentials(username, password)
+                .catch(actualError => {
+                    expect(actualError).to.equal(errorMessage);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the password is wrong", done => {
+            let errorMessage = "Error",
+                password = "Gosho";
+
+            sinon.stub(User, "findOne", (query, cb) => {
+                let username = query.username,
+                    password = query.password;
+
+                let foundUser = users.find(u => u.username === username && u.password === password);
+
+                cb(errorMessage, foundUser);
+            });
+
+            data.getUserByCredentials(username, password)
+                .catch(actualError => {
+                    expect(actualError).to.equal(errorMessage);
+                    done();
+                });
+        });
+
     });
 });
