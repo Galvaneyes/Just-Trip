@@ -9,10 +9,10 @@ module.exports = function({ app, data }) {
     const tourController = require("../controllers/tour-controller.js")({ data });
 
     router
-        .get("/result", tourController.getSearchResults)
-        .get("/", tourController.get)
-        .get("/:id", tourController.getTourById)
-        .post("/:id", tourController.postUserInTour);
+        .get("/", tourController.getSearchResults)
+        //.get("/result", tourController.getSearchResults)
+        .get("/details/:id", tourController.getTourById)
+        .post("/details/:id", tourController.postUserInTour);
 
     app.use("/tours", router);
 };

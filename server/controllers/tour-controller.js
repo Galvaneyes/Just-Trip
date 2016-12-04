@@ -110,9 +110,13 @@ module.exports = function({ data }) {
         getSearchResults(req, res) {
 
             console.log(req.query);
-
+            const isValid = true;
+            const isDeleted = false;
+            
             let search = {};
 
+            search.isValid = isValid;
+            search.isDeleted = isDeleted;
             if (req.query.city) {
                 const string = req.query.city;
                 const city = new RegExp(["^", string, "$"].join(""), "i");
@@ -140,16 +144,17 @@ module.exports = function({ data }) {
                 search.endTourDate = { $lt: date };
             }
 
-            if (Object.keys(search).length === 0) {
-                return res.send("SEARCH NOT FOUND");
-            }
             console.log(search.beginTourDate);
             console.log(search.endTourDate);
-            data.getSearchResults(search)
+            data.getSearchResults(search,{}, {sort: { endJoinDate : +1 }})
                 .then(tours => {
+                    const isLogged = !!req.user;
+                    const user = {
+                            isLogged: isLogged
+                        };
 
                     res.status(200)
-                        .render("search-page",{tours});
+                        .render("search-page",{user, tours});
                 })
                 .catch(err => {
                     console.log(err);
