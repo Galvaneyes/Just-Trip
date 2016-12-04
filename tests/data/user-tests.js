@@ -25,10 +25,15 @@ describe("User data", () => {
             this.city = properties.city
         }
 
+        save() {
+
+        }
+
         static create() {}
         static find() {}
         static findOne() {}
         static findAll() {}
+        static update() {}
     }
 
     let data = require("../../server/data/user-data")({
@@ -151,7 +156,6 @@ describe("User data", () => {
 
     describe("createUser()", () => {
         let username = "Pesho",
-            //to be changed when the login form is updated
             user = {
                 username: username,
                 salt: "salt123",
@@ -324,6 +328,111 @@ describe("User data", () => {
             data.getUserByCredentials(username, password)
                 .catch(actualError => {
                     expect(actualError).to.equal(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("updateUser()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let userInfo = {
+            firstname: "Pesho"
+        };
+
+        let mockedUser = new User(userInfo),
+            errorMessage = "Error";
+
+        it("Expect to update the user", done => {
+            sinon.stub(User.prototype, "save", cb => {
+                cb(null, mockedUser);
+            });
+
+            data.updateUser(mockedUser)
+                .then(expectedUser => {
+                    expect(expectedUser.firstname).to.equals(userInfo.firstname);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the user is not updated", done => {
+            sinon.stub(User.prototype, "save", cb => {
+                cb(errorMessage);
+            });
+
+            data.updateUser(mockedUser)
+                .catch(expectedError => {
+                    expect(expectedError).to.equals(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("updateUserFields", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let userProperties = {username: "Pesho"},
+        mockedUser = new User(userProperties),
+        errorMessage = "Error";
+
+        it("Expect to update the user field", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(null, mockedUser);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .then(actualUser => {
+                    expect(actualUser.firstname).to.equals(mockedUser.firstname);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the user is not updated", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(errorMessage);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
+                    done();
+                });
+        });
+    });
+
+    describe("updateUserProperty()", () => {
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        let userProperties = {username: "Pesho"},
+        mockedUser = new User(userProperties),
+        errorMessage = "Error";
+
+        it("Expect to update the user property", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(null, mockedUser);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .then(actualUser => {
+                    expect(actualUser.firstname).to.equals(mockedUser.firstname);
+                    done();
+                });
+        });
+
+        it("Expect to reject with message if the user is not updated", done => {
+            sinon.stub(User, "update", (query, _, cb) => {
+                cb(errorMessage);
+            });
+
+            data.updateUserFields(userProperties.username, {})
+                .catch(actualMessage => {
+                    expect(actualMessage).to.equals(errorMessage);
                     done();
                 });
         });
