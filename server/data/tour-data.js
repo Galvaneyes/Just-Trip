@@ -97,13 +97,13 @@ module.exports = function(models) {
                     });
             });
         },
-        getSearchResults(search, prop , sort) {
+        getSearchResults(search, prop, sort) {
             return new Promise((resolve, reject) => {
                 console.log("IT STARTTTTT");
                 Tour.find(search, prop, sort, (err, tours) => {
                     if (err) {
                         return reject(err);
-                    }   
+                    }
                     console.log("===> RESULTS");
                     return resolve(tours);
                 });

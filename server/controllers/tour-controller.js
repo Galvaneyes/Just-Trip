@@ -19,7 +19,7 @@ module.exports = function({ data }) {
                 .then(trip => {
                     const isLogged = !!req.user;
                     let isJoined = false;
-                    if(isLogged) {
+                    if (isLogged) {
                         isJoined = trip.isUserExist(req.user.username);
                     }
 
@@ -100,12 +100,12 @@ module.exports = function({ data }) {
                 })
                 .then(dataCollection => {
                     const userTourData = {
-                            tourId: dataCollection.tour.getId,
-                            tourTitle: dataCollection.tour.headline,
-                            tourCountry: dataCollection.tour.country,
-                            tourCity: dataCollection.tour.city,
-                            isDeleted: "false"
-                        };
+                        tourId: dataCollection.tour.getId,
+                        tourTitle: dataCollection.tour.headline,
+                        tourCountry: dataCollection.tour.country,
+                        tourCity: dataCollection.tour.city,
+                        isDeleted: "false"
+                    };
 
                     console.log(dataCollection.user);
                     dataCollection.user.userBoughtTours.push(userTourData);
@@ -127,7 +127,7 @@ module.exports = function({ data }) {
             console.log(req.query);
             const isValid = true;
             const isDeleted = false;
-            
+
             let search = {};
 
             search.isValid = isValid;
@@ -161,15 +161,15 @@ module.exports = function({ data }) {
 
             console.log(search.beginTourDate);
             console.log(search.endTourDate);
-            data.getSearchResults(search,{}, {sort: { endJoinDate : +1 }})
+            data.getSearchResults(search, {}, { sort: { endJoinDate: +1 } })
                 .then(tours => {
                     const isLogged = !!req.user;
                     const user = {
-                            isLogged: isLogged
-                        };
+                        isLogged: isLogged
+                    };
 
                     res.status(200)
-                        .render("search-page",{user, tours});
+                        .render("search-page", { user, tours });
                 })
                 .catch(err => {
                     console.log(err);
