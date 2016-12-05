@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node app.js",
     "dev": "./node_modules/.bin/nodemon app.js",
-    "postinstall": "./node_modules/.bin/bower install"
+    "test_lint": ".node_modules/.bin/eslint .",
+    "test": "./node_modules/.bin/mocha tests tests/**/*.js",
+    "postinstall": "./node_modules/bower/bower install"
   },
   "author": "",
   "license": "ISC",
