@@ -33,7 +33,7 @@ module.exports = function({ data }) {
                             endTripDate: trip.endTourDate
                         },
                         user: {
-                            isLogged: true
+                            isLogged: !!req.user
                         }
                     };
 
