@@ -193,7 +193,7 @@ module.exports = function(models) {
                         let tour = updateData.userOfferTours;
                         console.log(`USER ${username} UPDATED SUCCESSFULLY`);
                         // resolve now returns tour as well, allowing easier navigation to new tour.
-                        return resolve({ updatedUser, tour });
+                        return resolve({ username, tour });
                     });
             });
         },

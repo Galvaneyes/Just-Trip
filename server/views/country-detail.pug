@@ -1,0 +1,7 @@
+div(class="country-detail" name=country.name scity=country.scity) 
+    div #{country.name}- Detail
+    a#cUrl(href=country.countryUrl target="_blank") 
+        img#pUrl.movie-poster(src=country.pictureUrl)
+    div#country-description #{country.description}
+
+    button(class="country-edit" idd=country._id) Modify

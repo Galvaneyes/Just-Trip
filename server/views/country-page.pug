@@ -7,17 +7,40 @@ block container
                 div.col-md-4
                     div.form-group
                         input#countryPattern.form-control(type='text', placeholder='CountryPattern' name="countryPattern")
-                div.col-md-4
-                    div.form-group
-                        input#location.form-control(type='text', placeholder='City' name="city")
+                .col-md-2
+                    button#addCountry.btn.btn-default.btn-primary Add Country
+                        i.fa.fa-search(aria-hidden="true")
+                .col-md-2
+                    button#addCity.btn.btn-default.btn-primary Add City
+                        i.fa.fa-search(aria-hidden="true")
                 .col-md-2
                     button#searchCountry.btn.btn-default.btn-primary Search
                         i.fa.fa-search(aria-hidden="true")
     div#ShowInfo
     div#countryListContainer
+    
+    div#myModal.modal
+         div.modal-content
+            div.modal-header
+                span#modalclose.close ×
+                h1 Edit Country
+            div.modal-body
+                div.form-group
+                    lavel(for="countryUrl") countryUrl
+                        input#countryUrl.form-control(type='text', placeholder='countryUrl' name="countryUrl")
+                div.form-group
+                    lavel(for="pictureUrl") pictureUrl
+                        input#pictureUrl.form-control(type='text', placeholder='pictureUrl' name="pictureUrl")
+
+
+            div.modal-footer
+                button#cancel.btn.btn-default.btn-primary Cancel
+                button#delete.btn.btn-default.btn-primary Delete
+                button#save.btn.btn-default.btn-primary Save
+            div.modal-footer
 
 block scripts
-    script(src="/scripts/country.js")
+    script(src="static/scripts/country.js")
 
 block styles
-    link(rel="stylesheet" href="/styles/country.css")
+    link(rel="stylesheet" href="static/styles/country.css")

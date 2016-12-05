@@ -92,6 +92,58 @@ module.exports = function ({ data }) {
                     console.log(countryList);
                     res.render("country-list", { countryList, user: { isLogged: !!req.user } });
                 });
+        },
+        getCountryDetail(req, res) {
+            console.log("req.params.id: " + req.params.id);
+            data.getCountryDescriptionById(req.params.id, "") // "" == all the fields
+                .then(country => {
+                    console.log(country);
+                    country.scity = country.city.join("|");
+                    res.render("country-detail", { country, user: { isLogged: !!req.user } });
+                });
+        },
+        setCountryDetail(req, res) {
+            const isLogged = !!req.user;
+            if (!isLogged) {
+                res.status(401)
+                    .send("YOU ARE NOT LOGGED"); //admin
+
+            } else {
+                let obj = {
+                    name: req.body.name,
+                    description: req.body.description,
+                    pictureUrl: req.body.pictureUrl,
+                    countryUrl: req.body.countryUrl,
+                    city: req.body.scity.split("|")
+                }
+                console.log(obj);
+                data.createCountry(obj)
+                    .then(() => {
+                        res.send("OK");
+                    })
+                    .catch(err => {
+                        res.send("FAIL");
+                    })
+            }
+        },
+        removeCountry(req, res) {
+            const isLogged = !!req.user;
+             if (!isLogged) {
+                res.status(401)
+                    .send("YOU ARE NOT LOGGED"); //admin
+
+            } else {
+                console.log(req.body.id);
+                data.removeCountry(req.body.id)
+                    .then(() => {
+                        res.redirect("/countries");
+                    })
+                    .catch(err => {
+                        res.send("FAIL");
+                    }
+                    )
+            }
+
         }
     };
 };

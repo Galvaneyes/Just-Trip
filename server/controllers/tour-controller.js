@@ -16,21 +16,29 @@ module.exports = function({ data }) {
         },
         getTourById(req, res) {
             data.getTourById(req.params.id)
-                .then(tour => {
+                .then(trip => {
                     const result = {
-                        result: {
-                            id: tour._id,
-                            creator: tour.creator,
-                            tourTitle: tour.headline,
-                            tourCountry: tour.country,
-                            tourCity: tour.city,
-                            currentUsers: tour.getUserCount,
-                            capacity: tour.maxUser
+                        trip: {
+                            id: trip._id,
+                            creator: trip.creator,
+                            tripTitle: trip.headline,
+                            tripCountry: trip.country,
+                            tripCity: trip.city,
+                            currentUsers: trip.getUserCount,
+                            capacity: trip.maxUser,
+                            price: trip.price,
+                            description: trip.description,
+                            endJoinDate: trip.endJoinDate,
+                            beginTripDate: trip.beginTourDate,
+                            endTripDate: trip.endTourDate
+                        },
+                        user: {
+                            isLogged: true
                         }
                     };
 
                     res.status(200)
-                        .render("tourID-addUser", result);
+                        .render("trip-details", result);
                 })
                 .catch(err => {
                     console.log(`TOUR ${err} DOESNT EXIST`);

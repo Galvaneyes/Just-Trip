@@ -80,17 +80,24 @@ module.exports = function({ data, io }) {
                         };
                         return data.updateUserProperty(user, userTourData);
                     })
-                    .then(({ updatedUser, tour }) => {
+                    .then(({ username, tour }) => {
                         io.sockets.emit('newTour', {
                             headline: `${toursDetails.headline}`,
                             country: `${toursDetails.country}`,
                             city: `${toursDetails.city}`,
                             date: `${toursDetails.beginTourDate}`,
                             tourId: `${tour.tourId}`,
-                            creator: `${user}`
+                            creator: `${username}`
                         });
+
+                        const user = {
+                                user: {isLogged : true,
+                                tourId : tour.tourId
+                            }
+                        }
+
                         res.status(200)
-                            .json(updatedUser);
+                            .render("success-publish", user);
                     })
                     .catch(err => {
                         console.log(`TOUR ${err} CANT BE CREATED`);
