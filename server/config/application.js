@@ -9,8 +9,10 @@ const session = require("express-session");
 
 module.exports = function({ data }) {
     const app = express();
+
+    //app.use("/static", express.static("public")); Doncho
     const rootPath = path.join(__dirname, "/../../");
-    //app.use('/static', express.static(path.resolve(__dirname + '/../../public')));
+    //app.use('/static', express.static(path.resolve(__dirname + '/../../public'))); //l
 
     app.set("view engine", "pug");
     app.set("views", path.join(rootPath, "server/views/"));
@@ -19,7 +21,7 @@ module.exports = function({ data }) {
     app.use("/tours", express.static(path.join(rootPath, "public")));
     app.use("/tours/static", express.static(path.join(rootPath, "public")));
     app.use("/tours/details/static", express.static(path.join(rootPath, "public")));
-    //app.use("/static", express.static("../../public"));
+    //app.use("/static", express.static("../../public")); extra
 
     app.use(cookieParser());
     app.use(bodyParser.json());
