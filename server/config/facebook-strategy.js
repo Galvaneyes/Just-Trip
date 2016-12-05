@@ -6,13 +6,10 @@ module.exports = function (passport, data) {
         clientID: authConfig.facebookAuth.clientID,
         clientSecret: authConfig.facebookAuth.clientSecret,
         callbackURL: authConfig.facebookAuth.callbackURL
-        //profileFields: authConfig.facebookAuth.profileFields
     }, function (accessToken, refreshToken, profile, cb) {
         process.nextTick(() => {
             data.getUserByQuery({ facebookId: profile.id })
                 .then(user => {
-
-                    //console.log("profile", profile);
                     if (user) {
                         return cb(null, user);
                     } else {

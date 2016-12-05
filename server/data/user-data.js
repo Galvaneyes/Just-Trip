@@ -166,21 +166,6 @@ module.exports = function(models) {
                 });
             });
         },
-        // updateUserArrayProperty(username, updateData) {
-        //     return new Promise((resolve, reject) => {
-
-        //         User.findOneAndUpdate(username, { $push: updateData }, { upsert: true, 'new': true }, (err, model) => {
-        //             if (err) {
-        //                 console.log(`ERROR WHEN UPDATE USER:${username}`);
-        //                 return reject(err);
-        //             }
-
-        //             console.log(`USER ${username} UPDATED SUCCESSFULLY`);
-        //             return resolve(model);
-        //         });
-        //     });
-        // },
-        // SOMETHING IS WRONG HERE!
         updateUserProperty(username, updateData) {
             return new Promise((resolve, reject) => {
                 User.update({ username: username }, { $push: updateData },
@@ -206,7 +191,6 @@ module.exports = function(models) {
                             return reject(err);
                         }
 
-                        //let tour = updateData.userOfferTours;
                         console.log(`USER ${username} UPDATED SUCCESSFULLY`);
                         return resolve(updatedUser);
                     });

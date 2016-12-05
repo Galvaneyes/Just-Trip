@@ -8,7 +8,6 @@ module.exports = function (data) {
 
     function parseAll(href, html) {
         let res = "(" + href + ")" + html;
-        //  console.log('===========ALL:' + res);
         return res;
     }
     function parsePlaces(href, html) {
@@ -20,7 +19,6 @@ module.exports = function (data) {
 
     function getImageUrl(imageUrl_Descr) {
         let a = imageUrl_Descr.split("<br>")[0];
-        //console.log("a----:"+a);
         return a.split("\"")[1];
     }
     function getDescr(imageUrl_Descr) {
@@ -53,13 +51,11 @@ module.exports = function (data) {
             .then(item => {
                 let imageUrl_Descr = item["imageUrl_Descr"][0];
                 let pictureUrl = getImageUrl(imageUrl_Descr);
-                //let title = getTitle(imageUrl);
+
                 let title = item["title"][0];
                 let description = getDescr(imageUrl_Descr);
                 let places = item["places"];
 
-                //  console.log("save from:" + url);
-                //  console.log({ title, imageUrl, descr, places });
                 console.log(places);
                 let city = [];
                 for (let place of places) {
@@ -132,7 +128,6 @@ module.exports = function (data) {
             .then(result => {
                 let selector = 'a[href*="/travel-guides/"]';
                 const html = result.body;
-                //console.log("===============html:" + html);
                 return htmlParser.simpleParser(selector, html);
             })
             .catch(err => {

@@ -33,7 +33,7 @@ module.exports = function({ data }) {
                 .render("register", user);
         },
         tryToCreateUser(req, res) {
-            // TODO: rewrite with ajax !
+
             if (!validator.validateString(req.body.username)) {
                 res.status(400).send("Username must be string and atleast 3 characters!");
             } else if (!validator.validateString(req.body.firstname, 2)) {

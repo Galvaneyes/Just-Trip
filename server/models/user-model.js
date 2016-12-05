@@ -2,7 +2,6 @@
 "use strict";
 
 const mongoose = require("mongoose");
-//const regex = "/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i";
 let allRoles = ["admin", "moderator", "regular"];
 
 const userSchema = new mongoose.Schema({
