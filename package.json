@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "./node_modules/.bin/nodemon app.js",
+    "postinstall": "node.exe ./node_modules/bower/bin/bower install",
     "test": "./node_modules/.bin/mocha tests tests/**/*.js -w",
     "start": "node app.js"
   },
@@ -16,6 +17,7 @@
     "cookie-parser": "1.4.3",
     "express": "4.14.0",
     "express-session": "1.14.2",
+    "jquery": "3.1.1",
     "jsdom": "9.8.3",
     "mongoose": "4.7.0",
     "passport": "0.3.2",
@@ -23,8 +25,7 @@
     "passport-local": "1.0.0",
     "pug": "2.0.0-beta6",
     "request": "2.79.0",
-    "socket.io": "1.7.1",
-    "jquery": "^3.1.1"
+    "socket.io": "1.7.1"
   },
   "devDependencies": {
     "bower": "^1.8.0",
