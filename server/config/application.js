@@ -15,15 +15,6 @@ module.exports = function({ data }) {
 
     app.use('/static', express.static(path.resolve(__dirname + '/../../public')));
 
-
-    //const rootPath = path.join(__dirname, "/../../");
-    // app.use("/", express.static(path.join(rootPath, "public")));
-    // app.use("/static", express.static(path.join(rootPath, "public")));
-    // app.use("/tours", express.static(path.join(rootPath, "public")));
-    // app.use("/tours/static", express.static(path.join(rootPath, "public")));
-    //app.use("/tours/details/static", express.static(path.join(rootPath, "public")));
-    //app.use("/static", express.static("../../public")); extra
-
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
