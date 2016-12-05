@@ -12,9 +12,9 @@ module.exports = function({ data, io }) {
             } else {
                 Promise.all([data.getAllCountries("name"), data.getAllCities("name")])
                     .then(([countries, cities]) => {
-                        const user= {
-                                isLogged: !!req.user
-                            }
+                        const user = {
+                            isLogged: !!req.user
+                        }
 
                         res.status(200)
                             .render("publish-travel", { user, countries, cities });
@@ -43,7 +43,7 @@ module.exports = function({ data, io }) {
 
             // TODO: ajax! ==> TO UGLY!
             if (!validator.validateString(req.body.headline, 1)) {
-                res.status(400).send("Headline is required!");
+                res.status(400).send("Name of advertisement is required!");
             } else if (!validator.validateString(req.body.country, 1)) {
                 res.status(400).send("Country is required!");
             } else if (!validator.validateString(req.body.city, 1)) {
@@ -57,11 +57,11 @@ module.exports = function({ data, io }) {
                     headline: validator.escapeHtml(req.body.headline),
                     country: validator.escapeHtml(req.body.country),
                     city: validator.escapeHtml(req.body.city),
-                    endJoinDate:endJoinDate,
+                    endJoinDate: endJoinDate,
                     beginTourDate: beginTourDate,
                     endTourDate: endTourDate,
                     maxUser: req.body.maxUser,
-                    price : req.body.price,
+                    price: req.body.price,
                     description: validator.escapeHtml(req.body.description),
                     creator: validator.escapeHtml(user),
                     isValid: "true",
@@ -91,10 +91,11 @@ module.exports = function({ data, io }) {
                         });
 
                         const user = {
-                                user: {isLogged : true,
-                                tourId : tour.tourId
+                            user: {
+                                isLogged: true,
+                                tourId: tour.tourId
                             }
-                        }
+                        };
 
                         res.status(200)
                             .render("success-publish", user);
@@ -132,26 +133,28 @@ module.exports = function({ data, io }) {
                 .then(tourCreator => {
                     console.log("CREATOR OF TOUR====>" + tourCreator.username);
                     tourCreator.userOfferTours.forEach(tour => {
-                            if(tour.tourId == `${req.params.id}`) {
-                                tour.isDeleted = "true";
-                                return;
-                            }
-                        })
-                    return data.updateUserFields(tourCreator.username, {userOfferTours:tourCreator.userOfferTours})})
-                .then(() => {
-                        const search = {
-                        userBoughtTours: {
-                            $elemMatch: { tourId: `${req.params.id}`
-                                }
-                            }
-                        };
-
-                        return data.getUsersBySpecificCriteria(search);
+                        if (tour.tourId == `${req.params.id}`) {
+                            tour.isDeleted = "true";
+                            return;
+                        }
                     })
+                    return data.updateUserFields(tourCreator.username, { userOfferTours: tourCreator.userOfferTours })
+                })
+                .then(() => {
+                    const search = {
+                        userBoughtTours: {
+                            $elemMatch: {
+                                tourId: `${req.params.id}`
+                            }
+                        }
+                    };
+
+                    return data.getUsersBySpecificCriteria(search);
+                })
                 .then(users => {
                     users.forEach(x => {
                         x.userBoughtTours.forEach(tour => {
-                            if(tour.tourId == `${req.params.id}`) {
+                            if (tour.tourId == `${req.params.id}`) {
                                 tour.isDeleted = "true";
                                 return;
                             }
@@ -160,11 +163,11 @@ module.exports = function({ data, io }) {
                     return Promise.resolve(users)
                 })
                 .then(users => {
-                    return Promise.all(users.map(user => data.updateUserFields(user.username, {userBoughtTours:user.userBoughtTours})));
+                    return Promise.all(users.map(user => data.updateUserFields(user.username, { userBoughtTours: user.userBoughtTours })));
                 })
                 .then(result => {
-                        res.send(result);
-                    })
+                    res.send(result);
+                })
                 .catch(err => {
                     console.log("ERROOOOR =====>" + err);
                     res.send(err);

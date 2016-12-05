@@ -11,13 +11,13 @@ block scripts
     script(src="static/calendar-files/js/date-picker.js")
 block container
     div
-        form.form-horizontal(method="POST" action="/publicate")
+        form#publicate-form.form-horizontal(method="POST" action="/publicate")
             fieldset
                 legend  Fill in the following fields to make a new travel group:
                 div.form-group
                     label.col-lg-2.control-label Name of travel group
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Name of advertisement" name="headline")
+                        input#headline-input.form-control(type="text" placeholder="Name of advertisement" name="headline")
                 div.form-group
                     label.col-lg-2.control-label(for='select') Country
                     div.col-lg-10
@@ -51,11 +51,11 @@ block container
                 div.form-group
                     label.col-lg-2.control-label Capacity
                     div.col-lg-10
-                        input.form-control(type="number" min="1" placeholder="Capacity" name="maxUser")
+                        input#max-user-input.form-control(type="number" min="1" placeholder="Capacity" name="maxUser")
                 div.form-group
                     label.col-lg-2.control-label Price per person
                     div.col-lg-10
-                        input.form-control(type="number" name="price" step="0.01" min="5" max="20000" placeholder="Price")
+                        input#price-input.form-control(type="number" name="price" step="0.01" min="5" max="20000" placeholder="Price")
                 div.form-group
                     label.col-lg-2.control-label(for="textArea") Description
                     div.col-lg-10
