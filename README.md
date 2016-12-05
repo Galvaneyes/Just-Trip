@@ -37,4 +37,30 @@ A NodeJS Repository
 
 ## Tours:
 Every tour has:
-	
+	- creator
+	- title
+	- city
+	- country
+	- description
+	- price per person
+    - capacity 
+    - end join date 
+    - begin tour date
+    - end tour date
+
+--------------------------------------
+
+## Profile page:
+- username
+- name
+- profile picture(default)
+- email
+- list of publish tours
+- list of bought tours
+
+---------------------------------------------
+
+
+
+
+
