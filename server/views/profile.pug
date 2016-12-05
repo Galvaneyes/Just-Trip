@@ -32,21 +32,12 @@ block container
             a.btn.btn-warning.btn-xs.edit-profile-btn.buttons-for-edit(href="#") Edit profile
             a.btn.btn-success.btn-xs.save-changes-btn.buttons-for-edit(href="#") Save changes
 
-        each tour in tours
-        div.wrap
-            div
-                h2.title-info= tour.headline
-            div
-                span Country: 
-                    a= tour.country
-            div
-                span City: 
-                    a=  tour.city
-            div
-                span Start Date: 
-                    a= tour.startDate
-            div
-                span End Date: 
-                    a= tour.endDate
-                a.btn.btn-sm.btn-danger.btn-div Remove
-        
+        div
+            div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+                a.list-group-item.active  Published Tours
+                each offer in user.userOfferTours
+                    a.list-group-item= offer.tourTitle
+            div.list-group.profile-tours.col-md-6.col-lg-6.col-sm-12.col-xs-12
+                a.list-group-item.active  Bought Tours
+                each bought in user.userBoughtTours
+                    a.list-group-item= bought.tourTitle

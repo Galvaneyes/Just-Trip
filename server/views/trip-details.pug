@@ -17,7 +17,7 @@ block container
             h5 City:
                 a #{trip.city}
             h5 Capacity:
-                a #{trip.capacity}
+                a #{trip.currentUsers} / #{trip.capacity}
             h5 Price per person:
                 a #{trip.price}
             h5 End join date:
@@ -30,9 +30,12 @@ block container
                 a #{trip.description}
             if user && user.isLogged
                 if user.isJoined
-                    a.btn.btn-danger(href="#") Remove
+                    form(method="POST" action="/publicate/" + trip.id "remove")                    
+                    button.btn-success(type='submit') Discard
                 else   
-                    a.btn.btn-success(href="/tours/details/" + trip.id) Join
+                    form(method="POST" action="/tours/details/" + trip.id)
+                    input(type="text" name="user")
+                    input(type="submit" value="Join")
             else
                 a.btn.btn-success(href="/login") Login
                 
