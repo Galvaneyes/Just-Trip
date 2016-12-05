@@ -34,5 +34,3 @@
     "sinon": "^1.17.6"
   }
 }
-    // "test_lint": ".node_modules/.bin/eslint .",
-    // "test": "./node_modules/.bin/mocha tests tests/**/*.js",
