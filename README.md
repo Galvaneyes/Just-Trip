@@ -5,7 +5,7 @@ A NodeJS Repository
 1. Homepage
 2. Page for making new travel group
 3. Tours page where you can search for tour
-4. Places page where you can search for country
+4. Places page where you can search for country and get or update information
 5. Personal profile page if the user is registered and logged in
 6. About us page where you can see our photoes and github links 
 
@@ -15,6 +15,7 @@ A NodeJS Repository
 1. Joining travel groups
 2. Searching travel groups
 3. Creating travel groups
+4. Searching countries and updating information
 
 -------------------------------------
 
@@ -30,6 +31,7 @@ A NodeJS Repository
 	- can create tours
 	- can search tours
 	- can search countries
+	- can edin countries
 	- can edit profile
     - can login with facebook
 
