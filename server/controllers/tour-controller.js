@@ -21,9 +21,9 @@ module.exports = function({ data }) {
                         trip: {
                             id: trip._id,
                             creator: trip.creator,
-                            tripTitle: trip.headline,
-                            tripCountry: trip.country,
-                            tripCity: trip.city,
+                            headline: trip.headline,
+                            country: trip.country,
+                            city: trip.city,
                             currentUsers: trip.getUserCount,
                             capacity: trip.maxUser,
                             price: trip.price,
