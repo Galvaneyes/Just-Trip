@@ -10,7 +10,6 @@ module.exports = function({ app, data }) {
 
     router
         .get("/", tourController.getSearchResults)
-        //.get("/result", tourController.getSearchResults)
         .get("/details/:id", tourController.getTourById)
         .post("/details/:id", tourController.postUserInTour);
 

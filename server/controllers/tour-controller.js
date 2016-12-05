@@ -17,6 +17,12 @@ module.exports = function({ data }) {
         getTourById(req, res) {
             data.getTourById(req.params.id)
                 .then(trip => {
+                    const isLogged = !!req.user;
+                    let isJoined = false;
+                    if(isLogged) {
+                        isJoined = trip.isUserExist(req.user.username);
+                    }
+
                     const result = {
                         trip: {
                             id: trip._id,
@@ -33,7 +39,8 @@ module.exports = function({ data }) {
                             endTripDate: trip.endTourDate
                         },
                         user: {
-                            isLogged: !!req.user
+                            isLogged,
+                            isJoined
                         }
                     };
 

@@ -31,6 +31,11 @@ block container
                 a #{trip.description}
             div.br-line
             if user && user.isLogged
-                a.btn.btn-success(href="#") Join 
-                a.btn.btn-danger(href="#") Remove 
+                if user.isJoined
+                    a.btn.btn-danger(href="#") Remove
+                else   
+                    a.btn.btn-success(href="/tours/details/" + trip.id) Join
+            else
+                a.btn.btn-success(href="/login") Login
+                
 
