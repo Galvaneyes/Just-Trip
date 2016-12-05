@@ -1,41 +1,41 @@
 extends _layout
 block container
   
-        form.form-horizontal(method="POST" action="/register")
+        form#register-form.form-horizontal(method="POST" action="/register")
             fieldset
                 legend  Register:
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Username
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Username" name="username")
+                        input#username-input.form-control(type="text" placeholder="Username" name="username")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label First name
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Firstname" name="firstname")
+                        input#firstname-input.form-control(type="text" placeholder="Firstname" name="firstname")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Last name
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Lastname" name="lastname")
+                        input#lastname-input.form-control(type="text" placeholder="Lastname" name="lastname")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for="inputPassword") Password
                     div.col-lg-10
-                        input#inputPassword.form-control(type="password" placeholder="Password" name="password")
+                        input#password-input.form-control(type="password" placeholder="Password" name="password")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for="inputEmail") Email
                     div.col-lg-10
-                        input#inputEmail.form-control(type="text" placeholder="Email" name="email")
+                        input#email-input.form-control(type="text" placeholder="Email" name="email")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Country
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Country" name="country")
+                        input#country-input.form-control(type="text" placeholder="Country" name="country")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label City
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="City" name="city")  
+                        input#city-input.form-control(type="text" placeholder="City" name="city")  
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Age
                     div.col-lg-10
-                        input.form-control(type="number" min="5" max="150" placeholder="Age" name="age")
+                        input#age-input.form-control(type="number" min="5" max="150" placeholder="Age" name="age")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label(for='select' select="Choose" name="gender") Gender
                     div.col-lg-10
@@ -47,8 +47,8 @@ block container
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     label.col-lg-2.control-label Phone Number
                     div.col-lg-10
-                        input.form-control(type="text" placeholder="Phone Number" name="phone")
+                        input#phone-input.form-control(type="text" placeholder="Phone Number" name="phone")
                 div.form-group.col-md-12.col-lg-12.col-sm-12.col-xs-12
                     div.col-lg-10.col-lg-offset-2
-                        button.btn.btn-success(type='submit') Register
+                        button#btn-register.btn.btn-success(type='submit') Register
                         button.btn.btn-danger(type='reset') Cancel
