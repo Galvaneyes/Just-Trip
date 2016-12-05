@@ -5,36 +5,36 @@ const config = require("./server/config");
 const data = require("./server/data")(config);
 const { app, server } = require("./server/config/application")({ data });
 let io = require("./server/config/sockets")({ server });
-const pug = require("pug");
-const fs = require("fs");
+// const pug = require("pug");
+// const fs = require("fs");
 require("./server/routers")({ app, data, io });
 
 // TEST FOR CREATING AND FINDING
-const admin = {
-    username: "admin",
-    password: "pass",
-    email: "no@email.com",
-    firstname: "no",
-    lastname: "name",
-    age: 14,
-    country: "Bulgaria",
-    city: "Sofia",
-    roles: ["admin"]
-};
+// const admin = {
+//     username: "admin",
+//     password: "pass",
+//     email: "no@email.com",
+//     firstname: "no",
+//     lastname: "name",
+//     age: 14,
+//     country: "Bulgaria",
+//     city: "Sofia",
+//     roles: ["admin"]
+// };
 
-const tour = {
-    creator: "ghost",
-    headline: "SPA WEEK IN TELERIK",
-    city: "Sofia",
-    country: "Bulgaria",
-    description: "Code all day, every day!",
-    price: 169,
-    maxUser: 20,
-    endJoinDate: Date.now(),
-    beginTourDate: Date.now(),
-    endTourDate: Date.now(),
-    isValid: true
-};
+// const tour = {
+//     creator: "ghost",
+//     headline: "SPA WEEK IN TELERIK",
+//     city: "Sofia",
+//     country: "Bulgaria",
+//     description: "Code all day, every day!",
+//     price: 169,
+//     maxUser: 20,
+//     endJoinDate: Date.now(),
+//     beginTourDate: Date.now(),
+//     endTourDate: Date.now(),
+//     isValid: true
+// };
 
 // console.log("tova e-------------------------------");
 // const Country = require("./server/models/country-model.js");
@@ -57,14 +57,14 @@ const tour = {
 //         data.createTour(tour);
 //     });
 
-data.getUserByUsername(admin.username)
-    .then(user => {
-        //console.log(user);
-    })
-    .catch(err => {
-        console.log(err);
-        return data.createUser(admin);
-    });
+// data.getUserByUsername(admin.username)
+//     .then(user => {
+//         //console.log(user);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         return data.createUser(admin);
+//     });
 // END OF TEST
 
 // data.getUsersBySpecificCriteria({email: "no@email.com", age: 14})
@@ -84,33 +84,33 @@ data.getUserByUsername(admin.username)
 //         console.log(err);
 //     })
 
-let search = {
-    city: "Plovdiv",
-    obj:[{name:"ivan"}, {name:"Petar"}],
-    country: "Bulgaria",
-    beginTourDate: { $gte: new Date("2016-12-1")},
-    endTourDate:{ $lte: new Date("2016-12-3")}
-};
+// let search = {
+//     city: "Plovdiv",
+//     obj:[{name:"ivan"}, {name:"Petar"}],
+//     country: "Bulgaria",
+//     beginTourDate: { $gte: new Date("2016-12-1")},
+//     endTourDate:{ $lte: new Date("2016-12-3")}
+// };
 
-let searchh = {
-    city: 'Sofia',
-    obj:[{name:"ivan"}, {name:"gogo"}],
-    country: 'Bulgaria',
-    beginTourDate: { '$gt': new Date('2016-11-29') },
-    endTourDate: { '$lt': new Date('2016-12-6') }
-};
+// let searchh = {
+//     city: 'Sofia',
+//     obj:[{name:"ivan"}, {name:"gogo"}],
+//     country: 'Bulgaria',
+//     beginTourDate: { '$gt': new Date('2016-11-29') },
+//     endTourDate: { '$lt': new Date('2016-12-6') }
+// };
 
-let sear = [search, searchh];
+// let sear = [search, searchh];
 
-sear.forEach(x => {
-    x.obj.forEach(x => {
-        if(x.name == "ivan") {
-            x.isDeleted = "true";
-        }
-    })
-});
+// sear.forEach(x => {
+//     x.obj.forEach(x => {
+//         if(x.name == "ivan") {
+//             x.isDeleted = "true";
+//         }
+//     })
+// });
 
-console.log(sear[0]);
+// console.log(sear[0]);
 
 // Promise.all(sear.map(x => data.getSearchResults(x)))
 //     .then(x => {

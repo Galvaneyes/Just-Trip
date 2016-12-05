@@ -173,9 +173,9 @@ describe("Tour data", () => {
         let tour3 = { headline: "Purgatory", _id: 3 };
         let tours = [tour1, tour2, tour3];
 
-        it("Expect to return correct search results", done => {
+        it("Expect to return correct search results for the given query", done => {
             let result = JSON.parse(JSON.stringify(tours));
-            sinon.stub(Tour, "find", (query, cb) => {
+            sinon.stub(Tour, "find", (query, prop, sort, cb) => {
                 for (var key in query) {
                     if (query.hasOwnProperty(key)) {
                         result = result.filter(t => t[key] === query[key]);
@@ -188,20 +188,20 @@ describe("Tour data", () => {
 
             let search = { headline: "Purgatory" };
 
-            data.getSearchResults(search).then(actualTours => {
+            data.getSearchResults(search, {}, {}).then(actualTours => {
                 expect(actualTours.length).to.eql(2);
                 done();
             });
         });
 
         it("Expect to reject with err if encounter error", done => {
-            sinon.stub(Tour, "find", (query, cb) => {
+            sinon.stub(Tour, "find", (query, prop, sort, cb) => {
                 cb(errorMsg);
             });
 
             let search = { headline: "Stairway to Heaven" };
 
-            data.getSearchResults(search).catch(err => {
+            data.getSearchResults(search, {}, {}).catch(err => {
                 expect(err).to.equals(errorMsg);
                 done();
             });
