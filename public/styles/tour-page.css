@@ -4,6 +4,10 @@
     }
 }
 
+.form-section {
+    margin-left: 10px;
+}
+
 .list-group-item {
     text-align: center;
 }

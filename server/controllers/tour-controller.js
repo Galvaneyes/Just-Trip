@@ -17,13 +17,19 @@ module.exports = function({ data }) {
         getTourById(req, res) {
             data.getTourById(req.params.id)
                 .then(trip => {
+                    const isLogged = !!req.user;
+                    let isJoined = false;
+                    if(isLogged) {
+                        isJoined = trip.isUserExist(req.user.username);
+                    }
+
                     const result = {
                         trip: {
                             id: trip._id,
                             creator: trip.creator,
-                            tripTitle: trip.headline,
-                            tripCountry: trip.country,
-                            tripCity: trip.city,
+                            headline: trip.headline,
+                            country: trip.country,
+                            city: trip.city,
                             currentUsers: trip.getUserCount,
                             capacity: trip.maxUser,
                             price: trip.price,
@@ -33,7 +39,8 @@ module.exports = function({ data }) {
                             endTripDate: trip.endTourDate
                         },
                         user: {
-                            isLogged: true
+                            isLogged,
+                            isJoined
                         }
                     };
 
