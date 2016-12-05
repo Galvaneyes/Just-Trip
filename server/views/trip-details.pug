@@ -6,7 +6,6 @@ block container
         h1 #{trip.headline}
         div.br-line
         img.excursion-img(src='static/images/travel.jpg')
-        div.br-line
         div
             h4 Create by: 
                 a(href="/profile/#{trip.creator}") #{trip.creator}
@@ -29,7 +28,6 @@ block container
                 a #{trip.endTripDate}
             h5 Description:
                 a #{trip.description}
-            div.br-line
             if user && user.isLogged
                 a.btn.btn-success(href="#") Join 
                 a.btn.btn-danger(href="#") Remove 
