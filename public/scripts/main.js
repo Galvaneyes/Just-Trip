@@ -5,7 +5,6 @@ $(document).ready(function() {
 
         ev.preventDefault();
 
-        console.log("Here");
         $.ajax({
             url: "/register",
             method: "POST",
