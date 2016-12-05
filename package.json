@@ -4,11 +4,10 @@
   "description": "project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
     "dev": "./node_modules/.bin/nodemon app.js",
-    "test_lint": ".node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/mocha tests tests/**/*.js",
-    "postinstall": "bower cache clean && bower install"
+    "postinstall": "./node_modules/.bin/bower install",
+    "test": "./node_modules/.bin/mocha tests tests/**/*.js -w",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +28,7 @@
     "socket.io": "1.7.1"
   },
   "devDependencies": {
+    "bower": "^1.8.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "nodemon": "1.11.0",
