@@ -14,7 +14,7 @@ block content
         li Country: #{result.tourCountry}
         li #{result.currentUsers} / #{result.capacity}
 
-        form(method="POST" action="/tours/"+ result.id)
+        form(method="POST" action="/tours/details/"+ result.id)
             label
             | Add user
             input(type="text" name="username")
