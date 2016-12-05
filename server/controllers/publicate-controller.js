@@ -14,7 +14,7 @@ module.exports = function({ data, io }) {
                     .then(([countries, cities]) => {
                         const user = {
                             isLogged: !!req.user
-                        }
+                        };
 
                         res.status(200)
                             .render("publish-travel", { user, countries, cities });
@@ -124,7 +124,7 @@ module.exports = function({ data, io }) {
                     tour.isDeleted = "true";
                     tour.isValid = "false";
 
-                    return data.updateTour(tour)
+                    return data.updateTour(tour);
                 })
                 .then(updatedTour => {
                     console.log("UPDATED TOUR======>" + updatedTour.headline);
@@ -137,8 +137,8 @@ module.exports = function({ data, io }) {
                             tour.isDeleted = "true";
                             return;
                         }
-                    })
-                    return data.updateUserFields(tourCreator.username, { userOfferTours: tourCreator.userOfferTours })
+                    });
+                    return data.updateUserFields(tourCreator.username, { userOfferTours: tourCreator.userOfferTours });
                 })
                 .then(() => {
                     const search = {
@@ -158,9 +158,9 @@ module.exports = function({ data, io }) {
                                 tour.isDeleted = "true";
                                 return;
                             }
-                        })
+                        });
                     });
-                    return Promise.resolve(users)
+                    return Promise.resolve(users);
                 })
                 .then(users => {
                     return Promise.all(users.map(user => data.updateUserFields(user.username, { userBoughtTours: user.userBoughtTours })));
