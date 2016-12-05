@@ -10,6 +10,7 @@ const session = require("express-session");
 module.exports = function({ data }) {
     const app = express();
     const rootPath = path.join(__dirname, "/../../");
+    //app.use('/static', express.static(path.resolve(__dirname + '/../../public')));
 
     app.set("view engine", "pug");
     app.set("views", path.join(rootPath, "server/views/"));
