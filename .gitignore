@@ -197,4 +197,6 @@ FakesAssemblies/
 
 *.njsproj
 *.sln
-*.md
+
+# Ignoring user images
+

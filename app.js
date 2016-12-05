@@ -5,9 +5,12 @@ const config = require("./server/config");
 const data = require("./server/data")(config);
 const { app, server } = require("./server/config/application")({ data });
 let io = require("./server/config/sockets")({ server });
-// const pug = require("pug");
-// const fs = require("fs");
 require("./server/routers")({ app, data, io });
+
+server.listen(config.port, () => {
+    console.log(`Application listen on port: ${config.port}`);
+});
+
 
 // TEST FOR CREATING AND FINDING
 // const admin = {
@@ -181,7 +184,4 @@ require("./server/routers")({ app, data, io });
         // data.createCity(Sofia);
     // });
 
-//End of country test
-server.listen(config.port, () => {
-    console.log(`Application listen on port: ${config.port}`);
-});
+//End of country tes

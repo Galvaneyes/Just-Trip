@@ -10,13 +10,13 @@ const session = require("express-session");
 module.exports = function({ data }) {
     const app = express();
 
-    app.set("view engine", "pug");
-    app.set("views", path.join(rootPath, "server/views/"));
+    app.set('view engine', 'pug');
+    app.set('views', './server/views');
 
-    const rootPath = path.join(__dirname, "/../../");
-    app.use('/static', express.static(path.resolve(__dirname + '/../../public'))); //l
+    app.use('/static', express.static(path.resolve(__dirname + '/../../public')));
 
 
+    //const rootPath = path.join(__dirname, "/../../");
     // app.use("/", express.static(path.join(rootPath, "public")));
     // app.use("/static", express.static(path.join(rootPath, "public")));
     // app.use("/tours", express.static(path.join(rootPath, "public")));
@@ -34,4 +34,4 @@ module.exports = function({ data }) {
     const server = require('http').createServer(app);
 
     return { app, server };
-};
+}

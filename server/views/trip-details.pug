@@ -1,11 +1,11 @@
 extends _layout
 block styles
-    link(rel="stylesheet" href="static/styles/excursion-details-style.css")
+    link(rel="stylesheet" href="/static/styles/excursion-details-style.css")
 block container
     div
         h1 #{trip.headline}
         div.br-line
-        img.excursion-img(src='static/images/travel.jpg')
+        img.excursion-img(src='/static/images/travel.jpg')
         div
             h4 Create by: 
                 a(href="/profile/#{trip.creator}") #{trip.creator}
